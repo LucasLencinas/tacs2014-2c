@@ -17,18 +17,27 @@ public class Items {
     @GET 
     @Produces("text/plain")
     public String index() {
-        return "Listado items";
+        return "Listado items publicados por amigos";
     }
     
       
     @GET
     @Path("/{id}")
+    @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	String json = "{id:"+id+ ",title:'example',description:'example',mercadolibre:{permalink: 'http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM',id:'MLA430387888'}}";
     	return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
     
+    @GET
+    @Path("/new")
+    @Produces("text/plain")
+    public String _new(){
+    	return "Formulario para crear un item. Parametros: id, title, description, mercadolibre[permalink], mercadolibre[id]";
+    }
+    
     @POST
+    @Produces("application/json")
 	public Response create(
 			@FormParam("title") String title,
 			@FormParam("description") String description, 
@@ -38,8 +47,17 @@ public class Items {
     	return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
 
+    
+    @GET
+    @Path("/{id}/edit")
+    @Produces("text/plain")
+    public String edit(@PathParam("id") Integer id){
+    	return "Form para editar un item";
+    }
+    
     @PUT
     @Path("/{id}")
+    @Produces("application/json")
 	public Response update(
 			@PathParam("id") Integer id, 			
 			@FormParam("title") String title,
