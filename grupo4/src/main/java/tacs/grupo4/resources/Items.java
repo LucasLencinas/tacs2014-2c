@@ -71,6 +71,6 @@ public class Items {
     @DELETE
     @Path("/{id}")
     public Response destroy(@PathParam("id") Integer id){
-    	return Response.ok().build();
+    	return Response.ok("Item "+id+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }
