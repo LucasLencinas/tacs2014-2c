@@ -22,11 +22,11 @@ public class Home {
         		+ "<a href='items\\1'>GET \\trueques\\{trueque_id}</a><br>"
         		+ "<a href='trueques\\new'>GET \\trueques\\new</a><br>"
         		+ "POST \\trueques <br>"
-        		+ "PUT \\treques\\{trueque_id}\\accept<br>"
-        		+ "PUT \\treques\\{trueque_id}\\reject<br>"
+        		+ "PUT \\trueques\\{trueque_id}\\accept<br>"
+        		+ "PUT \\trueques\\{trueque_id}\\reject<br>"
         		+ "<p><b>Notas:</b><br> Usar cualquier n&uacute;mero como id. <br>"
-        		+ "Los parametros de POST y PUT deben enviarse con x-www-form-urlencoded.<br>"
-        		+ "Los parámetros que aceptan se pueden ver en el \\new correspondiente.</p>"
+        		+ "Los par&aacute;metros de POST y PUT deben enviarse con x-www-form-urlencoded.<br>"
+        		+ "Los par&aacute;metros que aceptan se pueden ver en el \\new correspondiente.</p>"
         		+ "</body></html>";
         		
     }
