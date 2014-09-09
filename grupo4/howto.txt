@@ -1,0 +1,14 @@
+Grupo 4 - Como levantar el proyecto.
+
+-Descargar el Tag de la fecha correspondiente
+-Ejecutar mvn install en el directorio del proyecto.
+-Importar en el eclipse como proyecto maven.
+
+En este punto ya se puede ejecutar la aplicacion.
+
+
+
+
+
+
+
