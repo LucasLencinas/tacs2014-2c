@@ -42,7 +42,7 @@ public class Trueques {
     @Path("/new")
     @Produces("text/plain")
     public String _new(){
-    	return "Formulario para crear un trueque. Parametros: item_1_id, item_2_id";
+    	return "Formulario para crear un trueque. Parametros: item_1[id], item_2[id]";
     }
     
     /*
@@ -57,13 +57,13 @@ public class Trueques {
     
     @PUT
     @Path("/{id}/accept")
-	public String accept(@FormParam("id") Integer id) {
+	public String accept(@PathParam("id") Integer id) {
     	return "Trueque "+id+" aceptada";
     }
     
     @PUT
     @Path("/{id}/reject")
-	public String reject(@FormParam("id") Integer id) {
+	public String reject(@PathParam("id") Integer id) {
     	return "Trueque "+id+" rechazado";
     }  
     

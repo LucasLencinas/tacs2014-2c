@@ -24,7 +24,9 @@ public class Home {
         		+ "POST \\trueques <br>"
         		+ "PUT \\treques\\{trueque_id}\\accept<br>"
         		+ "PUT \\treques\\{trueque_id}\\reject<br>"
-        		+ "<p><i>Nota: Usar cualquier n&uacute;mero como id.</id></p>"
+        		+ "<p><b>Notas:</b><br> Usar cualquier n&uacute;mero como id. <br>"
+        		+ "Los parametros de POST y PUT deben enviarse con x-www-form-urlencoded.<br>"
+        		+ "Los parámetros que aceptan se pueden ver en el \\new correspondiente.</p>"
         		+ "</body></html>";
         		
     }
