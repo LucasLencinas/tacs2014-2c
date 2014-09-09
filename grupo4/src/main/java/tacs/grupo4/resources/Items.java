@@ -52,7 +52,7 @@ public class Items {
     @Path("/{id}/edit")
     @Produces("text/plain")
     public String edit(@PathParam("id") Integer id){
-    	return "Form para editar un item";
+    	return "Form para editar item "+id;
     }
     
     @PUT

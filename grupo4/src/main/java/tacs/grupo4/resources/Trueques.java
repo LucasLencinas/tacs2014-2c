@@ -34,7 +34,7 @@ public class Trueques {
     @Path("/{id}")
     @Produces("text/plain")
     public Response show(@PathParam("id") Integer id){
-    	String json = "{id:"+2+", item_1:{id: 2, user: 'Pepe'}, item_2: {id: 3, user: 'Juan'}, status: 'acepted'";
+    	String json = "{id:"+id+", item_1:{id: 2, user: 'Pepe'}, item_2: {id: 3, user: 'Juan'}, status: 'acepted'";
     	return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
     
