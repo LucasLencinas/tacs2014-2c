@@ -16,9 +16,7 @@ public class Main {
 
     protected static SelectorThread startServer() throws IOException {
         final Map<String, String> initParams = new HashMap<String, String>();
-
-        initParams.put("com.sun.jersey.config.property.packages", 
-                "tacs.grupo4");
+        initParams.put("com.sun.jersey.config.property.packages", "tacs.grupo4");
 
         System.out.println("Starting grizzly...");
         SelectorThread threadSelector = GrizzlyWebContainerFactory.create(BASE_URI, initParams);     
@@ -27,9 +25,8 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
         SelectorThread threadSelector = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...",
-                BASE_URI));
+        System.out.println(String.format("Jersey app started with WADL --> %sapplication.wadl", BASE_URI));
+        System.out.println("Hit enter to stop it...");
         System.in.read();
         threadSelector.stopEndpoint();
     }    
