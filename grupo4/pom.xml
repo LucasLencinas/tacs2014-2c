@@ -1,24 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>tacs</groupId>
     <artifactId>grupo4</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>grupo4</name>
+
     <dependencies>
          <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-grizzly</artifactId>
             <version>${jersey-version}</version>
         </dependency>
-        <!-- uncomment this to get JSON support:
+        <!-- uncomment this to get JSON support:        -->
          <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>${jersey-version}</version>
         </dependency>
-        -->
+
         <!-- uncomment this to get Fastinfoset support:
          <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -57,6 +60,11 @@
             <version>${jersey-version}</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.2.2</version>
+		</dependency>        
     </dependencies>
     <build>
         <plugins>
