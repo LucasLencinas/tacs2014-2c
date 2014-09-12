@@ -31,14 +31,27 @@ public class Main {
     }
 
     public static void load(){
-    	Item unItem = new Item(1, "Anteojos", "De Sol", new ObjetoML(
+    	
+    	items = new ArrayList<Item>();
+    	Item item1 = new Item(1, "Anteojos", "De Sol", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM", "MLA430387888"));
-    	items.add(unItem);
+    	Item item2 = new Item(2, "Notebook", "Lenovo", new ObjetoML(
+    			"http://articulo.mercadolibre.com.ar/MLA-523499379-notebook-lenovo-x220-_JM", "MLA523499379"));
+    	Item item3 = new Item(3, "Mesa", "Cuadrada", new ObjetoML(
+    			"http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
+    	Item item4 = new Item(4, "Botines", "Adidas", new ObjetoML(
+    			"http://articulo.mercadolibre.com.ar/MLA-520889152-botines-adidas-11questra-brasil-2014-fifa-futbol-tapones-pro-_JM", "MLA520889152"));
+    	items.add(item1);
+    	items.add(item2);
+    	items.add(item3);
+    	items.add(item4);
+    	
     }
     
     
     public static void main(String[] args) throws IOException {
         SelectorThread threadSelector = startServer();
+        Main.load();
         System.out.println(String.format("Jersey app started with WADL --> %sapplication.wadl", BASE_URI));
         System.out.println("Hit enter to stop it...");
         System.in.read();

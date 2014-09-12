@@ -11,13 +11,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+
+import tacs.grupo4.Item;
+import tacs.grupo4.Main;
+
 @Path("/items")
 public class Items {
 
     @GET 
-    @Produces("text/plain")
-    public String index() {
-        return "Listado items publicados por amigos";
+    @Produces("application/json")
+    public Response index() {
+    	String itemsJson = new Gson().toJson(Main.items);
+      return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
       
@@ -25,8 +31,10 @@ public class Items {
     @Path("/{id}")
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
-    	String json = "{id:"+id+ ",title:'example',description:'example',mercadolibre:{permalink: 'http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM',id:'MLA430387888'}}";
-    	return Response.ok(json, MediaType.APPLICATION_JSON).build();
+    	Item unItem= Main.items.get(id-1);
+    	Gson unGson = new Gson();
+    	String unItemJson = unGson.toJson(unItem);
+    	return Response.ok(unItemJson, MediaType.APPLICATION_JSON).build();
     }
     
     @GET
