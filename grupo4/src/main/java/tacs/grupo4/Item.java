@@ -54,8 +54,5 @@ public class Item {
 		this.objML = objML;
 	}
 
-  // Aquí los métodos get
-	
-	
 
 }

@@ -17,7 +17,7 @@ import javax.ws.rs.core.UriBuilder;
 public class Main {
 
     public static final URI BASE_URI = UriBuilder.fromUri("http://localhost/").port(9998).build();
-
+    public static int contadorItems = 0;
     
     public static ArrayList<Item> items;
     
@@ -42,9 +42,13 @@ public class Main {
     	Item item4 = new Item(4, "Botines", "Adidas", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-520889152-botines-adidas-11questra-brasil-2014-fifa-futbol-tapones-pro-_JM", "MLA520889152"));
     	items.add(item1);
+    	++Main.contadorItems;
     	items.add(item2);
+    	++Main.contadorItems;
     	items.add(item3);
+    	++Main.contadorItems;
     	items.add(item4);
+    	++Main.contadorItems;
     	
     }
     
