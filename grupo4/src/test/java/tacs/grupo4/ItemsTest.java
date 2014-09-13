@@ -2,6 +2,9 @@ package tacs.grupo4;
 
 import static org.junit.Assert.*;
 
+import javax.ws.rs.FormParam;
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,6 +15,7 @@ import com.google.gson.Gson;
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 /**
  * 
  * 
@@ -77,7 +81,23 @@ public class ItemsTest {
    */
   @Test
   public void testAgregaUnItem() {
-
+  	int id = 3;
+  	//http://articulo.mercadolibre.com.ar/MLA-523679126-nokia-1100-libre-optimo-estado-_JM
+  	
+  	int cantidadDeItems = Main.items.size();;
+  	Item unItem = new Item(0, "Celular", "Nokia 1100", new ObjetoML("http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
+  	
+  	
+    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+    params.add("title", unItem.getTitulo());
+    params.add("description", unItem.getDescripcion());
+    params.add("ml_permalink", unItem.getObjML().getPermalink());
+    params.add("ml_id", unItem.getObjML().getId());
+    
+		String responseMsg = resource.path("/items").queryParams(params).post(String.class);
+		
+    //assertTrue(responseMsg.equalsIgnoreCase(unItem.toString())); //Esta mal esta comparacion.  Hacer algo para comparar cada campo
+    assertTrue(Main.items.size() == cantidadDeItems+1);
   }  
   
   

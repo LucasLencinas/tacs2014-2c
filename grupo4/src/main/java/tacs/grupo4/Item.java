@@ -3,9 +3,9 @@ package tacs.grupo4;
 public class Item {
 	private int id;
 	 
-  private String titulo;
+  private String title;
 
-  private String descripcion;
+  private String description;
 
   private ObjetoML objML;
   
@@ -31,19 +31,19 @@ public class Item {
 	}
 
 	public String getTitulo() {
-		return titulo;
+		return title;
 	}
 
 	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+		this.title = titulo;
 	}
 
 	public String getDescripcion() {
-		return descripcion;
+		return description;
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.description = descripcion;
 	}
 
 	public ObjetoML getObjML() {

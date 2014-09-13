@@ -1,9 +1,9 @@
 package tacs.grupo4;
 
 public class ObjetoML {
-	private String permalink;
+	private String ml_permalink;
 	 
-  private String id;
+  private String ml_id;
 
   public ObjetoML(String unPermalink, String unId) {
       this.setPermalink(unPermalink);
@@ -17,19 +17,19 @@ public class ObjetoML {
    * 
    */
 	public String getPermalink() {
-		return permalink;
+		return ml_permalink;
 	}
 
 	public void setPermalink(String permalink) {
-		this.permalink = permalink;
+		this.ml_permalink = permalink;
 	}
 
 	public String getId() {
-		return id;
+		return ml_id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.ml_id = id;
 	}
 
 
