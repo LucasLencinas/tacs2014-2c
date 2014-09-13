@@ -7,12 +7,10 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import junit.framework.TestCase;
 
-
 public class MainTest extends TestCase {
 
     private SelectorThread threadSelector;
-    
-    private WebResource r;
+    private WebResource resource;
 
     public MainTest(String testName) {
         super(testName);
@@ -21,36 +19,35 @@ public class MainTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
         threadSelector = Main.startServer();
-
         Client c = Client.create();
-        r = c.resource(Main.BASE_URI);
+        resource = c.resource(Main.BASE_URI);
     }
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-
         threadSelector.stopEndpoint();
     }
 
     /**
-     * Test to see that the message "Got it!" is sent in the response.
+     * Solo chequea que el home, / , me devuelva algo.
      */
-    public void _testMyResource() {
-        String responseMsg = r.path("myresource").get(String.class);
-        assertEquals("Got it!", responseMsg);
+    public void testHome() {
+        String responseMsg = resource.path("/").get(String.class);
+        assertTrue(responseMsg.length()>0);
     }
 
     /**
+     * No se para que esta!
      * Test if a WADL document is available at the relative path
      * "application.wadl".
      */
     public void testApplicationWadl() {
-        String serviceWadl = r.path("application.wadl").
+        String serviceWadl = resource.path("application.wadl").
                 accept(MediaTypes.WADL).get(String.class);
-                
         assertTrue(serviceWadl.length() > 0);
     }
 }
+
+

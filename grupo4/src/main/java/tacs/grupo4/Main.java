@@ -49,7 +49,10 @@ public class Main {
     	++Main.contadorItems;
     	items.add(item4);
     	++Main.contadorItems;
-    	
+    }
+    
+    public static void unload(){
+    	items.clear();
     }
     
     

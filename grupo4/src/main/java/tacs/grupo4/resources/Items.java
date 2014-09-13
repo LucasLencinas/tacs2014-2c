@@ -21,7 +21,7 @@ import tacs.grupo4.ObjetoML;
 public class Items {
 
 	/**
-	 * Listar Items. TESTEAR
+	 * Listar Items.
 	 * @return: Un JSON que representa la lista de items que esta en la aplicacion
 	 */
     @GET 
@@ -32,7 +32,7 @@ public class Items {
     }
     
      /**
-      *  Listar un determinado item. TESTEAR
+      *  Listar un determinado item.
       * @param id: El id de un item que quiero ver
       * @return: un item con ese id que se pasa por parametro
       */
