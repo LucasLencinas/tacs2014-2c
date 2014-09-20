@@ -16,11 +16,7 @@ import com.sun.grizzly.http.SelectorThread;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-/**
- * 
- * 
- *
- */
+
 public class ItemsTest {
 
 	private static SelectorThread server;

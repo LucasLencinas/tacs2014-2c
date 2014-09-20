@@ -13,13 +13,26 @@ public class Item {
   private ObjetoML objML;
   
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-      this.setId(++contador);
-      this.setTitulo(unTitulo);
-      this.setDescripcion(unaDescripcion);
-      this.setObjML(unObjML);
-      
+    this.setId(++contador);
+    this.setTitulo(unTitulo);
+    this.setDescripcion(unaDescripcion);
+    this.setObjML(unObjML);
   }
+  
+  
+  /**
+   * Solo para poder saber si una lista continee
+   * un item, basandose en el id.
+   * Despues habria que cambiarlo si se necesita comparar algo mas
+   */
+  @Override
+  public boolean equals(Object otroItem){
 
+    if (otroItem != null && otroItem instanceof Item)
+        return (this.id == ((Item) otroItem).id);
+
+    return false;
+  }
   
   /**
    * 
