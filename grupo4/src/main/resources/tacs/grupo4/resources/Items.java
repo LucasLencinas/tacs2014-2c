@@ -38,20 +38,12 @@ public class Items {
       * @param id: El id de un item que quiero ver
       * @return: un item con ese id que se pasa por parametro
       */
-    
-    /*TODO: Hacer una clase de nueva ListaItems para poder usarla mejor.
-     * Ahora estoy buscando un item haciendo get(id -1) pero no va a servir despues.
-     * O hacer algo que extienda la interfaz de un ArrayList para poder hacer un
-     * lista.findById(unId) o findByDescripcion(unaDescripcion)
-     * */
     @GET
     @Path("/{id}")
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	
-    	
-    	
-    	Item unItem= Main.items.get(id-1);	
+    	Item unItem= Main.items.findById(id);	
     	Gson unGson = new Gson();
     	String unItemJson = unGson.toJson(unItem);
     	return Response.ok(unItemJson, MediaType.APPLICATION_JSON).build();
@@ -99,7 +91,7 @@ public class Items {
     @Path("/{id}/edit")
     @Produces("text/plain")
     public String edit(@PathParam("id") Integer id){
-    	Item unItem= Main.items.get(id-1);
+    	Item unItem= Main.items.findById(id);
     	return "Form para editar item "+ new Gson().toJson(unItem);
     }
     
@@ -121,7 +113,7 @@ public class Items {
 			@FormParam("description") String description, 
 			@FormParam("ml_permalink") String permalink, 
 			@FormParam("ml_id") String ma_id) {
-    	Item unItemDeLista = Main.items.get(id-1);
+    	Item unItemDeLista = Main.items.findById(id);
     	unItemDeLista.setId(id);
     	unItemDeLista.setDescripcion(description);;
     	unItemDeLista.setTitulo(title);;
@@ -137,7 +129,8 @@ public class Items {
     @DELETE
     @Path("/{id}")
     public Response destroy(@PathParam("id") Integer id){
-    	Item unItem = Main.items.remove(id-1);
+    	Item unItem = Main.items.findById(id);
+    	Main.items.remove(unItem);
     	return Response.ok("Item "+ new Gson().toJson(unItem)+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }

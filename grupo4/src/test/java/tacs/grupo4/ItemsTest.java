@@ -64,7 +64,7 @@ public class ItemsTest {
   public void testBorraUnItem() {
   	int id = 3;
   	int cantidadDeItems = Main.items.size();;
-		String itemJson = "Item " + new Gson().toJson(Main.items.get(id-1)) + " eliminado";
+		String itemJson = "Item " + new Gson().toJson(Main.items.findById(id)) + " eliminado";
 		String responseMsg = resource.path("/items/".
     		concat(String.valueOf(id))).delete(String.class);
 		

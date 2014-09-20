@@ -7,7 +7,6 @@ import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ public class Main {
 
     public static final URI BASE_URI = UriBuilder.fromUri("http://localhost/").port(9998).build();
     
-    public static ArrayList<Item> items;
+    public static ListaDeItems items;
     
     protected static SelectorThread startServer() throws IOException {
         final Map<String, String> initParams = new HashMap<String, String>();
@@ -31,7 +30,7 @@ public class Main {
 
     public static void load(){
     	
-    	items = new ArrayList<Item>();
+    	items = new ListaDeItems();
     	Item item1 = new Item("Anteojos", "De Sol", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM", "MLA430387888"));
     	Item item2 = new Item("Notebook", "Lenovo", new ObjetoML(

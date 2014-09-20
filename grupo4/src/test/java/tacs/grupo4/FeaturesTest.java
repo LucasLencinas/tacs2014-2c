@@ -72,6 +72,17 @@ public class FeaturesTest {
 		
 		assertTrue(Main.items.contains(item1));
 	}
+	@Test
+	public void testUnaListaTieneUnElementoConId3(){
+		Item unItem = Main.items.findById(3);
+		assertNotNull(unItem);
+	}
+	
+	@Test
+	public void testUnaListaNoTieneUnElementoConId350(){
+		Item unItem = Main.items.findById(350);
+		assertNull(unItem);
+	}
 	
 	
 	
