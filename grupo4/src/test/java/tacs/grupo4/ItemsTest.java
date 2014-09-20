@@ -84,8 +84,8 @@ public class ItemsTest {
   	int id = 3;
   	//http://articulo.mercadolibre.com.ar/MLA-523679126-nokia-1100-libre-optimo-estado-_JM
   	
-  	int cantidadDeItems = Main.items.size();;
-  	Item unItem = new Item(0, "Celular", "Nokia 1100", new ObjetoML("http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
+  	int cantidadDeItems = Main.items.size();
+  	Item unItem = new Item("Celular", "Nokia 1100", new ObjetoML("http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
   	
   	
     MultivaluedMap<String, String> params = new MultivaluedMapImpl();

@@ -10,6 +10,7 @@
     <name>grupo4</name>
 
     <dependencies>
+    
          <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-grizzly</artifactId>
@@ -21,7 +22,6 @@
             <artifactId>jersey-json</artifactId>
             <version>${jersey-version}</version>
         </dependency>
-
         
            <dependency>
             <groupId>com.sun.grizzly</groupId>
@@ -78,6 +78,7 @@
         <jersey-version>1.8</jersey-version>
     </properties>
     <repositories>
+
         <repository>
             <id>glassfish.java.net</id>
             <name>GlassFish Maven Repository</name>

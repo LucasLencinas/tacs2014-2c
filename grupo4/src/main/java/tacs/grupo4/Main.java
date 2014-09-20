@@ -17,7 +17,6 @@ import javax.ws.rs.core.UriBuilder;
 public class Main {
 
     public static final URI BASE_URI = UriBuilder.fromUri("http://localhost/").port(9998).build();
-    public static int contadorItems = 0;
     
     public static ArrayList<Item> items;
     
@@ -33,22 +32,18 @@ public class Main {
     public static void load(){
     	
     	items = new ArrayList<Item>();
-    	Item item1 = new Item(1, "Anteojos", "De Sol", new ObjetoML(
+    	Item item1 = new Item("Anteojos", "De Sol", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM", "MLA430387888"));
-    	Item item2 = new Item(2, "Notebook", "Lenovo", new ObjetoML(
+    	Item item2 = new Item("Notebook", "Lenovo", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-523499379-notebook-lenovo-x220-_JM", "MLA523499379"));
-    	Item item3 = new Item(3, "Mesa", "Cuadrada", new ObjetoML(
+    	Item item3 = new Item("Mesa", "Cuadrada", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
-    	Item item4 = new Item(4, "Botines", "Adidas", new ObjetoML(
+    	Item item4 = new Item("Botines", "Adidas", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-520889152-botines-adidas-11questra-brasil-2014-fifa-futbol-tapones-pro-_JM", "MLA520889152"));
     	items.add(item1);
-    	++Main.contadorItems;
     	items.add(item2);
-    	++Main.contadorItems;
     	items.add(item3);
-    	++Main.contadorItems;
     	items.add(item4);
-    	++Main.contadorItems;
     }
     
     public static void unload(){

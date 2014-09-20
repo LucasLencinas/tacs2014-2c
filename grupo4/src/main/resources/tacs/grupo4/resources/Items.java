@@ -1,5 +1,6 @@
 package tacs.grupo4.resources;
 
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -27,6 +28,7 @@ public class Items {
     @GET 
     @Produces("application/json")
     public Response index() {
+    	
     	String itemsJson = new Gson().toJson(Main.items);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
@@ -46,6 +48,9 @@ public class Items {
     @Path("/{id}")
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
+    	
+    	
+    	
     	Item unItem= Main.items.get(id-1);	
     	Gson unGson = new Gson();
     	String unItemJson = unGson.toJson(unItem);
@@ -80,7 +85,7 @@ public class Items {
 			@FormParam("description") String description, 
 			@FormParam("ml_permalink") String ml_permalink, 
 			@FormParam("ml_id") String ml_id) {
-    	Item unItem = new Item(++Main.contadorItems, title, description, new ObjetoML(ml_permalink, ml_id));
+    	Item unItem = new Item(title, description, new ObjetoML(ml_permalink, ml_id));
     	Main.items.add(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }

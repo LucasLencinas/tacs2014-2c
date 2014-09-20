@@ -1,6 +1,9 @@
 package tacs.grupo4;
 
 public class Item {
+	
+	public static int contador = 0;
+	
 	private int id;
 	 
   private String title;
@@ -9,8 +12,8 @@ public class Item {
 
   private ObjetoML objML;
   
-  public Item(int unId, String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-      this.setId(unId);
+  public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
+      this.setId(++contador);
       this.setTitulo(unTitulo);
       this.setDescripcion(unaDescripcion);
       this.setObjML(unObjML);
