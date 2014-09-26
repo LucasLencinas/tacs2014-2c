@@ -1,0 +1,15 @@
+Aclaraciones sobre funciones y algo mas del codigo
+
+System.getProperty("user.dir") me da la ruta donde estoy parado
+
+HttpHandler staticHandler = new HttpHandler();
+Crea un HttpHandler que maneja requests a un recurso estatico que esta en un determinado directorio.
+
+Endpoints:The endpoint is a connection point where HTML files or active server pages are exposed. 
+Endpoints provide information needed to address a Web service endpoint. 
+The endpoint provides a reference or specification that is used to define a group or family of message 
+addressing properties and give end-to-end message characteristics, 
+such as references for the source and destination of endpoints, 
+and the identity of messages to allow for uniform addressing of "independent" messages. 
+The endpoint can be a PC, PDA, or point-of-sale terminal.
+
