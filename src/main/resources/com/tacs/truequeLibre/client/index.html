@@ -1,17 +1,18 @@
 <html>
 	<head><title>Test API MercadoLibre</title></head>
 	<body>
-		<form>
-			<div style="display: inline-block;  padding: 10px;">	
-				<input type="text" id="ml-search-input"/>
-				<input type="button" id="ml-search-btn" value="Buscar"/>
-			</div>	
-
+		<div style="display: inline-block;  padding: 10px;">	
+			<input type="text" id="ml-search-input"/>
+			<input type="button" id="ml-search-btn" value="Buscar"/>
+		</div>	
+		<form action="/truequeLibre/items" method="POST">
 			<div style=" border: solid 2px black; display: inline-block;  padding: 10px; background-color: lightgray;">				
 				Id: <input type="text" id="ml_id" name="ml_id" readonly="true"/>
 				Permalink: <input type="text" id="ml_permalink" name="ml_permalink" readonly="true" style="width:400px;"/>	
-			</div>				
-
+			</div>	
+			<input type="hidden" id="title" name="title">	
+			<input type="hidden" id="description" name="description">			
+			<input type="submit" value="Agregar a Mi Lista">
 		</form>
 
 		<a href="#" id="ml-prev-page">Anterior</a>
@@ -116,7 +117,8 @@
 							{	
 								"id": ml_item.id,
 								"permalink": ml_item.permalink, 
-								"thumbnail": ml_item.thumbnail
+								"thumbnail": ml_item.thumbnail,
+								"title": ml_item.title,
 							}
 						);
 					return item;
@@ -152,8 +154,9 @@
 				var ml_item = $(e.target).closest("tr.ml-item");
 				$("#ml_permalink").val(ml_item.data().permalink);
 				$("#ml_id").val(ml_item.data().id);
+				$("#title").val(ml_item.data().title);
+				$("#description").val("Descripcion hardcodeada");
 			});
-
 		</script>
 	</body>
 
