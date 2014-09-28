@@ -2,8 +2,6 @@ package com.tacs.truequeLibre.domain;
 
 public class Item {
 	
-	public static int contador = 0;
-	
 	private int id;
 	 
   private String title;
@@ -13,7 +11,7 @@ public class Item {
   private ObjetoML objML;
   
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-    this.setId(++contador);
+	this.setId(ListaDeItems.getNewID());
     this.setTitulo(unTitulo);
     this.setDescripcion(unaDescripcion);
     this.setObjML(unObjML);
@@ -21,7 +19,7 @@ public class Item {
   
   
   /**
-   * Solo para poder saber si una lista continee
+   * Solo para poder saber si una lista contiene
    * un item, basandose en el id.
    * Despues habria que cambiarlo si se necesita comparar algo mas
    */

@@ -2,8 +2,6 @@ package com.tacs.truequeLibre.endpoints;
 
 import static org.junit.Assert.*;
 
-import javax.ws.rs.core.MultivaluedMap;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,16 +15,15 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tacs.truequeLibre.Main;
-import com.tacs.truequeLibre.domain.Item;
-import com.tacs.truequeLibre.domain.ObjetoML;
 
 public class ItemsTest {
 
-	private static HttpServer server;
+  private static HttpServer server;
   private static WebTarget target;
 
   @BeforeClass
@@ -47,9 +44,9 @@ public class ItemsTest {
    */
   @Test
   public void testDameTodosLosItems() {
-		String itemsJson = new Gson().toJson(Main.items);
-    Response responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get();//get(String.class);
-    assertTrue(responseMsg.toString().equalsIgnoreCase(itemsJson));
+	String itemsJson = new Gson().toJson(Main.items);
+	String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);//get(String.class);
+    assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
   }
   
   /**
@@ -57,11 +54,11 @@ public class ItemsTest {
    */
   @Test
   public void testDameUnItem() {	
-		int id = 1;
-		String itemJson = new Gson().toJson(Main.items.get(id -1));
-    Response responseMsg = target.path("/items/".
-    		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).get();
-    assertTrue(responseMsg.toString().equalsIgnoreCase(itemJson));
+	int id = 1;
+	String itemJson = new Gson().toJson(Main.items.findById(id));
+	String responseMsg = target.path("/items/".
+    		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).get(String.class);
+    assertTrue(responseMsg.equalsIgnoreCase(itemJson));
   } 
   
   /**
@@ -70,10 +67,10 @@ public class ItemsTest {
   @Test
   public void testBorraUnItem() {
   	int id = 3;
-  	int cantidadDeItems = Main.items.size();;
-		String itemJson = "Item " + new Gson().toJson(Main.items.findById(id)) + " eliminado";
-		Response responseMsg = target.path("/items/".
-    		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).delete();
+  	int cantidadDeItems = Main.items.size();
+	String itemJson = "Item " + new Gson().toJson(Main.items.findById(id)) + " eliminado";
+	String responseMsg = target.path("/items/".
+    		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).delete(String.class);
 		
     assertTrue(responseMsg.toString().equalsIgnoreCase(itemJson));
     assertTrue(Main.items.size() == cantidadDeItems-1);
@@ -85,12 +82,16 @@ public class ItemsTest {
   @Test
   public void testAgregaUnItem() {
   	int cantidadDeItems = Main.items.size();
-  	Item item1 = new Item("Celular", "Nokia 1100", new ObjetoML("http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA521311328"));
-
-    String itemJ = new Gson().toJson(item1);
+  	
+    Form form = new Form();
+    form.param("title", "Nuevo Celular!");
+    form.param("description", "Nokia 1100");
+    form.param("ml_permalink", "http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM");
+    form.param("ml_id", "MLA521311328");
     
-    target.path("/items/").request().accept(MediaType.APPLICATION_JSON).post(Entity.entity(itemJ, MediaType.APPLICATION_JSON), Response.class);
-		
+    target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
+    					   post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED_TYPE),
+    							Response.class);
     //assertTrue(responseMsg.equalsIgnoreCase(unItem.toString())); //Esta mal esta comparacion.  Hacer algo para comparar cada campo
     assertTrue(Main.items.size() == cantidadDeItems+1);
   }  
