@@ -1,163 +1,148 @@
-<html>
-	<head><title>Test API MercadoLibre</title></head>
-	<body>
-		<div style="display: inline-block;  padding: 10px;">	
-			<input type="text" id="ml-search-input"/>
-			<input type="button" id="ml-search-btn" value="Buscar"/>
-		</div>	
-		<form action="/truequeLibre/items" method="POST">
-			<div style=" border: solid 2px black; display: inline-block;  padding: 10px; background-color: lightgray;">				
-				Id: <input type="text" id="ml_id" name="ml_id" readonly="true"/>
-				Permalink: <input type="text" id="ml_permalink" name="ml_permalink" readonly="true" style="width:400px;"/>	
-			</div>	
-			<input type="hidden" id="title" name="title">	
-			<input type="hidden" id="description" name="description">			
-			<input type="submit" value="Agregar a Mi Lista">
-		</form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+    <title>Trueque Libre</title>	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  	<meta name="description" content="Pagina dedicada para hacer Trueques de productos">
+    <link rel="shortcut icon" href="Alguna url para un icono">
+    
+    <link href="bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
+  </head>
 
-		<a href="#" id="ml-prev-page">Anterior</a>
-		<a href="#" id="ml-next-page" style=" position: absolute;right: 0px; margin-right: 20;">Siguiente</a>
-		<a href="/items" id="itemsPage">Items</a>		<!-- ACA PONGO UN LINK A /ITEMS PARA PROBAR LA UNION ENTRE EL HTML Y LOS .JAVA -->
-		<table id="ml-results" width="100%" style="margin-top:20px;"></table>
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Trueque Libre</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class=""><a href="articulos.html">Articulos</a></li>
+            <li class=""><a href="buscador.html">Buscador</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+	          <!-- El active solo esta para tomarlo de jemplo -->
+	          <li class=""><a href="trueques.html">Trueques</a></li>
+	          <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">NombreUsuario <span class="caret"></span></a>
+		           <ul class="dropdown-menu" role="menu">
+		             <li><a href="#">Perfil</a></li>
+		             <li><a href="articulos.html">Mis Articulos</a></li>
+		             <li><a href="#">Cerrar Sesion</a></li>
+		             <li><a href="#">Hacer algo mas</a></li>
+		           </ul>
+        	  </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
 
-		<!- Para no meter un string en el javascript escribi el formato en una tabla oculta ->
-		<table style="display:none;">
-			<tr id='ml-item-template' style="display:none;">				
-				<td> <input type='radio' name='ml-item' class="ml-item-radio"> 	</td>							
-				<td> <img src='%THUMBNAIL%'/></td>							
-				<td> %TITLE%</td>	
-				<td> <a href="%PERMALINK%">%PERMALINK%</a></td>							
-			</tr>
-		</table>
+	<div class="container">
 
-		<h1>Grupo 4</h1>
-		<h2>Entrega 1</h2>
-		<h3>Paths disponibles:</h3>
-		<a href='items'> GET \\items </a><br>
-		<a href='items\\1'>GET \\items\\{item_id}</a><br>
-		<a href='items\\new'>GET \\items\\new</a>
-		<br>
-		POST \\items <br>
-		<a href='items\\1\\edit'>
-		GET \\items\\{item_id}\\edit</a><br>
-		PUT \\items\\{item_id}<br>
-		DELETE \\items\\{item_id}<br>
-		
-		<a href='trueques'> GET \\trueques </a><br>
-		<a href='trueques\\solicitudes'> GET \\trueques\\solicitudes </a><br>
-		<a href='items\\1'>GET \\trueques\\{trueque_id}</a><br>
-		<a href='trueques\\new'>GET \\trueques\\new</a><br>
-		POST \\trueques <br>
-		PUT \\trueques\\{trueque_id}\\accept<br>
-		PUT \\trueques\\{trueque_id}\\reject<br>
-		<p><b>Notas:</b><br> 
-		Usar cualquier n&uacute;mero como id. <br>Los par&aacute;metros de POST y 
-		PUT deben enviarse con x-www-form-urlencoded.<br>Los par&aacute;metros que 
-		aceptan se pueden ver en el \\new correspondiente.</p>
+      <div class="row row-offcanvas row-offcanvas-right">
 
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h1>Trueque Libre</h1>
+            <p>Agregar alguna frase o algo de info acerca de la pagina ya estando logueado o no.</p>
+          </div>
+          <div class="row">
+            <div class="row"><h3>Mas Recientes</h3></div>
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Remera Adidas</h4>
+              <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
+			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+  			  Ver Detalles
+  			  </button></p>
+            </div>
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Pelota Futbol Nike</h4>
+              <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
+			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+  			  Ver Detalles
+  			  </button></p>
+            </div>
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h4>Moto G</h4>
+              <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
+			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+  			  Ver Detalles
+  			  </button></p>
+            </div>
+            
+          </div><!--/row-->
+        </div>
 
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div><h4">Articulos</h4></div>
+          <div class="list-group">
+            <a href="#" class="list-group-item active" >Computacion</a>
+            <a href="#" class="list-group-item">Deco</a>
+            <a href="#" class="list-group-item">Celulares</a>
+            <a href="#" class="list-group-item">Indumentaria</a>
+            <a href="#" class="list-group-item">Libros</a>
+            <a href="#" class="list-group-item">Deporte</a>
+          </div>
+        </div>
+      </div><!--/row-->
 
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		
-		<script>
-			/*Clase MLSearch. Recibe la tabla en la que debe cargar los resultados y el formato de los elementos*/
-			var MlSearch = function(table, template){
-				this.template = template; 
-				this.table = $(table);
-				var that = this;
+      <hr>
+      <footer>
+        <p>� Grupo4, TACS2014-2C</p>
+      </footer>
 
-				/*
-					query: String a buscar
-					limit: Elementos por pagina
-					page: Página
-				*/
-				this.search = function(query, limit, page){
-					$.ajax({
-					  dataType: "json",
-					  url: "https://api.mercadolibre.com/sites/MLA/search",
-					  data: {q:query, offset: limit*page, limit: limit},
-					  success: fill_table									
-					});
-				}
-
-
-				this.set_page = function(page){
-					if(page<0){
-						page=0
-					}else{
-						var max_page = that.query_result.paging.total / that.query_result.paging.limit;
-					 	if(page>max_page) page = max_page;	
-					}
-					that.search(that.query_result.query, that.query_result.paging.limit, page)
-				}
-
-				this.next_page = function(){
-					that.set_page(that.query_result.paging.offset/that.query_result.paging.limit + 1);
-				}
-				this.prev_page = function(){
-					that.set_page(that.query_result.paging.offset/that.query_result.paging.limit - 1);
-				}
-
-
-				/*Private*/
-				function fill_table (data){
-					that.table.html("");
-					that.query_result = data;
-					$.each(data.results, function(i,r){
-						that.table.append(fill_item(r));
-					});
-				}
-
-				function fill_item(ml_item){
-					var item =  $(this.template
-									.replace(/%TITLE%/g, ml_item.title)
-									.replace(/%THUMBNAIL%/g, ml_item.thumbnail)
-									.replace(/%PERMALINK%/g, ml_item.permalink));
-					item.data(
-							{	
-								"id": ml_item.id,
-								"permalink": ml_item.permalink, 
-								"thumbnail": ml_item.thumbnail,
-								"title": ml_item.title,
-							}
-						);
-					return item;
-				}
-		
-				return this;
-			
-			}
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Mesa de Madera</h4>
+		      </div>
+		      <div class="modal-body">
+				<div class="paragraphs">
+				  <div class="row">
+				    <div class="col-md-5">
+				      <img src="..." alt="lalala" class="img-thumbnail" width="150" height="150">
+				    </div>
+				    <div class="col-md-6 well">
+				    Mesa redonde de madera, 1.60m x 1.00m x 0.70m y sigo escribiendo para ver como queda una descripcion de producto grandessssss
+				    </div>
+				  </div>
+				  <p>Intercambio por un juego de 6 sillas de plastico y sigo escribiendo para ver como queda una descripcion de trueque grande</p>
+				</div>
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary">Solicitar Trueque</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 
-			/* Crea una instancia de MLSearch y setea los handlers a los botones */
 
-			var ml = MlSearch("#ml-results", "<tr class='ml-item' style='background-color: lightgray'>" + $("#ml-item-template").html()+"</tr>");
-	
-			$("#ml-search-btn").click(
-				function(){
-					ml.search( $("#ml-search-input").val(), 5);
-				}
-			);
-			
-			$("#ml-prev-page").click(function(e){
-				e.preventDefault();
-				ml.prev_page();
-			});
+    </div>
 
-			$("#ml-next-page").click(function(e){
-				e.preventDefault();
-				ml.next_page();
-			});
 
-			/* Guarda en campos del form el permalink y la id del item seleccionado */
-			$(document).on("click","#ml-results .ml-item-radio",function(e){
-				var ml_item = $(e.target).closest("tr.ml-item");
-				$("#ml_permalink").val(ml_item.data().permalink);
-				$("#ml_id").val(ml_item.data().id);
-				$("#title").val(ml_item.data().title);
-				$("#description").val("Descripcion hardcodeada");
-			});
-		</script>
-	</body>
-
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script src="bootstrap-3.2.0/js/offcanvas.js"></script>
+  </body>
 </html>

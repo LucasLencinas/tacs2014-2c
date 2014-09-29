@@ -45,7 +45,7 @@ public class ItemsTest {
   @Test
   public void testDameTodosLosItems() {
 	String itemsJson = new Gson().toJson(Main.items);
-	String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);//get(String.class);
+	String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
     assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
   }
   
@@ -92,7 +92,6 @@ public class ItemsTest {
     target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
     					   post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED_TYPE),
     							Response.class);
-    //assertTrue(responseMsg.equalsIgnoreCase(unItem.toString())); //Esta mal esta comparacion.  Hacer algo para comparar cada campo
     assertTrue(Main.items.size() == cantidadDeItems+1);
   }  
   
