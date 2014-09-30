@@ -85,8 +85,13 @@ public class FeaturesTest {
 	@Test
 	public void testUnaListaNoTieneUnElementoConId350(){
 		Item unItem = Main.items.findById(350);
+		
 		assertNull(unItem);
 	}
+	
+	/**
+	 * Pruebo algunas cosas de las listas de commons utils
+	 **/
 	
 	
 	
