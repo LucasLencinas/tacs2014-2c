@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.tacs.truequeLibre.domain.Trueque;
+
 /* 
  *  Por el momento asumo que la solicitud y el trueque son la misma entidad,
  *  siendo la solicitud un trueque en estado pendiente (no fue aceptado ni rechazado)
@@ -31,7 +33,7 @@ public class Trueques {
 	}
 	
     @GET
-    @Path("/{id}")
+    @Path("/view/{id}")
     @Produces("text/plain")
     public Response show(@PathParam("id") Integer id){
     	String json = "{id:"+id+", item_1:{id: 2, user: 'Pepe'}, item_2: {id: 3, user: 'Juan'}, status: 'acepted'}";
@@ -55,14 +57,16 @@ public class Trueques {
     	return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
     
-    @PUT
-    @Path("/{id}/accept")
-	public String accept(@PathParam("id") Integer id) {
-    	return "Trueque "+id+" aceptado";
+    @POST
+    @Path("/accept/{id}")
+	public String accept(@PathParam("id") Integer truequeId) throws Exception {
+    	Trueque trueque = Trueque.getById(truequeId);
+    	trueque.aceptarTrueque();
+    	return "Trueque "+truequeId+" aceptado";
     }
     
-    @PUT
-    @Path("/{id}/reject")
+    @POST
+    @Path("/reject/{id}")
 	public String reject(@PathParam("id") Integer id) {
     	return "Trueque "+id+" rechazado";
     }  
