@@ -8,6 +8,8 @@ public class Trueque {
 	
 	//No se todavia si tendria que tener los dos usuarios, ya que con el 
 	//id del item podrias buscar el usuario que lo tiene en la base de datos final.
+	
+	//Puede que un item conozca a su propietario/usuario, entonces no haria falta poner aca el usuario que lo tiene.
   private String description;
   private Item item1;
   private Usuario usuario1;
