@@ -51,6 +51,22 @@ public class Usuario {
 	public void setObjML(ListaDeTrueques unosTrueques) {
 		this.trueques = unosTrueques;
 	}
+	
+  //Items
+	public void agregarItem(Item item){
+		this.items.add(item);
+	}
+	
+	public void quitarItem(Item item){
+		this.items.remove(item);
+	}
+
+	public void truequearItem(Item miViejoItem, Item miNuevoItem) {
+		this.agregarItem(miNuevoItem);
+		this.quitarItem(miViejoItem);
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
