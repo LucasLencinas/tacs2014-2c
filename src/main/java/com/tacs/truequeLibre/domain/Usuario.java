@@ -12,8 +12,10 @@ public class Usuario {
   private ListaDeTrueques trueques;
   
   public Usuario(String unNombre) {
-	this.setId(ListaDeItems.getNewID());
+  	this.setId(ListaDeItems.getNewID());
     this.setNombre(unNombre);
+    this.setItems(new ListaDeItems());
+    this.setTrueques(new ListaDeTrueques());
   }
  
   /**
@@ -46,6 +48,10 @@ public class Usuario {
 
 	public ListaDeTrueques getTrueques() {
 		return trueques;
+	}
+	
+	public void setTrueques(ListaDeTrueques unosTrueques) {
+		this.trueques= unosTrueques;
 	}
 
 	public void setObjML(ListaDeTrueques unosTrueques) {

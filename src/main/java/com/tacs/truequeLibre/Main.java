@@ -64,6 +64,8 @@ public class Main {
     	usuarioAmigo = new Usuario("Usuario Amigo");
     	usuarioAmigo.agregarItem(item2);
     	
+    	trueques = new ListaDeTrueques();
+    	
     	Trueque trueque1 = new Trueque(item1,item2,miUsuario, usuarioAmigo,"descripcion");
     	trueques.add(trueque1);
     }
