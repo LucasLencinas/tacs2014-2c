@@ -12,26 +12,8 @@ import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ObjetoML;
 
-public class FeaturesTest {
+public class FeaturesTest extends AbstractTest{
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		Main.load();
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		Main.unload();
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testDosItemsSonIgualesConMismosCampos() {
 		Item item1 = new Item("Anteojos", "De Sol", new ObjetoML(
@@ -93,7 +75,4 @@ public class FeaturesTest {
 	 * Pruebo algunas cosas de las listas de commons utils
 	 **/
 	
-	
-	
-
 }

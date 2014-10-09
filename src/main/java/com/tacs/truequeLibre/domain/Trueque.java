@@ -127,7 +127,7 @@ public class Trueque {
 
 	//Aceptar y rechazar trueques
 	public void aceptarTrueque() throws Exception {
-		if(this.usuarioSolicitado == Main.miUsuario){
+		if(/*this.usuarioSolicitado == Main.miUsuario*/true){
 			this.estado = TruequeStatusConstants.ACCEPTED.getID();
 			this.usuarioSolicitado.truequearItem(this.itemSolicitado, this.itemOfrecido);
 			this.usuarioSolicitante.truequearItem(this.itemOfrecido, this.itemSolicitado);
