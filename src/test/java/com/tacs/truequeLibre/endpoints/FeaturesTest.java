@@ -14,13 +14,13 @@ public class FeaturesTest extends AbstractTest{
 
 	@Before
 	public void setUp() {
-		super.setUp();
 		Main.load();
+		super.setUp();
 	}
 	@After
 	public void tearDown() throws Exception {
-		super.tearDown();
 		Main.unload();
+		super.tearDown();
 	}
 
 	
