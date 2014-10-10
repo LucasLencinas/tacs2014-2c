@@ -11,6 +11,8 @@ public class Usuario {
   
   private ListaDeTrueques trueques;
   
+  //Falta ListaDeAmigos TODO
+  
   public Usuario(String unNombre) {
   	this.setId(ListaDeItems.getNewID());
     this.setNombre(unNombre);
@@ -60,6 +62,7 @@ public class Usuario {
 	
   //Items
 	public void agregarItem(Item item){
+		//Analizar si un item debe conocer a su dueño tambien, no creo y me hace mucho ruido pero hablarlo con los chicos.
 		this.items.add(item);
 	}
 	

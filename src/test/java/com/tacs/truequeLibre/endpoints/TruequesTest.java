@@ -2,17 +2,11 @@ package com.tacs.truequeLibre.endpoints;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
-import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
-import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Trueque;
 
 public class TruequesTest extends AbstractTest{

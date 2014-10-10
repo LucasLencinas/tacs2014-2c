@@ -1,30 +1,13 @@
 package com.tacs.truequeLibre.endpoints;
 
-import static org.junit.Assert.*;
-
-import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
-import com.google.gson.Gson;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
-import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.ObjetoML;
-import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 public abstract class AbstractTest {

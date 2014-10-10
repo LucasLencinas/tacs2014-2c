@@ -3,14 +3,11 @@ package com.tacs.truequeLibre.endpoints;
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
-import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ObjetoML;
 
 public class FeaturesTest extends AbstractTest{
@@ -25,17 +22,7 @@ public class FeaturesTest extends AbstractTest{
 		super.tearDown();
 		Main.unload();
 	}
-	
-	@Test
-	//este test lo sacaría
-	public void testDosItemsSonIgualesConMismosCampos() {
-		item1 = new Item("Anteojos", "De Sol", new ObjetoML(
-  			"http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM", "MLA430387888"));
-		item1.setId(1);
-		ListaDeItems mainItem = Main.items;
-		
-		assertTrue(item1.equals(Main.items.get(0)));
-	}
+
 	
 	@Test
 	public void testDosItemsSonIgualesConDiferentesCamposSalvoElID() {
@@ -43,7 +30,7 @@ public class FeaturesTest extends AbstractTest{
   			"http://articulo.mercadolibre.com.ar/MLA-523499379-notebook-lenovo-x220-_JM", "MLA523499379"));
 		item1.setId(1);
 		
-		assertTrue(item1.equals(Main.items.get(0)));
+		assertTrue(item1.equals(items.findById(1)));
 	}
 	
 	@Test
@@ -70,17 +57,17 @@ public class FeaturesTest extends AbstractTest{
   			"http://articulo.mercadolibre.com.ar/MLA-430387888-anteojos-ray-ban-wayfare-_JM", "MLA430387888"));
 		item1.setId(1);
 		
-		assertTrue(Main.items.contains(item1));
+		assertTrue(items.contains(item1));
 	}
 	@Test
 	public void testUnaListaTieneUnElementoConId3(){
-		Item unItem = Main.items.findById(3);
+		Item unItem = items.findById(3);
 		assertNotNull(unItem);
 	}
 	
 	@Test
 	public void testUnaListaNoTieneUnElementoConId350(){
-		Item unItem = Main.items.findById(350);
+		Item unItem = items.findById(350);
 		
 		assertNull(unItem);
 	}

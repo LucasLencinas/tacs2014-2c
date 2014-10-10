@@ -3,15 +3,15 @@ package com.tacs.truequeLibre.domain;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
-public class ListaDeItems extends ArrayList<Item>{
+public class ListaDeUsuarios extends ArrayList<Usuario>{
 
 	public static int contador = 0;
 	
-	public Item findById(int unId){
+	public Usuario findById(int unId){
 		
-		for (Item unItem : this) {
-			if(unItem.getId() == unId)
-				return unItem;
+		for (Usuario unUsuario : this) {
+			if(unUsuario.getId() == unId)
+				return unUsuario;
 		}
 			return null;
 	}
@@ -20,7 +20,7 @@ public class ListaDeItems extends ArrayList<Item>{
 	
 	public void clear(){
 		super.clear();
-		ListaDeItems.contador = 0;
+		ListaDeUsuarios.contador = 0;
 	}
 
 	public static int getNewID() {
