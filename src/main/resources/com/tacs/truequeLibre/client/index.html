@@ -41,20 +41,19 @@
             <table class="col-md-12">
               <tr>
                 <td class="col-md-3 text-center">
-                  <button class="btn btn-primary btn-lg">Mis Items</span>
+                  <button class="btn btn-primary btn-lg" onclick="getMyItems()">Mis Items</button>
                 </td>
                 <td class="col-md-3 text-center" onclick="getMyTrueques()">
-                  <button class="btn btn-success btn-lg">Mis Trueques</span>
+                  <button class="btn btn-success btn-lg">Mis Trueques</button>
                 </td>
-                <td class="col-md-3 text-center"><button class="btn btn-info btn-lg">Mis Solicitudes</span></td>
-                <td class="col-md-3 text-center"><button class="btn btn-warning btn-lg">Buscar Item</span></td>
+                <td class="col-md-3 text-center"><button class="btn btn-info btn-lg">Mis Solicitudes</button></td>
+                <td class="col-md-3 text-center"><button class="btn btn-warning btn-lg">Buscar Item</button></td>
               </tr>
             </table>
           </div>    
         </div>
-        <div class="row">
+        <div id="dynamicRow"class="row">
           <div class="col-md-12">
-            <h3>Mas Recientes</h3>
             <div class="col-md-4">
               <h4>Remera Adidas</h4>
               <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
@@ -71,6 +70,13 @@
             </div>
             <div class="col-md-4">
               <h4>Moto G</h4>
+              <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
+              <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+                Ver Detalles
+                </button></p>
+            </div>
+  			<div class="col-md-4">
+              <h4>Pelota Futbol Nike</h4>
               <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
               <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
                 Ver Detalles
@@ -129,9 +135,6 @@
       </div>
     </div>
 
-
-
-    </div>
 
 
     <!-- Bootstrap core JavaScript

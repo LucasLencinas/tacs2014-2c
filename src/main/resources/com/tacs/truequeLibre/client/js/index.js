@@ -6,3 +6,9 @@
 		});
 	}
 
+	function getMyItems(){
+		$( "#dynamicRow" ).css( "background", "yellow" );
+		$( "#dynamicRow div" ).css( "color", "orange" );
+		$( "#dynamicRow div > div" ).css( "background", "red" );
+	}
+
