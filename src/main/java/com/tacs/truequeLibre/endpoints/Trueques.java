@@ -11,7 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
+import com.tacs.truequeLibre.domain.Usuario;
 
 /* 
  *  Por el momento asumo que la solicitud y el trueque son la misma entidad,
@@ -40,6 +42,7 @@ public class Trueques {
     	return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
     
+    //esto no se si iria, supongo que cuando ves los items de un amigo pones un boton para solicitar, que hace el post directamente
     @GET
     @Path("/new")
     @Produces("text/plain")
@@ -51,6 +54,7 @@ public class Trueques {
      * Crea una solicitud de trueque. 
      */
     @POST
+    @Path("/new")
     @Produces("application/json")
 	public Response create(@FormParam("item_1[id]") Integer item_1_id, @FormParam("item_2[id]") Integer item_2_id) {
     	String json = "{id: 2, item_1:{id:"+item_1_id+", user: 'Pepe'}, item_2: {id:" + item_2_id+ ", user: 'Juan'}, status: 'pending'}";
