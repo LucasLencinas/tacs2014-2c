@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  	<meta charset="utf-8">
-    <title>Trueque Libre</title>	
+    <meta charset="utf-8">
+    <title>Trueque Libre</title>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-  	<meta name="description" content="Pagina dedicada para hacer Trueques de productos">
+    <meta name="description" content="Pagina dedicada para hacer Trueques de productos">
     <link rel="shortcut icon" href="Alguna url para un icono">
     
     <link href="bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +12,7 @@
     <link href="bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
     
     <script src="bootstrap-3.2.0/js/tests/vendor/jquery.min.js"></script> 
+    <script src="js/index.js"></script>
     <script> 
     $(function(){
       $("#navbar").load("navbar.html"); 
@@ -22,44 +23,61 @@
   <body>
     <div id="navbar" class="navbar navbar-fixed-top navbar-inverse" role="navigation"></div> 
 
-	<div class="container">
-
-      <div class="row row-offcanvas row-offcanvas-right">
-
-        <div class="col-xs-12 col-sm-9">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           <div class="jumbotron">
-            <h1>Trueque Libre</h1>
+            <h1 id="mainTitle">Bienvenido a Trueque Libre!</h1>
             <p>Agregar alguna frase o algo de info acerca de la pagina ya estando logueado o no.</p>
           </div>
-          <div class="row">
-            <div class="row"><h3>Mas Recientes</h3></div>
-            <div class="col-6 col-sm-6 col-lg-4">
+        </div>
+      </div>
+      <div id="mainData">
+        <div class="row">
+          <div class="col-md-12">
+            <table class="col-md-12">
+              <tr>
+                <td class="col-md-3 text-center">
+                  <button class="btn btn-primary btn-lg" onclick="getMyItems()">Mis Items</span>
+                </td>
+                <td class="col-md-3 text-center"><button class="btn btn-success btn-lg">Mis Trueques</span></td>
+                <td class="col-md-3 text-center"><button class="btn btn-info btn-lg">Mis Solicitudes</span></td>
+                <td class="col-md-3 text-center"><button class="btn btn-warning btn-lg">Buscar Item</span></td>
+              </tr>
+            </table>
+          </div>    
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Mas Recientes</h3>
+            <div class="col-md-4">
               <h4>Remera Adidas</h4>
               <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
-			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
-  			  Ver Detalles
-  			  </button></p>
+              <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+                Ver Detalles
+                </button></p>
             </div>
-            <div class="col-6 col-sm-6 col-lg-4">
+            <div class="col-md-4">
               <h4>Pelota Futbol Nike</h4>
               <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
-			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
-  			  Ver Detalles
-  			  </button></p>
+              <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+                Ver Detalles
+                </button></p>
             </div>
-            <div class="col-6 col-sm-6 col-lg-4">
+            <div class="col-md-4">
               <h4>Moto G</h4>
               <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
-			  <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
-  			  Ver Detalles
-  			  </button></p>
+              <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
+                Ver Detalles
+                </button></p>
             </div>
-            
-          </div><!--/row-->
+          </div>
         </div>
+      </div>
+    </div>
 <!-- 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
         <div><h4>Amigos</h4></div>
@@ -74,41 +92,40 @@
       
 
  -->
- 	</div>
-      <hr>
-      <footer>
-        <p>� Grupo4, TACS2014-2C</p>
-      </footer>
+    <hr>
+    <footer>
+      <p>Grupo4, TACS2014-2C</p>
+    </footer>
 
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Mesa de Madera</h4>
-		      </div>
-		      <div class="modal-body">
-				<div class="paragraphs">
-				  <div class="row">
-				    <div class="col-md-5">
-				      <img src="..." alt="lalala" class="img-thumbnail" width="150" height="150">
-				    </div>
-				    <div class="col-md-6 well">
-				    Mesa redonde de madera, 1.60m x 1.00m x 0.70m y sigo escribiendo para ver como queda una descripcion de producto grandessssss
-				    </div>
-				  </div>
-				  <p>Intercambio por un juego de 6 sillas de plastico y sigo escribiendo para ver como queda una descripcion de trueque grande</p>
-				</div>
-		        
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		        <button type="button" class="btn btn-primary">Solicitar Trueque</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Mesa de Madera</h4>
+          </div>
+          <div class="modal-body">
+        <div class="paragraphs">
+          <div class="row">
+            <div class="col-md-5">
+              <img src="..." alt="lalala" class="img-thumbnail" width="150" height="150">
+            </div>
+            <div class="col-md-6 well">
+            Mesa redonde de madera, 1.60m x 1.00m x 0.70m y sigo escribiendo para ver como queda una descripcion de producto grandessssss
+            </div>
+          </div>
+          <p>Intercambio por un juego de 6 sillas de plastico y sigo escribiendo para ver como queda una descripcion de trueque grande</p>
+        </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Solicitar Trueque</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
