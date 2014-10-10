@@ -1,0 +1,47 @@
+
+<html>
+	<head><title>Test API MercadoLibre</title>
+
+    	<link href="../bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    	<link href="../bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+    	<link href="../bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
+
+    	<script src="../bootstrap-3.2.0/js/tests/vendor/jquery.min.js"></script> 
+	    <script src="../js/new.js"></script>
+
+	</head>
+	<body>
+		<div style="display: inline-block;  padding: 10px;">	
+			<input type="text" id="ml-search-input"/>
+			<input type="button" id="ml-search-btn" value="Buscar"/>
+		</div>	
+		<form action="/truequeLibre/items" method="POST">
+			<div style=" border: solid 2px black; display: inline-block;  padding: 10px; background-color: lightgray;">				
+				Id: <input type="text" id="ml_id" name="ml_id" readonly="true"/>
+				Permalink: <input type="text" id="ml_permalink" name="ml_permalink" readonly="true" style="width:400px;"/>	
+			</div>	
+			<input type="hidden" id="title" name="title">	
+			<input type="hidden" id="description" name="description">			
+			<input type="submit" value="Agregar a Mi Lista">
+		</form>
+
+		<a href="#" id="ml-prev-page">Anterior</a>
+		<a href="#" id="ml-next-page" style=" position: absolute;right: 0px; margin-right: 20;">Siguiente</a>
+		<a href="../items" id="itemsPage">Items</a>		<!-- ACA PONGO UN LINK A /ITEMS PARA PROBAR LA UNION ENTRE EL HTML Y LOS .JAVA -->
+		<table id="ml-results" width="100%" style="margin-top:20px;"></table>
+
+		<!- Para no meter un string en el javascript escribi el formato en una tabla oculta ->
+		<table style="display:none;">
+			<tr id='ml-item-template' style="display:none;">				
+				<td> <input type='radio' name='ml-item' class="ml-item-radio"> 	</td>							
+				<td> <img src='%THUMBNAIL%'/></td>							
+				<td> %TITLE%</td>	
+				<td> <a href="%PERMALINK%">%PERMALINK%</a></td>							
+			</tr>
+		</table>
+
+
+
+	</body>
+
+</html>
