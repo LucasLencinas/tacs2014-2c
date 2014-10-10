@@ -7,10 +7,75 @@
     	<link href="../bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
 
     	<script src="../bootstrap-3.2.0/js/tests/vendor/jquery.min.js"></script> 
+	    <script> 
+		    $(function(){
+		      $("#navbar").load("../navbar.html"); 
+		    });
+    	</script>
 	    <script src="../js/new.js"></script>
+
 
 	</head>
 	<body>
+	    <div id="navbar" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="#">Toma y Daca</a>
+	        </div>
+	        <div class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav">
+	            <li class=""><a href="#">AlgunLinkAAlgo</a></li>
+	          </ul>
+	          <ul class="nav navbar-nav navbar-right">
+		          <!-- El active solo esta para tomarlo de jemplo -->
+		          <li class="active"><a href="./">Aceptacion a Trueques</a></li>
+		          <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">NombreUsuario <span class="caret"></span></a>
+			           <ul class="dropdown-menu" role="menu">
+			             <li><a href="#">Perfil</a></li>
+			             <li><a href="articulos.jsp">Mis Articulos</a></li>
+			             <li><a href="#">Cerrar Sesion</a></li>
+			             <li><a href="#">Hacer algo mas</a></li>
+			           </ul>
+	        	  </li>
+	          </ul>
+	        </div><!-- /.nav-collapse -->
+	      </div><!-- /.container -->
+	    </div><!-- /.navbar -->
+	    	<div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+          	<div class="row">
+          		<div class="col-xs-6">
+        			<label class="col-xs-3">Nombre:</label>     
+   	       			<input type="text" id="title"  class="col-xs-6"/>
+           		</div>
+           	</div>
+            <div class="row">
+          		<div class="col-xs-6">
+          			<label class="col-xs-3" >Descripción:</label>
+           		</div>      
+           	</div>
+
+          	<div class="col-xs-12">
+           		<textarea class="col-xs-12" cols="50" id="description"></textarea>
+           	</div>
+          	<div class="clearfix"/>
+          </div>
+	    </div>
+	</div>
 		<div style="display: inline-block;  padding: 10px;">	
 			<input type="text" id="ml-search-input"/>
 			<input type="button" id="ml-search-btn" value="Buscar"/>
@@ -27,10 +92,9 @@
 
 		<a href="#" id="ml-prev-page">Anterior</a>
 		<a href="#" id="ml-next-page" style=" position: absolute;right: 0px; margin-right: 20;">Siguiente</a>
-		<a href="../items" id="itemsPage">Items</a>		<!-- ACA PONGO UN LINK A /ITEMS PARA PROBAR LA UNION ENTRE EL HTML Y LOS .JAVA -->
+		<a href="../items" id="itemsPage">Items</a>		
 		<table id="ml-results" width="100%" style="margin-top:20px;"></table>
 
-		<!- Para no meter un string en el javascript escribi el formato en una tabla oculta ->
 		<table style="display:none;">
 			<tr id='ml-item-template' style="display:none;">				
 				<td> <input type='radio' name='ml-item' class="ml-item-radio"> 	</td>							
@@ -40,8 +104,5 @@
 			</tr>
 		</table>
 
-
-
 	</body>
-
 </html>
