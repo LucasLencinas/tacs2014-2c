@@ -18,7 +18,8 @@
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){
-	        		items += el.title + " " + el.id + " " + el.description + " " + el.objML.ml_permalink + " " + el.objML.ml_id + "<br> ";
+	        		items += el.title + " " + el.id + " " + el.description + " " + el.objML.ml_permalink + " " + el.objML.ml_id +
+	        		"<img src=\"" + el.objML.ml_thumbnail +"\" alt=\""+ el.description + "\" class=\"img-thumbnail\" width=\"100\" height=\"100\">" +  "<br> ";
 	        	});
 	            $('#dynamicRow').html(items);
 	        }
