@@ -10,8 +10,9 @@ public class Item implements Serializable{
   private int id;
 	 
   @Expose private String title;
-
+  //Sirve para describir por que tipo de item se quiere truequear
   @Expose private String description;
+  
 
   @SerializedName("ml") private ObjetoML objML;
   

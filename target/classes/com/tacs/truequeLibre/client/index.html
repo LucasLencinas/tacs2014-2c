@@ -10,13 +10,21 @@
     <link href="bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
+    <link href="tooltipster/tooltipster.css" rel ="stylesheet">
     
     <script src="bootstrap-3.2.0/js/tests/vendor/jquery.min.js"></script> 
     <script src="js/index.js"></script>
+    <script src="tooltipster/jquery.tooltipster.min.js"></script>
     <script> 
+
     $(function(){
       $("#navbar").load("navbar.html"); 
     });
+    
+    $(document).ready(function() {
+    	$('.img-thumbnail').tooltip();
+    });
+    
     </script>
   </head>
 
@@ -140,8 +148,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
     <script src="bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script src="bootstrap-3.2.0/js/offcanvas.js"></script>
+
+    
   </body>
 </html>
