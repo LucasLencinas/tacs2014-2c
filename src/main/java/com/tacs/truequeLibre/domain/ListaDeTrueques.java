@@ -2,6 +2,9 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.ArrayList;
 
+import com.google.gson.JsonElement;
+import com.tacs.truequeLibre.Main;
+
 @SuppressWarnings("serial")
 public class ListaDeTrueques extends ArrayList<Trueque>{
 
@@ -23,6 +26,16 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 
 	public static int getNewID() {
 		return ++contador;
+	}
+
+	public ListaDeTrueques getByUser(Usuario miUsuario) {
+		ListaDeTrueques result = new ListaDeTrueques();
+		for (Trueque trueque: Main.trueques) {
+			  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
+			    result.add(trueque);
+			  }
+			}
+		return result;
 	}
 
 }

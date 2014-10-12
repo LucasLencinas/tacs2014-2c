@@ -27,10 +27,10 @@ public class Trueque {
   
   public Trueque(Item unItem1, Item unItem2, Usuario unUsuario1, Usuario unUsuario2, String unaDescripcion) {
   	this.setId(ListaDeTrueques.getNewID());
-    this.setItem1(unItem1);
-    this.setUsuario1(unUsuario1);
-    this.setItem2(unItem2);
-    this.setUsuario2(unUsuario2);
+    this.setItemOfrecido(unItem1);
+    this.setUsuarioSolicitante(unUsuario1);
+    this.setItemSolicitado(unItem2);
+    this.setUsuarioSolicitado(unUsuario2);
     this.setDescripcion(unaDescripcion);
     this.setEstado(TruequeStatusConstants.PENDING.getID());
   }
@@ -62,38 +62,36 @@ public class Trueque {
 		this.id = id;
 	}
 
-	public Item getItem1() {
+	public Item getItemOfrecido() {
 		return itemOfrecido;
 	}
 
-	public void setItem1(Item unItem1) {
+	public void setItemOfrecido(Item unItem1) {
 		this.itemOfrecido = unItem1;
 	}
 	
-	public Item getItem2() {
+	public Item getItemSolicitado() {
 		return itemSolicitado;
 	}
 
-	public void setItem2(Item unItem2) {
+	public void setItemSolicitado(Item unItem2) {
 		this.itemSolicitado = unItem2;
 	}
 	
-	
-
-	public Usuario getUsuario2() {
+	public Usuario getUsuarioSolicitado() {
 		return usuarioSolicitado;
 	}
 
-	public void setUsuario2(Usuario unUsuario2) {
+	public void setUsuarioSolicitado(Usuario unUsuario2) {
 		this.usuarioSolicitado = unUsuario2;
 	}
 
 
-	public Usuario getUsuario1() {
+	public Usuario getUsuarioSolicitante() {
 		return usuarioSolicitante;
 	}
 
-	public void setUsuario1(Usuario unUsuario1) {
+	public void setUsuarioSolicitante(Usuario unUsuario1) {
 		this.usuarioSolicitante = unUsuario1;
 	}
 	

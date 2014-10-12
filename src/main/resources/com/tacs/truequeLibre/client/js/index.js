@@ -1,9 +1,25 @@
 
 	function getMyTrueques(){
+		$( "#dynamicRow" ).load( "trueques.html" );
 		$.get("truequeLibre/trueques", function( data ) {
-		  $( "#mainTitle" ).html( "Mis Trueques" );
-		  $( "#mainData" ).load( "trueques.html" );
+			$( "#mainTitle" ).html( "Mis Trueques" );
+    	data.forEach( function(el){
+    		var row = "<tr><td>"+	el.usuarioSolicitante.nombre+"</td><td>"+
+    													el.usuarioSolicitado.nombre+"</td><td>"+
+    													el.itemSolicitado.title+"</td><td>"+
+    													el.itemOfrecido.title+"</td><td>"+
+    													getStatusName(el.estado)+"</td></tr>";
+    		$("#truequesTable > tbody").append(row);
+    	});
 		});
+	}
+
+	function getStatusName(statusID){
+		switch(statusID){
+			case 0: return "Pendiente";
+			case 1: return "Aceptado";
+			case 2: return "Rechazado";
+		}
 	}
 
 	function getMyItems(){
@@ -18,21 +34,29 @@
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){
-	        		items += el.title + " " + el.id + " " + el.description + " " + el.objML.ml_permalink + " " + el.objML.ml_id + "<br> ";
+	        		items += generarVistaItem(el);
 	        	});
 	            $('#dynamicRow').html(items);
 	        }
 	    });
-		
-		/*Tengo que cargar algo de este estilo
-		 
-      <div class="col-md-4">
-        <h4>Remera Adidas</h4>
-        <img src="..." alt="lalala" class="img-thumbnail" width="100" height="100">
-        <p><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"> 
-          Ver Detalles
-          </button></p>
-      </div>
-      */
+	}
+	
+	function generarVistaItem(item){
+		var vista = "<div class=\"col-md-4\">";
+		vista += sprintf("<h4>%s</h4>",item.title);
+		vista += sprintf("<p>%s</p>", item.description);
+		vista += sprintf("<img src=\"%s\" class=\"img-thumgnail\" width=\"100\" height=\"100\" >",item.objML.ml_thumbnail);
+		vista += "<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
+		"data-target=\"#myModal\">Ver Detalles</button></p>";
+		vista += "</div>";
+		return vista;
+	}
+	
+	function sprintf( format )
+	{
+	  for( var i=1; i < arguments.length; i++ ) {
+	    format = format.replace( /%s/, arguments[i] );
+	  }
+	  return format;
 	}
 
