@@ -23,17 +23,15 @@ public class FeaturesTest extends AbstractTest{
 		super.tearDown();
 	}
 
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp() FIXME
 	@Test
 	public void testDosItemsSonIgualesConDiferentesCamposSalvoElID() {
-  	item1 = new Item("Anteojos", "De Sol", new ObjetoML(
+		item1 = new Item("Anteojos", "De Sol", new ObjetoML(
   			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",
   			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg"));
 		item1.setId(1);
 		
 		assertTrue(item1.equals(items.findById(1)));
 	}
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp()
 	@Test
 	public void testDosItemsSonDistintosConDistintosCamposYDistintoID() {
   	item1 = new Item("Mesa", "Cuadrada", new ObjetoML(
@@ -43,7 +41,6 @@ public class FeaturesTest extends AbstractTest{
 		
 		assertFalse(item1.equals(items.findById(1)));
 	}
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp()
 	@Test
 	public void testDosItemsSonDistintosConMismosCamposYDistintoID() {
   	item1 = new Item("Anteojos", "De Sol", new ObjetoML(
@@ -53,28 +50,24 @@ public class FeaturesTest extends AbstractTest{
 		
 		assertFalse(item1.equals(items.findById(1)));
 	}
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp()
 	@Test
 	public void testUnaListaContieneUnItemConDeterminadoID() {
-  	item1 = new Item("Anteojos", "De Sol", new ObjetoML(
+		item1 = new Item("Anteojos", "De Sol", new ObjetoML(
   			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",
   			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg"));
 		item1.setId(1);
-		
+		//no entiendo este test, no es lo mismo que hacer assertNotNull(items.findById(1)) ?? Seria muy parecido al de abajo
 		assertNotNull(items.findById(item1.getId()));
 	}
 	
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp() FIXME
 	@Test
 	public void testUnaListaTieneUnElementoConId3(){
 		Item unItem = items.findById(3);
 		assertNotNull(unItem);
 	}
-	@Ignore	//Anda mal, porque carga muchas veces los ID en el setUp()
 	@Test
 	public void testUnaListaNoTieneUnElementoConId350(){
 		Item unItem = items.findById(350);
-		
 		assertNull(unItem);
 	}
 	

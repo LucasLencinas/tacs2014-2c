@@ -60,6 +60,9 @@ public abstract class AbstractTest {
 
 	@After
 	public void tearDown() throws Exception {
+		items.clear();
+		miUsuario.getItems().clear();
+		usuarioAmigo.getItems().clear();
 	}
 		 
 	  
