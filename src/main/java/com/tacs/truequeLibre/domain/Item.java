@@ -1,15 +1,23 @@
 package com.tacs.truequeLibre.domain;
 
-public class Item {
+import java.io.Serializable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Item implements Serializable{
 	
-	private int id;
+  private int id;
 	 
-  private String title;
+  @Expose private String title;
 
-  private String description;
+  @Expose private String description;
 
-  private ObjetoML objML;
+  @SerializedName("ml") private ObjetoML objML;
   
+  public Item(){
+	  
+  }
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
 	this.setId(ListaDeItems.getNewID());
     this.setTitulo(unTitulo);

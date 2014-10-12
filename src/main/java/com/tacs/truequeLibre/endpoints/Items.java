@@ -1,6 +1,7 @@
 package com.tacs.truequeLibre.endpoints;
 
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -50,17 +51,6 @@ public class Items {
     
     
     /**
-     * Arma un formulario para poder crear un item y me lo devuelve. TESTEAR
-     * @return: un formulario en html o json(todavia no se sabe) -- TODO
-     */
-    @GET
-    @Path("/new")
-    @Produces("text/plain")
-    public String _new(){
-    	return "Formulario para crear un item. Parametros: id, title, description, mercadolibre[permalink], mercadolibre[id]";
-    }
-    
-    /**
      * Le paso todos los parametros que necesita y me crea un articulo nuevo y lo guarda en el
      * sistema(por ahora una lista de articulos en memoria) TESTEAR
      * @param title: titulo del articulo
@@ -71,28 +61,15 @@ public class Items {
      */
     @POST
     @Produces("application/json")
-	public Response create(
-			@FormParam("title") String title,
-			@FormParam("description") String description, 
-			@FormParam("ml_permalink") String ml_permalink, 
-			@FormParam("ml_id") String ml_id) {
-    	Item unItem = new Item(title, description, new ObjetoML(ml_permalink, ml_id));
+    @Consumes("application/json")
+	public Response create(String item_json) {
+    	//$.ajax({url:"truequeLibre/items", type: "POST", data: JSON.stringify(item), contentType: 'application/json', success: function(e){debugger;}, dataType: 'json'});
+    	Gson parser = new Gson();
+    	Item unItem = parser.fromJson(item_json, Item.class);
     	Main.items.add(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
 
-    /**
-     * Me da un formulario para poder modificar despues el item con el id que le paso. TESTEAR
-     * @param id: Id del elemento que quiero modificar
-     * @return: un formulario en html o json(TODO) 
-     */
-    @GET
-    @Path("/{id}/edit")
-    @Produces("text/plain")
-    public String edit(@PathParam("id") Integer id){
-    	Item unItem= Main.items.findById(id);
-    	return "Form para editar item "+ new Gson().toJson(unItem);
-    }
     
     /**
      * Actualiza un item de la base de datos del sistema dado un determinado id. TESTEAR
@@ -106,7 +83,7 @@ public class Items {
     @PUT
     @Path("/{id}")
     @Produces("application/json")
-	public Response update(
+   	public Response update(
 			@PathParam("id") Integer id, 			
 			@FormParam("title") String title,
 			@FormParam("description") String description, 

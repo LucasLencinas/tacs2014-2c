@@ -1,13 +1,21 @@
 package com.tacs.truequeLibre.domain;
 
-public class ObjetoML {
-	private String ml_permalink;
+import java.io.Serializable;
+
+import com.google.gson.annotations.SerializedName;
+
+public class ObjetoML implements Serializable {
+ @SerializedName("permalink") private String ml_permalink;
 	 
-  private String ml_id;
+ @SerializedName("id") private String ml_id;
 
   public ObjetoML(String unPermalink, String unId) {
       this.setPermalink(unPermalink);
       this.setId(unId);
+  }
+  
+  public ObjetoML(){
+	  
   }
 
   
