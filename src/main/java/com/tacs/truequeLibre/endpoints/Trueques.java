@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
@@ -21,10 +23,17 @@ import com.tacs.truequeLibre.domain.Usuario;
  */
 @Path("/trueques")
 public class Trueques {
-	@GET
-    @Produces("text/plain")
-    public String index() {
-        return "Listado de mis trueques realizados";
+
+	/**
+	 * Listar Trueques.
+	 * @return: Un JSON que representa la lista de trueques que estan en la aplicacion
+	 */
+    @GET 
+    @Produces("application/json")
+    public Response index() {
+    	System.out.println("Me pidieron los Trueques");
+    	String itemsJson = new Gson().toJson(Main.trueques.getByUser(Main.miUsuario));
+      return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
 	@GET

@@ -63,16 +63,14 @@ public class Main {
     }
     
     public static void load(){
-    	
     	loadItems();
     	loadUsuarios();
      	loadTrueques();
-
     }
 
-		private static void loadTrueques() {
+	private static void loadTrueques() {
 			
-			trueques = new ListaDeTrueques();
+		trueques = new ListaDeTrueques();
     	//Parece media fea la creacion de un trueque, solo deberian estar los items.
     	//Pero si lo hago asi, entonces cada item tendria que saber su dueño. Pregunarlo. FIXME
     	trueque1 = new Trueque(item1,item2,miUsuario, usuarioAmigo1,"Anteojos por Notebook");
@@ -80,13 +78,14 @@ public class Main {
     	trueque3 = new Trueque(item7,item8,usuarioAmigo2, usuarioAmigo3,"Musculosa por Auto");
     	
     	//Esto esta re mal creo, se repiten relaciones por todos lados, preguntarle a los chicos. FIXME
-    	miUsuario.getTrueques().add(trueque1);
+    /*	comento este codigo porque me rompe cuando pido el json, como dice el comentario de arriba, puede que esto este de mas
+     * 	miUsuario.getTrueques().add(trueque1);
     	miUsuario.getTrueques().add(trueque3);
     	usuarioAmigo1.getTrueques().add(trueque1);
     	usuarioAmigo2.getTrueques().add(trueque2);
     	usuarioAmigo2.getTrueques().add(trueque3);
     	usuarioAmigo3.getTrueques().add(trueque3);
-    	
+    	*/
     	trueques.add(trueque1);
     	trueques.add(trueque2);
     	trueques.add(trueque3);

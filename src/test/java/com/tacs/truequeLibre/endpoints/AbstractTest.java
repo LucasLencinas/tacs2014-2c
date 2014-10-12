@@ -7,6 +7,8 @@ import org.junit.BeforeClass;
 
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
+import com.tacs.truequeLibre.domain.ListaDeTrueques;
+import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -61,6 +63,8 @@ public abstract class AbstractTest {
 	@After
 	public void tearDown() throws Exception {
 		ListaDeItems.contador = 0;
+		ListaDeTrueques.contador = 0;
+		ListaDeUsuarios.contador = 0;
 	}
 		 
 	  

@@ -1,9 +1,25 @@
 
 	function getMyTrueques(){
+		$( "#dynamicRow" ).load( "trueques.html" );
 		$.get("truequeLibre/trueques", function( data ) {
-		  $( "#mainTitle" ).html( "Mis Trueques" );
-		  $( "#mainData" ).load( "trueques.html" );
+			$( "#mainTitle" ).html( "Mis Trueques" );
+    	data.forEach( function(el){
+    		var row = "<tr><td>"+	el.usuarioSolicitante.nombre+"</td><td>"+
+    													el.usuarioSolicitado.nombre+"</td><td>"+
+    													el.itemSolicitado.title+"</td><td>"+
+    													el.itemOfrecido.title+"</td><td>"+
+    													getStatusName(el.estado)+"</td></tr>";
+    		$("#truequesTable > tbody").append(row);
+    	});
 		});
+	}
+
+	function getStatusName(statusID){
+		switch(statusID){
+			case 0: return "Pendiente";
+			case 1: return "Aceptado";
+			case 2: return "Rechazado";
+		}
 	}
 
 	function getMyItems(){
