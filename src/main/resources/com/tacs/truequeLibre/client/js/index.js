@@ -22,11 +22,29 @@
 		}
 	}
 
-	function getMyItems(){
-		//$( "#dynamicRow" ).css( "background", "yellow" );
-		//$( "#dynamicRow div" ).css( "color", "orange" );
-		//$( "#dynamicRow div > div" ).css( "background", "red" );
+	function actualizarModal(id){
 		
+		modificarItemDeModal(id);
+		$.ajax({
+	        type: "GET",
+	        dataType: "json",
+	        url: "truequeLibre/usuarios/"+id+"/items",
+	        success: function (data) {
+	        	//Agregar los options al select por cada item
+	        	data.forEach( function(el){
+	        		var unOption = sprintf("<option value=\"%s\">%s</option>",el.id,el.nombre);
+	        		$("#selectDeModal").append( unOption );
+	        	});
+	        }
+	    });
+	}
+	
+	function modificarItemDeModal(id){
+		
+	}
+	
+	
+	function getMyItems(){
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -35,6 +53,7 @@
 	        	var items = "";
 	        	data.forEach( function(el){
 	        		items += generarVistaItem(el);
+	        		
 	        	});
 	            $('#dynamicRow').html(items);
 	            $('.img-thumbnail').tooltip();
@@ -48,8 +67,8 @@
 		vista += sprintf("<img src=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,"Nombre de Usuario:<br>" + item.description);
-		vista += "<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#myModal\">Ver Detalles</button></p>";
+		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
+		"data-target=\"#myModal\" onclick=\"actualizarModal(%s)\">Postular Trueque</button></p>",item.id);
 		vista += "</div>";
 		return vista;
 		

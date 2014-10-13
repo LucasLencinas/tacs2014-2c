@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Item implements Serializable{
 	
-  private int id;
+  @Expose private int id;
 	 
   @Expose private String title;
   //Sirve para describir por que tipo de item se quiere truequear
