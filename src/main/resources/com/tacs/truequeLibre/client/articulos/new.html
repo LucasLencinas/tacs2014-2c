@@ -48,61 +48,57 @@
 	        </div><!-- /.nav-collapse -->
 	      </div><!-- /.container -->
 	    </div><!-- /.navbar -->
-	    	<div class="container">
-
-      <div class="row row-offcanvas row-offcanvas-right">
-
-        <div class="col-xs-12 col-sm-9">
-          <p class="pull-right visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>
-          <div class="jumbotron">
-          	<div class="row">
-          		<div class="col-xs-6">
-        			<label class="col-xs-3">Nombre:</label>     
-   	       			<input type="text" id="title"  class="col-xs-6"/>
-           		</div>
-           	</div>
-            <div class="row">
-          		<div class="col-xs-6">
-          			<label class="col-xs-3" >Descripción:</label>
-           		</div>      
-           	</div>
-
-          	<div class="col-xs-12">
-           		<textarea class="col-xs-12" cols="50" id="description"></textarea>
-           	</div>
-          	<div class="clearfix"/>
-          </div>
-	    </div>
-	</div>
-		<div style="display: inline-block;  padding: 10px;">	
-			<input type="text" id="ml-search-input"/>
-			<input type="button" id="ml-search-btn" value="Buscar"/>
-		</div>	
-		<form action="/truequeLibre/items" method="POST">
-			<div style=" border: solid 2px black; display: inline-block;  padding: 10px; background-color: lightgray;">				
-				Id: <input type="text" id="ml_id" name="ml_id" readonly="true"/>
-				Permalink: <input type="text" id="ml_permalink" name="ml_permalink" readonly="true" style="width:400px;"/>	
+	    <div class="container">
+		   
+			<input type="hidden" id="ml_permalink"/>
+	   		<input type="hidden" id="ml_id"/>
+	   		<input type="hidden" id="ml_thumbnail"/>
+			
+			<div>	
+				<label>T&iacute;tulo:</label>     
+	   			<input type="text" id="title"/>
+	   	    	<input type="button" id="ml-search-btn" value="Seleccionar ML"/>
 			</div>	
-			<input type="hidden" id="title" name="title">	
-			<input type="hidden" id="description" name="description">			
-			<input type="submit" value="Agregar a Mi Lista">
-		</form>
 
-		<a href="#" id="ml-prev-page">Anterior</a>
-		<a href="#" id="ml-next-page" style=" position: absolute;right: 0px; margin-right: 20;">Siguiente</a>
-		<a href="../items" id="itemsPage">Items</a>		
-		<table id="ml-results" width="100%" style="margin-top:20px;"></table>
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="ml-results" width="100%" style="margin-top:20px;" class="jumbotron"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="#" id="ml-prev-page" class="page-navigator hidden pull-left btn btn-default">Anterior</a>
+					<a href="#" id="ml-next-page"  class="page-navigator hidden pull-right btn btn-default">Siguiente</a>
+					<div class="clearfix">
+				</div>
+			</div>
 
-		<table style="display:none;">
-			<tr id='ml-item-template' style="display:none;">				
-				<td> <input type='radio' name='ml-item' class="ml-item-radio"> 	</td>							
-				<td> <img src='%THUMBNAIL%'/></td>							
-				<td> %TITLE%</td>	
-				<td> <a href="%PERMALINK%">%PERMALINK%</a></td>							
-			</tr>
-		</table>
+			<div class="row">
+				<label class="col-xs-12">Descripci&oacute;n:</label>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+	        		<textarea cols="50" width="100%" id="description"></textarea>
+	        	</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-xs-12">
+					<a href="#" id="create-item" class="btn btn-success pull-center">Agregar item</a>
+				</div>
+				<div class="clearfix">
+			</div>
+		</div>
+		<div id='ml-item-template' style="display:none;">	
+			<div class="row ml-item-row">			
+				<div class="col-xs-2"> 
+					<input type='radio' name='ml-item' class="ml-item-radio"> 							
+					 <img src='%THUMBNAIL%'/>
+				</div>							
+				<div class="col-xs-6"> %TITLE%</div>	
+				<div class="col-xs-4"> <a href="%PERMALINK%">%PERMALINK%</a></div>	
+			</div>					
+		    <hr>	
+		</div>
 
 	</body>
 </html>

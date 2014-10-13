@@ -1,7 +1,8 @@
 /*Clase MLSearch. Recibe la tabla en la que debe cargar los resultados y el formato de los elementos*/
-var MlSearch = function(table, template){
+var MlSearch = function(table, template, after_results){
 	this.template = template; 
 	this.table = $(table);
+	this.after_results = after_results;
 	var that = this;
 
 	/*
@@ -44,6 +45,7 @@ var MlSearch = function(table, template){
 		$.each(data.results, function(i,r){
 			that.table.append(fill_item(r));
 		});
+		that.after_results();
 	}
 
 	function fill_item(ml_item){
@@ -69,11 +71,20 @@ var MlSearch = function(table, template){
 
 /* Crea una instancia de MLSearch y setea los handlers a los botones */
 $(document).ready(function(){
-	var ml = MlSearch("#ml-results", "<tr class='ml-item' style='background-color: lightgray'>" + $("#ml-item-template").html()+"</tr>");
-
+	var ml = MlSearch("#ml-results", $("#ml-item-template").html(), showNavigationLinks);
+	$('#title').on('keyup', function(e) {
+	    if (e.which == 13) {
+	        e.preventDefault();
+	        $("#ml-search-btn").click();
+	    }
+	});
+	function showNavigationLinks(){
+		$(".page-navigator").removeClass("hidden");
+	}
 	$("#ml-search-btn").click(
-		function(){
-			ml.search( $("#ml-search-input").val(), 5);
+		function(e){
+			e.preventDefault();
+			ml.search( $("#title").val(), 3);
 		}
 	);
 
@@ -89,10 +100,35 @@ $(document).ready(function(){
 
 	/* Guarda en campos del form el permalink y la id del item seleccionado */
 	$(document).on("click","#ml-results .ml-item-radio",function(e){
-		var ml_item = $(e.target).closest("tr.ml-item");
+		var ml_item = $(e.target).closest(".ml-item-row");
 		$("#ml_permalink").val(ml_item.data().permalink);
 		$("#ml_id").val(ml_item.data().id);
-		$("#title").val(ml_item.data().title);
-		$("#description").val("Descripcion hardcodeada");
+		if($("#title").val()=="") $("#title").val(ml_item.data().title);
+
 	});
+
+	$("#create-item").click(function(e){
+			var item = {
+						"title": $("#title").val(), 
+						"description": $("#description").val() ,
+						"ml":
+							{
+								"id": $("#ml_id").val(),
+								"permalink": $("#ml_permalink").val(),
+								"thumbnail": $("#ml_thumbnail").val()
+							}
+
+					};
+			$.ajax(
+				{
+					url:"/truequeLibre/items", 
+					type: "POST", 
+					data: JSON.stringify(item), 
+					contentType: 'application/json', 
+					success: function(e){alert("Item creado!"); window.location="/articulos";},
+			    	dataType: 'json'
+			    }
+			);
+		}
+	);
 });

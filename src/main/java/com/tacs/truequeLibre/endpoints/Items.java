@@ -62,7 +62,6 @@ public class Items {
     @Produces("application/json")
     @Consumes("application/json")
 	public Response create(String item_json) {
-    	//$.ajax({url:"truequeLibre/items", type: "POST", data: JSON.stringify(item), contentType: 'application/json', success: function(e){debugger;}, dataType: 'json'});
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
     	Main.items.add(unItem);
