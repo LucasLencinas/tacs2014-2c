@@ -48,7 +48,9 @@
 	}
 	
 	
-	function getMyItems(){
+	//Me da los items de todo el sistema menos los mios
+	//El 1 que hardcodee es el id del usuario con el que se logueo una persona
+	function getOtherItems(){
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -56,7 +58,8 @@
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){
-	        		items += generarVistaItem(el);
+	        		if(el.id != "1")
+	        			items += generarVistaItem(el);
 	        		
 	        	});
 	            $('#dynamicRow').html(items);
