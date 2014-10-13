@@ -14,6 +14,8 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.Utils.DeleteRequest;
+import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/usuarios")
@@ -26,7 +28,6 @@ public class Usuarios {
     @GET 
     @Produces("application/json")
     public Response index() {
-    	System.out.println("Me pidieron los Usuarios");
     	String usuariosJson = new Gson().toJson(Main.usuarios);
     	
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
@@ -52,13 +53,26 @@ public class Usuarios {
     @Path("/{id}/items")
     @Produces("application/json")
     public Response showItems(@PathParam("id") Integer id){
-    	System.out.println("Me pidieron los items de un usuario");
     	Usuario unUsuario= Main.usuarios.findById(id);	
     	Gson unGson = new Gson();
     	String itemsDeUsuarioJson = unGson.toJson(unUsuario.getItems());	//No se si va a andar
-    	System.out.println(itemsDeUsuarioJson);
     	return Response.ok(itemsDeUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
     
+    @DELETE
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("/{id}/items")
+	public Response deleteItem(String item_json) {
+    	Gson parser = new Gson();
+    	DeleteRequest pedidoDelete = parser.fromJson(item_json, DeleteRequest.class);
+    	Usuario unUsuario= Main.usuarios.findById(pedidoDelete.idUsuario);
+    	Item itemABorrar = unUsuario.getItems().findById(pedidoDelete.idItem);
+    	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + unUsuario.getNombre());
+    	unUsuario.getItems().remove(itemABorrar);
+    	Main.items.remove(itemABorrar);
+    	return Response.ok(new Gson().toJson(pedidoDelete), MediaType.APPLICATION_JSON).build();
+    }
+
 
 }

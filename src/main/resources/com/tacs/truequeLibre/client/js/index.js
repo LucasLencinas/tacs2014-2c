@@ -24,7 +24,7 @@
 
 	function actualizarModalHacerTrueque(idItem,idUsuario){
 		
-		modificarItemDeModalHacerTrueque(idItem);
+		actualizarItemDeModalHacerTrueque(idItem);
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -39,7 +39,7 @@
 	    });
 	}
 	
-	function modificarItemDeModalHacerTrueque(idItem){
+	function actualizarItemDeModalHacerTrueque(idItem){
 		
 		$("#modalHacerTruequeLabel").html($("#" + idItem + " > h4 ").text());
 		$("#imagenModalHacerTrueque").attr("src",$("#" + idItem + " > img ").attr('src'));
@@ -52,6 +52,7 @@
 		$("#modalDeleteItemLabel").html($("#" + idItem + " > h4 ").text());
 		$("#imagenModalDeleteItem").attr("src",$("#" + idItem + " > img ").attr('src'));
 		$("#descriptionModalDeleteItem").html($("#" + idItem + " > img ").attr('alt'));
+		$("#deleteItemButton").attr("onclick","deleteItem("+idItem+","+idUsuario+")")
 	}
 	
 	
@@ -117,6 +118,24 @@
 		"data-target=\"#modalDeleteItem\" onclick=\"actualizarModalDeleteItem(%s,%s)\">Borrar Item</button></p>",item.id, "1");
 		vista += "</div>";
 		return vista;
+	}
+	
+	function deleteItem(idItem,idUsuario){
+		$("#modalDeleteItem").modal('hide');
+		var deleteRequest = {idItem: idItem, idUsuario: idUsuario};
+		$.ajax({
+	        type: "DELETE",
+	        dataType: "json",
+	        data: JSON.stringify(deleteRequest),
+	        contentType: 'application/json',
+	        url: "truequeLibre/usuarios/1/items",
+	        success: function (data) {
+	        	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
+	        },
+	        error: function(data){
+	        	$("#descripcionResultadoOperacion").html('Hubo un Error en la Operacion!');
+	        }
+	    });
 	}
 	
 	

@@ -16,7 +16,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -80,7 +79,6 @@ public class ItemsTest {
   /**
    * Le paso los parametros para crear un item y me lo agrega a la memoria
    */
-  @Ignore
   @Test
   public void testAgregaUnItem() {
   	int cantidadDeItems = Main.items.size();

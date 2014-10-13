@@ -28,7 +28,6 @@ public class Items {
     @GET 
     @Produces("application/json")
     public Response index() {
-    	System.out.println("Me pidieron los Items");
     	String itemsJson = new Gson().toJson(Main.items);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
