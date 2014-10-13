@@ -28,7 +28,8 @@ public class Items {
     @GET 
     @Produces("application/json")
     public Response index() {
-    	String itemsJson = new Gson().toJson(Main.items);
+    	int idUsuarioLogueado = 1;
+    	String itemsJson = new Gson().toJson(Main.usuarios.findById(idUsuarioLogueado).getItems());
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     

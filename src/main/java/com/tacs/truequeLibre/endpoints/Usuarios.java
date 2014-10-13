@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.DeleteRequest;
 import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/usuarios")
@@ -23,12 +24,15 @@ public class Usuarios {
 
 	/**
 	 * Listar Usuarios.
-	 * @return: Un JSON que representa la lista de usuarios que estan en la aplicacion
+	 * @return: Un JSON que representa la lista de usuarios que tiene como amigos la persona que se logueo
 	 */
     @GET 
     @Produces("application/json")
     public Response index() {
-    	String usuariosJson = new Gson().toJson(Main.usuarios);
+    	int idUsuarioLogueado = 1;
+    	Usuario usuarioLogueado = Main.usuarios.findById(idUsuarioLogueado);
+    	ListaDeUsuarios amigos = usuarioLogueado.getAmigos();
+    	String usuariosJson = new Gson().toJson(amigos);
     	
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }

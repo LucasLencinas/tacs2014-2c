@@ -23,12 +23,12 @@
 	}
 
 	function actualizarModalHacerTrueque(idItem,idUsuario){
-		
+		//En realidad ahora el idUsuario no lo uso, pero mas adelante creo que lo necesito
 		actualizarItemDeModalHacerTrueque(idItem);
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
-	        url: "truequeLibre/usuarios/"+idUsuario+"/items",
+	        url: "truequeLibre/items",
 	        success: function (data) {
 	        	//Agregar los options al select por cada item
 	        	data.forEach( function(el){
@@ -65,13 +65,13 @@
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
-	        url: "truequeLibre/items",
+	        url: "truequeLibre/usuarios",
 	        success: function (data) {
 	        	var items = "";
-	        	data.forEach( function(el){
-	        		if(el.id != "1")
-	        			items += generarVistaOtherItem(el);
-	        		
+	        	data.forEach( function(amigo){
+    	        	amigo.items.forEach( function(it){
+    	        			items += generarVistaOtherItem(it);
+    	        	});    	       
 	        	});
 	            $('#dynamicRow').html(items);
 	            $('.img-thumbnail').tooltip();
@@ -96,7 +96,7 @@
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
-	        url: "truequeLibre/usuarios/1/items",
+	        url: "truequeLibre/items",
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){

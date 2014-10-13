@@ -14,6 +14,8 @@ public class Usuario implements Serializable{
 	@Expose private ListaDeItems items;
   
 	@Expose private ListaDeTrueques trueques;
+	
+	@Expose private ListaDeUsuarios amigos;
   
   //Falta ListaDeAmigos TODO
   
@@ -22,6 +24,7 @@ public class Usuario implements Serializable{
     this.setNombre(unNombre);
     this.setItems(new ListaDeItems());
     this.setTrueques(new ListaDeTrueques());
+    this.setAmigos(new ListaDeUsuarios());
   }
  
   /**
@@ -52,6 +55,15 @@ public class Usuario implements Serializable{
 		this.items= unosItems;
 	}
 
+	public ListaDeUsuarios getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(ListaDeUsuarios unosAmigos) {
+		this.amigos= unosAmigos;
+	}
+	
+	
 	public ListaDeTrueques getTrueques() {
 		return trueques;
 	}

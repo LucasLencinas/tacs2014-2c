@@ -118,6 +118,11 @@ public class Main {
     	usuarios.add(usuarioAmigo2);
     	usuarios.add(usuarioAmigo3);
     	
+    	miUsuario.getAmigos().add(usuarioAmigo1);
+    	miUsuario.getAmigos().add(usuarioAmigo2);
+    	miUsuario.getAmigos().add(usuarioAmigo3);
+    	
+    	
 		}
 
 		private static void loadItems() {
