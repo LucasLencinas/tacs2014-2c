@@ -82,15 +82,10 @@ public class ItemsTest {
   @Test
   public void testAgregaUnItem() {
   	int cantidadDeItems = Main.items.size();
-  	
-    Form form = new Form();
-    form.param("title", "Nuevo Celular!");
-    form.param("description", "Nokia 1100");
-    form.param("ml_permalink", "http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM");
-    form.param("ml_id", "MLA521311328");
+  	String json = "{'title':'Nuevo Celular!', 'description': 'Nokia 1100', 'ml': {'permalink': 'http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM', 'id': 'MLA521311328'}}";
     
     target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
-    					   post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED_TYPE),
+    					   post(Entity.entity(json,MediaType.APPLICATION_JSON_TYPE),
     							Response.class);
     assertTrue(Main.items.size() == cantidadDeItems+1);
   }  
