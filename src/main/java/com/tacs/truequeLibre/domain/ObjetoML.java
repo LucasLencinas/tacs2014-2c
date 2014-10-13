@@ -18,13 +18,7 @@ public class ObjetoML implements Serializable {
       this.setThumbnail(unThumbnail);
       
   }
-  
-  public ObjetoML(){
-	  
-  }
 
-  
-  
   /**
    * Getters and Setters
    * 

@@ -7,11 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Item implements Serializable{
 	
-  private int id;
+  @Expose private int id;
 	 
   @Expose private String title;
-
+  //Sirve para describir por que tipo de item se quiere truequear
   @Expose private String description;
+  
 
   @SerializedName("ml") private ObjetoML objML;
   
@@ -19,7 +20,7 @@ public class Item implements Serializable{
 	  
   }
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-	this.setId(ListaDeItems.getNewID());
+  	this.setId(ListaDeItems.getNewID());
     this.setTitulo(unTitulo);
     this.setDescripcion(unaDescripcion);
     this.setObjML(unObjML);
