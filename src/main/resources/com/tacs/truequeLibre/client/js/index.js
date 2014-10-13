@@ -22,9 +22,9 @@
 		}
 	}
 
-	function actualizarModal(idItem,idUsuario){
+	function actualizarModalHacerTrueque(idItem,idUsuario){
 		
-		modificarItemDeModal(idItem);
+		modificarItemDeModalHacerTrueque(idItem);
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -33,24 +33,34 @@
 	        	//Agregar los options al select por cada item
 	        	data.forEach( function(el){
 	        		var unOption = sprintf("<option value=\"%s\">%s</option>",el.id,el.title);
-	        		$("#selectDeModal").append( unOption );
+	        		$("#selectDeModalHacerTrueque").append( unOption );
 	        	});
 	        }
 	    });
 	}
 	
-	function modificarItemDeModal(idItem){
+	function modificarItemDeModalHacerTrueque(idItem){
 		
-		$("#myModalLabel").html($("#" + idItem + " > h4 ").text());
-		$("#imagenModal").attr("src",$("#" + idItem + " > img ").attr('src'));
-		$("#descriptionModal").html($("#" + idItem + " > img ").attr('alt'));
+		$("#modalHacerTruequeLabel").html($("#" + idItem + " > h4 ").text());
+		$("#imagenModalHacerTrueque").attr("src",$("#" + idItem + " > img ").attr('src'));
+		$("#descriptionModalHacerTrueque").html($("#" + idItem + " > img ").attr('alt'));
 
 	}
+	
+	function actualizarModalDeleteItem(idItem,idUsuario){	
+		
+		$("#modalDeleteItemLabel").html($("#" + idItem + " > h4 ").text());
+		$("#imagenModalDeleteItem").attr("src",$("#" + idItem + " > img ").attr('src'));
+		$("#descriptionModalDeleteItem").html($("#" + idItem + " > img ").attr('alt'));
+	}
+	
+	
 	
 	
 	//Me da los items de todo el sistema menos los mios
 	//El 1 que hardcodee es el id del usuario con el que se logueo una persona
 	function getOtherItems(){
+		$( "#mainTitle" ).html( "Bienvenido a Trueque Libre!" );
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -59,7 +69,7 @@
 	        	var items = "";
 	        	data.forEach( function(el){
 	        		if(el.id != "1")
-	        			items += generarVistaItem(el);
+	        			items += generarVistaOtherItem(el);
 	        		
 	        	});
 	            $('#dynamicRow').html(items);
@@ -68,19 +78,47 @@
 	    });
 	}
 	//El id del usuario, lo hardcodee, le puse un Uno, arreglarlo despues
-	function generarVistaItem(item){	
+	function generarVistaOtherItem(item){	
 		var vista = sprintf("<div class=\"col-md-4\" id=\"%s\">",item.id);
 		vista += sprintf("<h4>%s</h4>",item.title);
 		vista += sprintf("<img src=\"%s\" alt=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#myModal\" onclick=\"actualizarModal(%s,%s)\">Postular Trueque</button></p>",item.id, "1");
+		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s)\">Postular Trueque</button></p>",item.id, "1");
 		vista += "</div>";
 		return vista;
-		
-		
 	}
+	
+	function getMyItems(){
+		$( "#mainTitle" ).html( "Mis Items!" );
+		$.ajax({
+	        type: "GET",
+	        dataType: "json",
+	        url: "truequeLibre/usuarios/1/items",
+	        success: function (data) {
+	        	var items = "";
+	        	data.forEach( function(el){
+	        		items += generarVistaMyItem(el);
+	        	});
+	            $('#dynamicRow').html(items);
+	            $('.img-thumbnail').tooltip();
+	        }
+	    });
+	}
+	
+	function generarVistaMyItem(item){	
+		var vista = sprintf("<div class=\"col-md-4\" id=\"%s\">",item.id);
+		vista += sprintf("<h4>%s</h4>",item.title);
+		vista += sprintf("<img src=\"%s\" alt=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
+				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
+				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
+		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
+		"data-target=\"#modalDeleteItem\" onclick=\"actualizarModalDeleteItem(%s,%s)\">Borrar Item</button></p>",item.id, "1");
+		vista += "</div>";
+		return vista;
+	}
+	
 	
 	function sprintf( format )
 	{

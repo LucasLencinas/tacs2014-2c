@@ -18,6 +18,7 @@
     $(document).ready(function() {
     	$("#navbar").load("navbar.html");
     	$('.img-thumbnail').tooltip();
+    	getOtherItems();
     });
     
     </script>
@@ -44,13 +45,14 @@
             <table class="col-md-12">
               <tr>
                 <td class="col-md-3 text-center">
-                  <button class="btn btn-primary btn-lg" onclick="getOtherItems()">Mis Items</button>
+                  <button class="btn btn-primary btn-lg" onclick="getMyItems()">Mis Items</button>
                 </td>
                 <td class="col-md-3 text-center" onclick="getMyTrueques()">
                   <button class="btn btn-success btn-lg">Mis Trueques</button>
                 </td>
                 <td class="col-md-3 text-center"><button class="btn btn-info btn-lg">Mis Solicitudes</button></td>
-                <td class="col-md-3 text-center"><button class="btn btn-warning btn-lg">Buscar Item</button></td>
+                <td class="col-md-3 text-center"><button class="btn btn-warning btn-lg">Buscar Items</button></td>                
+                <td class="col-md-3 text-center"><button class="btn btn-default btn-lg">Buscar Amigos</button></td>
               </tr>
             </table>
           </div>    
@@ -67,34 +69,57 @@
     </footer>
 
     <!-- Modal Es un modal base, cuando se haga click en cada item, se recargara con informacion posta-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalHacerTrueque" tabindex="-1" role="dialog" aria-labelledby="modalHacerTruequeLabel" aria-hidden="true">
       <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Mesa de Madera</h4>
+            <h4 class="modal-title" id="modalHacerTruequeLabel">Mesa de Madera</h4>
           </div>
           <div class="modal-body">
 	        <div class="paragraphs">
 	          <div class="row">
 	            <div class="col-md-5">
-	              <img src="" id="imagenModal"  class="img-thumbnail" width="150" height="150">
+	              <img src="" id="imagenModalHacerTrueque"  class="img-thumbnail" width="150" height="150">
 	            </div>
-	            <div id="descriptionModal" class="col-md-6 well">
-	            	Mesa redonde de madera, 1.60m x 1.00m x 0.70m y sigo escribiendo para ver como queda una descripcion de producto grandessssss
-	            </div>
+	            <div id="descriptionModalHacerTrueque" class="col-md-6 well">Descripcion</div>
 	          </div>
 	          <div>
 		          <p>Elija uno de sus productos para realizar el trueque:</p>
-		  
-		          <select id="selectDeModal" class="form-control">
-		          </select>
+		          <select id="selectDeModalHacerTrueque" class="form-control"></select>
 	          </div>
 	        </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary">Postular Trueque</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal Para confirmar el borrado de items-->
+    <div class="modal fade" id="modalDeleteItem" tabindex="-1" role="dialog" aria-labelledby="modalDeleteItemLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="modalDeleteItemLabel">Mesa de Madera</h4>
+          </div>
+          <div class="modal-body">
+	        <div class="paragraphs">
+	          <div class="row">
+	            <div class="col-md-5">
+	              <img src="" id="imagenModalDeleteItem"  class="img-thumbnail" width="150" height="150">
+	            </div>
+	            <div id="descriptionModalDeleteItem" class="col-md-6 well">Descripcion</div>
+	          </div>
+	          <div><p>Esta seguro que desea eliminar este item?</p></div>
+	        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary">Si</button>
           </div>
         </div>
       </div>
