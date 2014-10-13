@@ -20,7 +20,7 @@ public class Item implements Serializable{
 	  
   }
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-	this.setId(ListaDeItems.getNewID());
+  	this.setId(ListaDeItems.getNewID());
     this.setTitulo(unTitulo);
     this.setDescripcion(unaDescripcion);
     this.setObjML(unObjML);

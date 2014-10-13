@@ -1,20 +1,24 @@
 package com.tacs.truequeLibre.domain;
 
-public class Usuario {
+import java.io.Serializable;
+
+import com.google.gson.annotations.Expose;
+
+public class Usuario implements Serializable{
 
 	
-	private int id;
+	@Expose private int id;
 
-  private String nombre;
+	@Expose private String nombre;
 
-  private ListaDeItems items;
+	@Expose private ListaDeItems items;
   
-  private ListaDeTrueques trueques;
+	@Expose private ListaDeTrueques trueques;
   
   //Falta ListaDeAmigos TODO
   
   public Usuario(String unNombre) {
-  	this.setId(ListaDeItems.getNewID());
+  	this.setId(ListaDeUsuarios.getNewID());
     this.setNombre(unNombre);
     this.setItems(new ListaDeItems());
     this.setTrueques(new ListaDeTrueques());
