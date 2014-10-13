@@ -120,15 +120,17 @@
 		return vista;
 	}
 	
-	function deleteItem(idItem,idUsuario){
+	function deleteItem(idDeItem,idDeUsuario){
 		$("#modalDeleteItem").modal('hide');
-		var deleteRequest = {idItem: idItem, idUsuario: idUsuario};
+		var deleteRequest = {"idItem": idDeItem, "idUsuario": idDeUsuario};
+		//Me crea bien el deleteRequest pero llega mal al servidor
+		//Stringify funciona bien
 		$.ajax({
 	        type: "DELETE",
-	        dataType: "json",
 	        data: JSON.stringify(deleteRequest),
-	        contentType: 'application/json',
+			contentType: 'application/json', 
 	        url: "truequeLibre/usuarios/1/items",
+	        dataType:"json",
 	        success: function (data) {
 	        	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
 	        },
@@ -137,6 +139,7 @@
 	        }
 	    });
 	}
+	
 	
 	
 	function sprintf( format )

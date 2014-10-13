@@ -63,7 +63,7 @@ public class Usuarios {
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/{id}/items")
-	public Response deleteItem(String item_json) {
+	public Response deleteItem(@PathParam("id") Integer idUsuario, String item_json) {
     	Gson parser = new Gson();
     	DeleteRequest pedidoDelete = parser.fromJson(item_json, DeleteRequest.class);
     	Usuario unUsuario= Main.usuarios.findById(pedidoDelete.idUsuario);
@@ -73,6 +73,7 @@ public class Usuarios {
     	Main.items.remove(itemABorrar);
     	return Response.ok(new Gson().toJson(pedidoDelete), MediaType.APPLICATION_JSON).build();
     }
+    
 
 
 }
