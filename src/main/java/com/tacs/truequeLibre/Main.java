@@ -38,6 +38,7 @@ public class Main {
     public static Trueque trueque1;
     public static Trueque trueque2;
     public static Trueque trueque3;
+    public static Trueque trueque4;
     
     public static Item item1;
     public static Item item2;
@@ -76,6 +77,7 @@ public class Main {
     	trueque1 = new Trueque(item1,item2,miUsuario, usuarioAmigo1,"Anteojos por Notebook");
     	trueque2 = new Trueque(item3,item5,miUsuario, usuarioAmigo2,"Mesa por Moto");
     	trueque3 = new Trueque(item7,item8,usuarioAmigo2, usuarioAmigo3,"Musculosa por Auto");
+    	trueque4 = new Trueque(item5,item1,usuarioAmigo2, miUsuario,"Moto por Auto");
     	
     	//Esto esta re mal creo, se repiten relaciones por todos lados, preguntarle a los chicos. FIXME
     /*	comento este codigo porque me rompe cuando pido el json, como dice el comentario de arriba, puede que esto este de mas
@@ -89,6 +91,7 @@ public class Main {
     	trueques.add(trueque1);
     	trueques.add(trueque2);
     	trueques.add(trueque3);
+    	trueques.add(trueque4);
 		}
 
 		private static void loadUsuarios() {

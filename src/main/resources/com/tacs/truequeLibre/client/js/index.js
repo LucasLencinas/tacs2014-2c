@@ -3,12 +3,12 @@
 		$( "#dynamicRow" ).load( "trueques.html" );
 		$.get("truequeLibre/trueques", function( data ) {
 			$( "#mainTitle" ).html( "Mis Trueques" );
-    	data.forEach( function(el){
-    		var row = "<tr><td>"+	el.usuarioSolicitante.nombre+"</td><td>"+
-    													el.usuarioSolicitado.nombre+"</td><td>"+
-    													el.itemSolicitado.title+"</td><td>"+
-    													el.itemOfrecido.title+"</td><td>"+
-    													getStatusName(el.estado)+"</td></tr>";
+    	data.forEach( function(trueque){
+    		var row = "<tr><td>"+	trueque.usuarioSolicitante.nombre+"</td><td>"+
+    													trueque.usuarioSolicitado.nombre+"</td><td>"+
+    													trueque.itemSolicitado.title+"</td><td>"+
+    													trueque.itemOfrecido.title+"</td><td>"+
+    													getStatusName(trueque.estado)+"</td></tr>";
     		$("#truequesTable > tbody").append(row);
     	});
 		});
@@ -20,6 +20,53 @@
 			case 1: return "Aceptado";
 			case 2: return "Rechazado";
 		}
+	}
+
+	function getMySolicitudes(){
+		$( "#dynamicRow" ).load( "truequesPendientes.html" );
+		$.get("truequeLibre/trueques/pendientes", function( data ) {
+			$( "#mainTitle" ).html( "Mis Solicitudes" );
+    	data.forEach( function(trueque){
+    		var row = "<tr><td>"+	trueque.usuarioSolicitante.nombre+"</td><td>"+
+    													getThumbnail(trueque.itemSolicitado)+"</td><td>"+
+    													getThumbnail(trueque.itemOfrecido)+"</td><td>"+
+    													"<a class='btn btn-success' onclick='aceptarTrueque("+trueque.id+")'>Aceptar</a></td><td>"+
+    													"<a class='btn btn-danger' onclick='rechazarTrueque("+trueque.id+")'>Rechazar</a></td></tr>";
+    		$("#solicitudesTable > tbody").append(row);
+    	});
+		});
+	}
+
+	function getThumbnail(item){
+		return "<img src='"+item.ml.thumbnail+"class='img-thumbnail' width='100 height='100' data-toggle='tooltip'"+
+		"title='"+item.title+"' href='"+"'>";
+	}
+
+	function aceptarTrueque(truequeId){
+		$.ajax({
+		  type: "POST",
+		  url: "truequeLibre/trueques/accept/"+truequeId,
+		  success: function(){
+		  	setTruequeAlert('Aceptado');
+		  	getMySolicitudes();
+		  }
+		});
+	}
+
+	function rechazarTrueque(truequeId){
+		$.ajax({
+		  type: "POST",
+		  url: "truequeLibre/trueques/reject/"+truequeId,
+		  success: function(){
+		  	setTruequeAlert('Rechazado');
+		  	getMySolicitudes();
+		  }
+		});
+	}
+
+	function setTruequeAlert(status){
+		$("#notificationsRow").append("<div class='alert alert-success' role='alert'>Trueque "+status+
+			"!<button type='button' class='close' data-dismiss='alert'>&times;</span></div>");
 	}
 
 	function actualizarModalHacerTrueque(idItem,idUsuario){

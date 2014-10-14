@@ -25,12 +25,12 @@ public class Trueque {
   //definidos en TruequeStatusConstants
   private int estado;
   
-  public Trueque(Item unItem1, Item unItem2, Usuario unUsuario1, Usuario unUsuario2, String unaDescripcion) {
+  public Trueque(Item itemOfrecido, Item itemSolicitado, Usuario usuarioSolicitante, Usuario usuarioSolicitado, String unaDescripcion) {
   	this.setId(ListaDeTrueques.getNewID());
-    this.setItemOfrecido(unItem1);
-    this.setUsuarioSolicitante(unUsuario1);
-    this.setItemSolicitado(unItem2);
-    this.setUsuarioSolicitado(unUsuario2);
+    this.setItemOfrecido(itemOfrecido);
+    this.setUsuarioSolicitante(usuarioSolicitante);
+    this.setItemSolicitado(itemSolicitado);
+    this.setUsuarioSolicitado(usuarioSolicitado);
     this.setDescripcion(unaDescripcion);
     this.setEstado(TruequeStatusConstants.PENDING.getID());
   }

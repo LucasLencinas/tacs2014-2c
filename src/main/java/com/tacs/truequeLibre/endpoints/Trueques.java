@@ -37,10 +37,12 @@ public class Trueques {
     }
     
 	@GET
-	@Path("/solicitudes")
+	@Path("/pendientes")
 	@Produces("text/plain")
-	public String solicitudes(){
-	 	return "Listado de mis solicitudes de trueque";
+	public Response solicitudes(){
+    	System.out.println("Me pidieron las solicitudes");
+    	String itemsJson = new Gson().toJson(Main.trueques.getPending());
+      return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}
 	
     @GET
@@ -80,8 +82,10 @@ public class Trueques {
     
     @POST
     @Path("/reject/{id}")
-	public String reject(@PathParam("id") Integer id) {
-    	return "Trueque "+id+" rechazado";
+	public String reject(@PathParam("id") Integer truequeId) {
+    	Trueque trueque = Trueque.getById(truequeId);
+    	trueque.rechazarTrueque();
+    	return "Trueque "+truequeId+" aceptado";
     }  
     
  
