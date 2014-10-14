@@ -16,7 +16,8 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
-import com.tacs.truequeLibre.domain.ObjetoML;;
+import com.tacs.truequeLibre.domain.ObjetoML;
+import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/items")
 public class Items {
@@ -63,9 +64,13 @@ public class Items {
     @Produces("application/json")
     @Consumes("application/json")
 	public Response create(String item_json) {
+    	int idUsuarioLogueado=1;
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
+    	Usuario actual = Main.usuarios.findById(idUsuarioLogueado);
+    	actual.agregarItem(unItem);
     	Main.items.add(unItem);
+    	
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
 

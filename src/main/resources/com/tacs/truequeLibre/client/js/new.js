@@ -71,6 +71,7 @@ var MlSearch = function(table, template, after_results){
 
 /* Crea una instancia de MLSearch y setea los handlers a los botones */
 $(document).ready(function(){
+	
 	var ml = MlSearch("#ml-results", $("#ml-item-template").html(), showNavigationLinks);
 	$('#title').on('keyup', function(e) {
 	    if (e.which == 13) {
@@ -115,7 +116,7 @@ $(document).ready(function(){
 							{
 								"id": $("#ml_id").val(),
 								"permalink": $("#ml_permalink").val(),
-								"thumbnail": $("#ml_thumbnail").val()
+								"thumbnail": $("#ml_thumbnail").attr('src')
 							}
 
 					};
@@ -125,7 +126,9 @@ $(document).ready(function(){
 					type: "POST", 
 					data: JSON.stringify(item), 
 					contentType: 'application/json', 
-					success: function(e){alert("Item creado!"); window.location="/articulos";},
+					success: function(e){
+						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.');
+						},
 			    	dataType: 'json'
 			    }
 			);
