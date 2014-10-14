@@ -91,7 +91,6 @@
 		$("#modalHacerTruequeLabel").html($("#" + idItem + " > h4 ").text());
 		$("#imagenModalHacerTrueque").attr("src",$("#" + idItem + " > img ").attr('src'));
 		$("#descriptionModalHacerTrueque").html($("#" + idItem + " > img ").attr('alt'));
-
 	}
 	
 	function actualizarModalDeleteItem(idItem,idUsuario){	
@@ -101,9 +100,6 @@
 		$("#descriptionModalDeleteItem").html($("#" + idItem + " > img ").attr('alt'));
 		$("#deleteItemButton").attr("onclick","deleteItem("+idItem+","+idUsuario+")")
 	}
-	
-	
-	
 	
 	//Me da los items de todo el sistema menos los mios
 	//El 1 que hardcodee es el id del usuario con el que se logueo una persona
