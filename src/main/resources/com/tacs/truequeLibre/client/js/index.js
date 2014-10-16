@@ -129,7 +129,7 @@
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s)\">Postular Trueque</button></p>",item.id, "1");
+		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s);\">Postular Trueque</button></p>",item.id, "1");
 		vista += "</div>";
 		return vista;
 	}
@@ -158,7 +158,7 @@
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#modalDeleteItem\" onclick=\"actualizarModalDeleteItem(%s,%s)\">Borrar Item</button></p>",item.id, "1");
+		"data-target=\"#modalDeleteItem\" onclick=\"actualizarModalDeleteItem(%s,%s);\">Borrar Item</button></p>",item.id, "1");
 		vista += "</div>";
 		return vista;
 	}
