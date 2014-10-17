@@ -16,6 +16,7 @@ import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
+import com.tacs.truequeLibre.services.TruequesService;
 
 /* 
  *  Por el momento asumo que la solicitud y el trueque son la misma entidad,
@@ -32,7 +33,7 @@ public class Trueques {
     @Produces("application/json")
     public Response index() {
     	System.out.println("Me pidieron los Trueques");
-    	String itemsJson = new Gson().toJson(Main.trueques.getByUser(Main.miUsuario));
+    	String itemsJson = new Gson().toJson(TruequesService.byUser(Main.current_user().getId()));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -41,7 +42,7 @@ public class Trueques {
 	@Produces("text/plain")
 	public Response solicitudes(){
     	System.out.println("Me pidieron las solicitudes");
-    	String itemsJson = new Gson().toJson(Main.trueques.getPending());
+    	String itemsJson = new Gson().toJson(TruequesService.getPending(Main.current_user().getId()));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -75,7 +76,7 @@ public class Trueques {
     @POST
     @Path("/accept/{id}")
 	public String accept(@PathParam("id") Integer truequeId) throws Exception {
-    	Trueque trueque = Trueque.getById(truequeId);
+    	Trueque trueque = TruequesService.find(truequeId);
     	trueque.aceptarTrueque();
     	return "Trueque "+truequeId+" aceptado";
     }
@@ -83,7 +84,7 @@ public class Trueques {
     @POST
     @Path("/reject/{id}")
 	public String reject(@PathParam("id") Integer truequeId) {
-    	Trueque trueque = Trueque.getById(truequeId);
+    	Trueque trueque =  TruequesService.find(truequeId);
     	trueque.rechazarTrueque();
     	return "Trueque "+truequeId+" aceptado";
     }  

@@ -18,6 +18,8 @@ import com.tacs.truequeLibre.Utils.DeleteRequest;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
+import com.tacs.truequeLibre.services.ItemsService;
+import com.tacs.truequeLibre.services.UsersService;
 
 @Path("/usuarios")
 public class Usuarios {
@@ -30,7 +32,7 @@ public class Usuarios {
     @Produces("application/json")
     public Response index() {
     	int idUsuarioLogueado = 1;
-    	Usuario usuarioLogueado = Main.usuarios.findById(idUsuarioLogueado);
+    	Usuario usuarioLogueado = UsersService.find(idUsuarioLogueado);
     	ListaDeUsuarios amigos = usuarioLogueado.getAmigos();
     	String usuariosJson = new Gson().toJson(amigos);
     	
@@ -47,7 +49,7 @@ public class Usuarios {
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	
-    	Usuario unUsuario= Main.usuarios.findById(id);	
+    	Usuario unUsuario=UsersService.find(id);	
     	Gson unGson = new Gson();
     	String unUsuarioJson = unGson.toJson(unUsuario);
     	return Response.ok(unUsuarioJson, MediaType.APPLICATION_JSON).build();
@@ -57,27 +59,10 @@ public class Usuarios {
     @Path("/{id}/items")
     @Produces("application/json")
     public Response showItems(@PathParam("id") Integer id){
-    	Usuario unUsuario= Main.usuarios.findById(id);	
+    	Usuario unUsuario= UsersService.find(id);	
     	Gson unGson = new Gson();
     	String itemsDeUsuarioJson = unGson.toJson(unUsuario.getItems());	//No se si va a andar
     	return Response.ok(itemsDeUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
     
-    @DELETE
-    @Produces("application/json")
-    @Consumes("application/json")
-    @Path("/{id}/items")
-	public Response deleteItem(@PathParam("id") Integer idUsuario, String item_json) {
-    	Gson parser = new Gson();
-    	DeleteRequest pedidoDelete = parser.fromJson(item_json, DeleteRequest.class);
-    	Usuario unUsuario= Main.usuarios.findById(pedidoDelete.idUsuario);
-    	Item itemABorrar = unUsuario.getItems().findById(pedidoDelete.idItem);
-    	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + unUsuario.getNombre());
-    	unUsuario.getItems().remove(itemABorrar);
-    	Main.items.remove(itemABorrar);
-    	return Response.ok(new Gson().toJson(pedidoDelete), MediaType.APPLICATION_JSON).build();
-    }
-    
-
-
 }

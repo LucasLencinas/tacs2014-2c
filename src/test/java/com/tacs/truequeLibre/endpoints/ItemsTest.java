@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.services.ItemsService;
 
 public class ItemsTest {
 
@@ -44,7 +45,7 @@ public class ItemsTest {
    */
   @Test
   public void testDameTodosLosItems() {
-	String itemsJson = new Gson().toJson(Main.items);
+	String itemsJson = new Gson().toJson(ItemsService.by_user(0));
 	String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
     assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
   }
@@ -55,7 +56,7 @@ public class ItemsTest {
   @Test
   public void testDameUnItem() {	
 	int id = 1;
-	String itemJson = new Gson().toJson(Main.items.findById(id));
+	String itemJson = new Gson().toJson(ItemsService.find(id));
 	String responseMsg = target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).get(String.class);
     assertTrue(responseMsg.equalsIgnoreCase(itemJson));
@@ -67,13 +68,13 @@ public class ItemsTest {
   @Test
   public void testBorraUnItem() {
   	int id = 3;
-  	int cantidadDeItems = Main.items.size();
-	String itemJson = "Item " + new Gson().toJson(Main.items.findById(id)) + " eliminado";
+  	int cantidadDeItems = ItemsService.all().size();
+	String itemJson = "Item " + new Gson().toJson(ItemsService.find(id)) + " eliminado";
 	String responseMsg = target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).delete(String.class);
 		
     assertTrue(responseMsg.toString().equalsIgnoreCase(itemJson));
-    assertTrue(Main.items.size() == cantidadDeItems-1);
+    assertTrue(ItemsService.all().size() == cantidadDeItems-1);
   }  
   
   /**
@@ -81,13 +82,13 @@ public class ItemsTest {
    */
   @Test
   public void testAgregaUnItem() {
-  	int cantidadDeItems = Main.items.size();
+  	int cantidadDeItems = ItemsService.all().size();
   	String json = "{'title':'Nuevo Celular!', 'description': 'Nokia 1100', 'ml': {'permalink': 'http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM', 'id': 'MLA521311328'}}";
     
     target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
     					   post(Entity.entity(json,MediaType.APPLICATION_JSON_TYPE),
     							Response.class);
-    assertTrue(Main.items.size() == cantidadDeItems+1);
+    assertTrue(ItemsService.all().size() == cantidadDeItems+1);
   }  
   
   

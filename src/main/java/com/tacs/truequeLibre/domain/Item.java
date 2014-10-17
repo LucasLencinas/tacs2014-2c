@@ -26,6 +26,14 @@ public class Item implements Serializable{
     this.setObjML(unObjML);
   }
   
+  private Usuario usuario;
+  public Usuario getUsuario(){
+	  return usuario;
+  }
+  
+  public void setUsuario(Usuario usuario){
+	  this.usuario = usuario;
+  }
   
   /**
    * Solo para poder saber si una lista contiene

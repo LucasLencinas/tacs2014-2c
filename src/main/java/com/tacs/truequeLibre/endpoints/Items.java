@@ -18,6 +18,8 @@ import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Usuario;
+import com.tacs.truequeLibre.services.ItemsService;
+import com.tacs.truequeLibre.services.UsersService;
 
 @Path("/items")
 public class Items {
@@ -30,7 +32,7 @@ public class Items {
     @Produces("application/json")
     public Response index() {
     	int idUsuarioLogueado = 1;
-    	String itemsJson = new Gson().toJson(Main.usuarios.findById(idUsuarioLogueado).getItems());
+    	String itemsJson = new Gson().toJson(UsersService.find(idUsuarioLogueado).getItems());
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -44,7 +46,7 @@ public class Items {
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	
-    	Item unItem= Main.items.findById(id);	
+    	Item unItem= ItemsService.find(id);	
     	Gson unGson = new Gson();
     	String unItemJson = unGson.toJson(unItem);
     	return Response.ok(unItemJson, MediaType.APPLICATION_JSON).build();
@@ -67,10 +69,7 @@ public class Items {
     	int idUsuarioLogueado=1;
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
-    	Usuario actual = Main.usuarios.findById(idUsuarioLogueado);
-    	actual.agregarItem(unItem);
-    	Main.items.add(unItem);
-    	
+    	ItemsService.add(idUsuarioLogueado, unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
 
@@ -94,7 +93,7 @@ public class Items {
 			@FormParam("ml_permalink") String permalink, 
 			@FormParam("ml_id") String ml_id,
 			@FormParam("ml_thumbnail") String ml_thumbnail) {
-    	Item unItemDeLista = Main.items.findById(id);
+    	Item unItemDeLista =ItemsService.find(id);
     	unItemDeLista.setId(id);
     	unItemDeLista.setDescripcion(description);;
     	unItemDeLista.setTitulo(title);;
@@ -110,8 +109,7 @@ public class Items {
     @DELETE
     @Path("/{id}")
     public Response destroy(@PathParam("id") Integer id){
-    	Item unItem = Main.items.findById(id);
-    	Main.items.remove(unItem);
+    	Item unItem = ItemsService.delete(id);
     	return Response.ok("Item "+ new Gson().toJson(unItem)+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }

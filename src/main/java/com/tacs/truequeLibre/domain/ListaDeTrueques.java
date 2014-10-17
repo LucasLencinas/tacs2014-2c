@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.gson.JsonElement;
 import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
+import com.tacs.truequeLibre.services.TruequesService;
 
 @SuppressWarnings("serial")
 public class ListaDeTrueques extends ArrayList<Trueque>{
@@ -32,8 +33,8 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 	//TODO: cambiar la interfaz de este metodo, miUsuario es una variable global y no hace falta el parametro
 	public ListaDeTrueques getByUser(Usuario miUsuario) {
 		ListaDeTrueques result = new ListaDeTrueques();
-		for (Trueque trueque: Main.trueques) {
-			  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
+		for (Trueque trueque: TruequesService.all()) {
+			  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == Main.current_user()) {
 			    result.add(trueque);
 			  }
 			}
@@ -43,8 +44,8 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 
 	public ListaDeTrueques getPending() {
 		ListaDeTrueques result = new ListaDeTrueques();
-		for (Trueque trueque: Main.trueques) {
-			  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == Main.miUsuario) {
+		for (Trueque trueque:  TruequesService.all()) {
+			  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == Main.current_user()) {
 			    result.add(trueque);
 			  }
 			}

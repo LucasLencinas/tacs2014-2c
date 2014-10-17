@@ -35,6 +35,16 @@ public class Trueque {
     this.setEstado(TruequeStatusConstants.PENDING.getID());
   }
   
+  public Trueque(Item itemOfrecido, Item itemSolicitado, String unaDescripcion) {
+	  	this.setId(ListaDeTrueques.getNewID());
+	    this.setItemOfrecido(itemOfrecido);
+	    this.setUsuarioSolicitante(itemSolicitado.getUsuario());
+	    this.setItemSolicitado(itemSolicitado);
+	    this.setUsuarioSolicitado(itemOfrecido.getUsuario());
+	    this.setDescripcion(unaDescripcion);
+	    this.setEstado(TruequeStatusConstants.PENDING.getID());
+  }
+  
   
   /**
    * Solo para poder saber si una lista contiene
@@ -138,16 +148,6 @@ public class Trueque {
 	public void rechazarTrueque() {
 		this.estado = TruequeStatusConstants.REJECTED.getID();
 	}
-	
-	//BD
-	public static Trueque getById(int truequeID){
-		return Main.trueques.findById(truequeID);
-	}
-	
-
-
-
-
 
 
 }
