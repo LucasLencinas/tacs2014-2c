@@ -192,6 +192,11 @@ public class Main {
                 server.shutdownNow();
         }
     }
+    
+    public static Usuario getLoggedUser(){
+    	int loggedUserId = 1;
+    	return Main.usuarios.findById(loggedUserId);
+    }
 
 
 }

@@ -98,7 +98,7 @@
 		$("#modalDeleteItemLabel").html($("#" + idItem + " > h4 ").text());
 		$("#imagenModalDeleteItem").attr("src",$("#" + idItem + " > img ").attr('src'));
 		$("#descriptionModalDeleteItem").html($("#" + idItem + " > img ").attr('alt'));
-		$("#deleteItemButton").attr("onclick","deleteItem("+idItem+","+idUsuario+")")
+		$("#deleteItemButton").attr("onclick","deleteItem("+idItem+")");
 	}
 	
 	//Me da los items de todo el sistema menos los mios
@@ -108,7 +108,7 @@
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
-	        url: "truequeLibre/usuarios",
+	        url: "truequeLibre/amigos/",
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(amigo){
@@ -139,7 +139,7 @@
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
-	        url: "truequeLibre/items",
+	        url: "truequeLibre/miPerfil/items",
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){
@@ -152,6 +152,7 @@
 	}
 	
 	function generarVistaMyItem(item){	
+//		console.log(item);
 		var vista = sprintf("<div class=\"col-md-4\" id=\"%s\">",item.id);
 		vista += sprintf("<h4>%s</h4>",item.title);
 		vista += sprintf("<img src=\"%s\" alt=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
@@ -163,24 +164,18 @@
 		return vista;
 	}
 	
-	function deleteItem(idDeItem,idDeUsuario){
+	function deleteItem(idDeItem){
 		$("#modalDeleteItem").modal('hide');
-		var deleteRequest = {"idItem": idDeItem, "idUsuario": idDeUsuario};
 		//Me crea bien el deleteRequest pero llega mal al servidor
 		//Stringify funciona bien
 		$.ajax({
 	        type: "DELETE",
-	        data: JSON.stringify(deleteRequest),
-			contentType: 'application/json', 
-	        url: "truequeLibre/usuarios/1/items",
+					contentType: 'application/json', 
+	        url: "truequeLibre/miPerfil/items/"+idDeItem,
 	        dataType:"json",
-	        success: function (data) {
-	        	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
-	        },
-	        error: function(data){
-	        	$("#descripcionResultadoOperacion").html('Hubo un Error en la Operacion!');
-	        }
+        	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
 	    });
+		getMyItems();
 	}
 	
 	
