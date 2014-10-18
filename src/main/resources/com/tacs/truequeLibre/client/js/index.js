@@ -72,6 +72,8 @@
 	function actualizarModalHacerTrueque(idItem,idUsuario){
 		//En realidad ahora el idUsuario no lo uso, pero mas adelante creo que lo necesito
 		actualizarItemDeModalHacerTrueque(idItem);
+		//limpio el select
+		$("#selectDeModalHacerTrueque").find('option').remove().end();
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",
@@ -173,8 +175,8 @@
 					contentType: 'application/json', 
 	        url: "truequeLibre/miPerfil/items/"+idDeItem,
 	        dataType:"json",
-        	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
 	    });
+  	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
 		getMyItems();
 	}
 	
