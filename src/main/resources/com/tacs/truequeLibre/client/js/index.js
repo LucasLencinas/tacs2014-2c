@@ -69,9 +69,9 @@
 			"!<button type='button' class='close' data-dismiss='alert'>&times;</span></div>");
 	}
 
-	function actualizarModalHacerTrueque(idItem,idUsuario){
+	function actualizarModalHacerTrueque(idItemSolicitado,idAmigo){
 		//En realidad ahora el idUsuario no lo uso, pero mas adelante creo que lo necesito
-		actualizarItemDeModalHacerTrueque(idItem);
+		actualizarItemDeModalHacerTrueque(idItemSolicitado);
 		//limpio el select
 		$("#selectDeModalHacerTrueque").find('option').remove().end();
 		$.ajax({
@@ -86,6 +86,8 @@
 	        	});
 	        }
 	    });
+
+		$("#postularTruequeButton").attr("onclick", "postularTrueque("+idAmigo+","+idItemSolicitado+")");
 	}
 	
 	function actualizarItemDeModalHacerTrueque(idItem){
@@ -115,7 +117,7 @@
 	        	var items = "";
 	        	data.forEach( function(amigo){
     	        	amigo.items.forEach( function(it){
-    	        			items += generarVistaOtherItem(it);
+    	        			items += generarVistaOtherItem(it, amigo);
     	        	});    	       
 	        	});
 	            $('#dynamicRow').html(items);
@@ -124,14 +126,14 @@
 	    });
 	}
 	//El id del usuario, lo hardcodee, le puse un Uno, arreglarlo despues
-	function generarVistaOtherItem(item){	
+	function generarVistaOtherItem(item, amigo){	
 		var vista = sprintf("<div class=\"col-md-4\" id=\"%s\">",item.id);
 		vista += sprintf("<h4>%s</h4>",item.title);
 		vista += sprintf("<img src=\"%s\" alt=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s);\">Postular Trueque</button></p>",item.id, "1");
+		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s);\">Postular Trueque</button></p>",item.id, amigo.id);
 		vista += "</div>";
 		return vista;
 	}
@@ -178,6 +180,19 @@
 	    });
   	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
 		getMyItems();
+	}
+
+	function postularTrueque(idAmigo, idItemSolicitado, idItemOfrecido){
+		var idItemOfrecido = Number($("#selectDeModalHacerTrueque").val());
+		console.log(JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}));
+		$.ajax({
+	        type: "PUT",
+	        data: JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}),
+	        url: "truequeLibre/miPerfil/trueques",
+					contentType: 'application/json', 
+	        dataType:"json",
+	    });
+		getMyTrueques();
 	}
 	
 	
