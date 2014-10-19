@@ -33,7 +33,6 @@ public class Trueque {
     this.setUsuarioSolicitado(usuarioSolicitado);
     this.setDescripcion(unaDescripcion);
     this.setEstado(TruequeStatusConstants.PENDING.getID());
-    Main.trueques.add(this);
   }
   
   
