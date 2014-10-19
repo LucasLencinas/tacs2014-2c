@@ -26,6 +26,7 @@ public class MiPerfil {
 	 * Listar Items.
 	 * @return: Un JSON que representa la lista de items que esta en la aplicacion
 	 */
+	
     @GET 
     @Path("/items")
     @Produces("application/json")

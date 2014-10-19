@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
 
+@SuppressWarnings("serial")
 public class Usuario implements Serializable{
 
 	
