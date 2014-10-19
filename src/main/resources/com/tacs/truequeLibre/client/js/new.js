@@ -105,6 +105,7 @@ $(document).ready(function(){
 		$("#ml_permalink").val(ml_item.data().permalink);
 		$("#ml_id").val(ml_item.data().id);
 		if($("#title").val()=="") $("#title").val(ml_item.data().title);
+		$("#ml_thumbnail").val(ml_item.data().thumbnail);
 
 	});
 
@@ -112,13 +113,11 @@ $(document).ready(function(){
 			var item = {
 						"title": $("#title").val(), 
 						"description": $("#description").val() ,
-						"ml":
-							{
+						"ml":{
 								"id": $("#ml_id").val(),
 								"permalink": $("#ml_permalink").val(),
-								"thumbnail": $("#ml_thumbnail").attr('src')
+								"thumbnail": $("#ml_thumbnail").val()
 							}
-
 					};
 			$.ajax(
 				{
@@ -127,6 +126,7 @@ $(document).ready(function(){
 					data: JSON.stringify(item), 
 					contentType: 'application/json', 
 					success: function(e){
+						$("#modalResultadoOperacion").modal('show');
 						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.');
 						},
 			    	dataType: 'json'
