@@ -29,14 +29,14 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 		return ++contador;
 	}
 
-	//TODO: cambiar la interfaz de este metodo, miUsuario es una variable global y no hace falta el parametro
-	public ListaDeTrueques getByUser(Usuario miUsuario) {
+	public ListaDeTrueques getByUser() {
+		Usuario miUsuario = Main.getLoggedUser();
 		ListaDeTrueques result = new ListaDeTrueques();
 		for (Trueque trueque: Main.trueques) {
-			  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
-			    result.add(trueque);
-			  }
-			}
+		  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
+			  result.add(trueque);
+		  }
+		}
 		return result;
 	}
 	

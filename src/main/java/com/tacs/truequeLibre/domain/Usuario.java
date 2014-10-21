@@ -3,6 +3,7 @@ package com.tacs.truequeLibre.domain;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
+import com.tacs.truequeLibre.Main;
 
 public class Usuario implements Serializable{
 
@@ -92,6 +93,5 @@ public class Usuario implements Serializable{
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

@@ -1,7 +1,7 @@
 
 	function getMyTrueques(){
 		$( "#dynamicRow" ).load( "trueques.html" );
-		$.get("truequeLibre/trueques", function( data ) {
+		$.get("truequeLibre/miPerfil/trueques", function( data ) {
 			$( "#mainTitle" ).html( "Mis Trueques" );
     	data.forEach( function(trueque){
     		var row = "<tr><td>"+	trueque.usuarioSolicitante.nombre+"</td><td>"+
@@ -182,17 +182,16 @@
 		getMyItems();
 	}
 
-	function postularTrueque(idAmigo, idItemSolicitado, idItemOfrecido){
+	function postularTrueque(idAmigo, idItemSolicitado){
 		var idItemOfrecido = Number($("#selectDeModalHacerTrueque").val());
-		console.log(JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}));
 		$.ajax({
-	        type: "PUT",
+	        type: "POST",
 	        data: JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}),
 	        url: "truequeLibre/miPerfil/trueques",
 					contentType: 'application/json', 
 	        dataType:"json",
 	    });
-		getMyTrueques();
+						getMyTrueques();	
 	}
 	
 	
