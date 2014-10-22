@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.Utils.TruequeRequest;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
@@ -44,20 +46,28 @@ public class MiPerfil {
     	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + usuarioLogueado.getNombre());
     	usuarioLogueado.getItems().remove(itemABorrar);
     	Main.items.remove(itemABorrar);
-    	return Response.ok("{status:ok}", MediaType.APPLICATION_JSON).build();
+    	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
     }
     
-    /*    @PUT
+    @GET
     @Path("/trueques")
-      public Response postularTrueque(String jsonData) {
-    	System.out.println("empiezo postulacion con:"+jsonData);
-    	JsonObject myjson = new JsonObject();
+    public Response getMyTrueques(){
+    	System.out.println("me piden los trueques");
+      String truequesJson = new Gson().toJson(Main.trueques.getByUser());
+      System.out.println("aca los tengo");
+      return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
+    }
+    
+    @POST
+    @Path("/trueques")
+      public Response postularTrueque(String jsonTrueque) {
+    	TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
         Usuario usuarioLogueado = Main.getLoggedUser();
-        Usuario usuarioAmigo = Main.usuarios.findById(idAmigo);
-        Item itemSolicitado = Main.items.findById(idItemSolicitado);
-        Item itemOfrecido = Main.items.findById(idItemOfrecido);
-   		Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo,"descripcion");
-       
-    	return Response.ok(new Gson().toJson(trueque), MediaType.APPLICATION_JSON).build();
-    }*/
+        Usuario usuarioAmigo = Main.usuarios.findById(unTruequeRequest.idAmigo);
+        Item itemSolicitado = Main.items.findById(unTruequeRequest.idItemSolicitado);
+        Item itemOfrecido = Main.items.findById(unTruequeRequest.idItemOfrecido);
+        Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
+        Main.trueques.add(trueque);
+    	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
+    }
 }

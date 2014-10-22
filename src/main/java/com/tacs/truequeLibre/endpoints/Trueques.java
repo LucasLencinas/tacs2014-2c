@@ -32,7 +32,7 @@ public class Trueques {
     @Produces("application/json")
     public Response index() {
     	System.out.println("Me pidieron los Trueques");
-    	String itemsJson = new Gson().toJson(Main.trueques.getByUser(Main.miUsuario));
+    	String itemsJson = new Gson().toJson(Main.trueques.getByUser());
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
