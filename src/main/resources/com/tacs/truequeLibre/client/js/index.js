@@ -107,8 +107,9 @@
 	
 	//Me da los items de todo el sistema menos los mios
 	//El 1 que hardcodee es el id del usuario con el que se logueo una persona
-	function getOtherItems(){
+	function getOtherItems(userID){
 		$( "#mainTitle" ).html( "Bienvenido a Trueque Libre!" );
+		console.log("A punto de pedir los itesm de amigos del user" + userID);
 		$.ajax({
 	        type: "GET",
 	        dataType: "json",

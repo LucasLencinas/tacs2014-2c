@@ -5,7 +5,8 @@
 
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
+        	
+        	statusChangeCallback(response);
         });
       }
 
@@ -43,10 +44,11 @@
         	
             $('#main').load("mainData.html");
         	$('.img-thumbnail').tooltip();
-        	getOtherItems();
+        	getOtherItems(response.authResponse.userID);
             FB.api('/me', function(response) {
                 $('#nombreUsuario').html(response.name);
               });
+            
             $("#cerrarSesion").attr('onclick', 'cerrarSesion();');
             
             //testAPI();  // Logged en la app y en Facebook.
