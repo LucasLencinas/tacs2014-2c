@@ -52,9 +52,7 @@ public class MiPerfil {
     @GET
     @Path("/trueques")
     public Response getMyTrueques(){
-    	System.out.println("me piden los trueques");
       String truequesJson = new Gson().toJson(Main.trueques.getByUser());
-      System.out.println("aca los tengo");
       return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
     }
     
