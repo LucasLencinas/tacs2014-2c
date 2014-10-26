@@ -50,6 +50,12 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${apachecommons.version}</version>
 		</dependency>
+		
+		<dependency>
+		  <groupId>com.restfb</groupId>
+		  <artifactId>restfb</artifactId>
+		  <version>1.6.16</version>
+		</dependency>
 
 	</dependencies>
 

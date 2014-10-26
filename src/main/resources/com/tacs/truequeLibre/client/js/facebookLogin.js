@@ -35,6 +35,9 @@
       function statusChangeCallback(response) {
         console.log('statusChangeCallback');
         console.log(response);
+        document.cookie = 'token=' + response.authResponse.accessToken;
+        document.cookie = 'id=' + response.authResponse.userID;
+
         
         // El response tiene muchos datos del usuario loggueado, entre ellos el estado
         if (response.status === 'connected') {
@@ -42,15 +45,17 @@
         	 * ACA ya estoy loggueado y puedo empezar a modificar la pagina,cargar los datos y todo eso
         	 * */
         	
-            $('#main').load("mainData.html");
+          $('#main').load("mainData.html");
         	$('.img-thumbnail').tooltip();
-        	getOtherItems(response.authResponse.userID);
-            FB.api('/me', function(response) {
-                $('#nombreUsuario').html(response.name);
-              });
-            
-            $("#cerrarSesion").attr('onclick', 'cerrarSesion();');
-            
+          FB.api('/me', function(response) {
+              $('#nombreUsuario').html(response.name);
+              document.cookie = 'nombre=' + response.name;
+              
+          });
+          getOtherItems($.cookie("id"));
+          
+          $("#cerrarSesion").attr('onclick', 'cerrarSesion();');
+          
             //testAPI();  // Logged en la app y en Facebook.
         } else if (response.status === 'not_authorized') {
           	$('#statusLogin').innerHTML = 'Please log into this app.';

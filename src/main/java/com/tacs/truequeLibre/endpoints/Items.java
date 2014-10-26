@@ -1,6 +1,8 @@
 package com.tacs.truequeLibre.endpoints;
 
 
+import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -10,6 +12,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,7 +33,7 @@ public class Items {
 	 */
     @GET 
     @Produces("application/json")
-    public Response index() {
+    public Response index(){
       String itemsJson = new Gson().toJson(Main.items);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
