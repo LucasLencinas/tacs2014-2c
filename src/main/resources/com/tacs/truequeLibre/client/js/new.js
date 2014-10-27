@@ -127,10 +127,18 @@ $(document).ready(function(){
 					contentType: 'application/json', 
 					success: function(e){
 						$("#modalResultadoOperacion").modal('show');
-						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.');
-						},
-			    	dataType: 'json'
-			    }
+						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.<br>' );
+						/*	------------POR AHORA NO FUNCIONA--------------
+						$("#descripcionResultadoOperacion").append('<a onclick="publishOnFB(\'page title\', \'page caption\', \'default message\'); return false;">Share on Facebook</a>');
+						FB.ui({
+						  method: 'share',
+						  message: 'holaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+						}, function(response){});
+					*/
+					},
+			   	dataType: 'json'
+			  }
+
 			);
 		}
 	);
