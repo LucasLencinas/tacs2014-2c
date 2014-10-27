@@ -1,8 +1,6 @@
 package com.tacs.truequeLibre.endpoints;
 
 
-import java.util.Map;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -12,14 +10,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.types.FacebookType;
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.Utils.PropiedadesFB;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Usuario;
@@ -74,7 +74,11 @@ public class Items {
     	Usuario actual = Main.usuarios.findById(idUsuarioLogueado);
     	actual.agregarItem(unItem);
     	Main.items.add(unItem);
-    	
+    	/*	TODAVIA NO FUNCIONA
+    	FacebookClient facebookClient = new DefaultFacebookClient(PropiedadesFB.appID,PropiedadesFB.appSecret);
+    	facebookClient.publish("me/feed", FacebookType.class,
+    	    Parameter.with("message", "Creo el item: " + unItem.getTitulo()));
+    	*/
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
 

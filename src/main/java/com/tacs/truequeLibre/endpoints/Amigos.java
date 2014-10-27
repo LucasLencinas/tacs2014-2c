@@ -1,13 +1,12 @@
 package com.tacs.truequeLibre.endpoints;
 
+import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
+
+
+
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,9 +17,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import com.restfb.Connection;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.types.User;
 import com.tacs.truequeLibre.Main;
-import com.tacs.truequeLibre.Utils.DeleteRequest;
-import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.Utils.PropiedadesFB;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -37,14 +38,21 @@ public class Amigos {
 	 *
 	 *Lo empiezo a probar aca porque es la primer llamada que se hace desde javascript hasta el servidor, supongo que tendria que ser
 	 *en otra pero despues los cambiamos
+	 *
 	 * */
     @GET 
     @Produces("application/json")
     public Response index(@Context HttpHeaders hh) {
     	Map<String, Cookie> pathParams = hh.getCookies();
-    	System.out.println(pathParams.get("nombre").getValue());
-      System.out.println(pathParams.get("token").getValue());
-      System.out.println(pathParams.get("id").getValue());
+    	String accessToken = pathParams.get("token").getValue();			
+      DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, PropiedadesFB.appSecret);
+      User user = facebookClient.fetchObject("me", User.class);
+
+      System.out.println("User name: " + user.getName());
+      Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
+      /*Solo funciona con los usuarios que estan "usando" la aplicacion, osea, los de test, con
+       * Probe con mi usuario pero no funciono. FIXME
+       * */
     	Usuario usuarioLogueado = Main.getLoggedUser();
     	ListaDeUsuarios amigos = usuarioLogueado.getAmigos();
     	String usuariosJson = new Gson().toJson(amigos);

@@ -8,7 +8,6 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
@@ -54,8 +53,8 @@ public class Main {
     public static HttpServer startServer() {
   		//Los recursos los va a buscar a este paquete
       final ResourceConfig rc = new ResourceConfig().packages("com.tacs.truequeLibre.endpoints");
-      
-      HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+      URI uri = URI.create(BASE_URI);
+      HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(uri, rc);
       HttpHandler handlerStatico = new StaticHttpHandler(System.getProperty("user.dir") + RESOURCES_PATH + "/client/");
       System.out.println(System.getProperty("user.dir"));
       httpServer.getServerConfiguration().addHttpHandler(handlerStatico, "/");
