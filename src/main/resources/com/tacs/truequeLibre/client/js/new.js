@@ -68,6 +68,22 @@ var MlSearch = function(table, template, after_results){
 
 }
 
+	function publishOnFB(){
+			FB.ui({
+				method: 'feed',
+				name: "Cree un nuevo producto para poder hacer un trueque",
+				picture: "unaImagen.jpg",
+				caption: "Una definicion de TruequeLibre o algo asi",
+				description: "cambie una silla por una cafetera"
+
+			}, function(response){});
+
+
+	}
+
+			
+
+
 
 /* Crea una instancia de MLSearch y setea los handlers a los botones */
 $(document).ready(function(){
@@ -128,18 +144,14 @@ $(document).ready(function(){
 					success: function(e){
 						$("#modalResultadoOperacion").modal('show');
 						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.<br>' );
-						/*	------------POR AHORA NO FUNCIONA--------------
-						$("#descripcionResultadoOperacion").append('<a onclick="publishOnFB(\'page title\', \'page caption\', \'default message\'); return false;">Share on Facebook</a>');
-						FB.ui({
-						  method: 'share',
-						  message: 'holaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-						}, function(response){});
-					*/
+						$("#descripcionResultadoOperacion").append('<a onclick="publishOnFB();">Share on Facebook</a>');
+				
 					},
 			   	dataType: 'json'
 			  }
 
 			);
 		}
+
 	);
 });
