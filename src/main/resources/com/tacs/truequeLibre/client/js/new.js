@@ -77,8 +77,6 @@ var MlSearch = function(table, template, after_results){
 				description: "cambie una silla por una cafetera"
 
 			}, function(response){});
-
-
 	}
 
 			

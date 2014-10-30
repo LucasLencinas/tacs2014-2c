@@ -31,6 +31,19 @@
       };
 
       
+  	function publishOnFB(){
+		FB.ui({
+			method: 'feed',
+			name: "Cree un nuevo producto para poder hacer un trueque",
+			picture: "unaImagen.jpg",
+			caption: "Una definicion de TruequeLibre o algo asi",
+			description: "cambie una silla por una cafetera"
+
+		}, function(response){});
+  	}
+      
+      
+      
       
       function statusChangeCallback(response) {
         console.log('statusChangeCallback');

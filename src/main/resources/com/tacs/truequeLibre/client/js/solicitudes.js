@@ -22,6 +22,8 @@
 		  success: function(){
 		  	setTruequeAlert('Aceptado');
 		  	getMySolicitudes();
+		  	publishOnFB();
+		  	
 		  }
 		});
 	}
