@@ -1,21 +1,24 @@
 package com.tacs.truequeLibre.endpoints;
 
-import javax.ws.rs.Consumes;
+
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.Utils.TruequeRequest;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
@@ -32,16 +35,16 @@ public class MiPerfil {
     @GET 
     @Path("/items")
     @Produces("application/json")
-    public Response index() {
-      String itemsJson = new Gson().toJson(Main.getLoggedUser().getItems());
+    public Response index(@Context HttpHeaders header) {
+      String itemsJson = new Gson().toJson(LlamadasFB.getLoggedUser(header).getItems());
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
     @DELETE
     @Produces("application/json")
     @Path("/items/{id}")
-	public Response deleteItem(@PathParam("id") Integer idItem) {
-    	Usuario usuarioLogueado = Main.getLoggedUser();
+	public Response deleteItem(@PathParam("id") Integer idItem, @Context HttpHeaders header) {
+    	Usuario usuarioLogueado = LlamadasFB.getLoggedUser(header);
     	Item itemABorrar = usuarioLogueado.getItems().findById(idItem);
     	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + usuarioLogueado.getNombre());
     	usuarioLogueado.getItems().remove(itemABorrar);
@@ -51,16 +54,17 @@ public class MiPerfil {
     
     @GET
     @Path("/trueques")
-    public Response getMyTrueques(){
-      String truequesJson = new Gson().toJson(Main.trueques.getByUser());
+    public Response getMyTrueques(@Context HttpHeaders header){
+  		Usuario user = LlamadasFB.getLoggedUser(header);
+      String truequesJson = new Gson().toJson(Main.trueques.getByUser(user));
       return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
     }
     
     @POST
     @Path("/trueques")
-      public Response postularTrueque(String jsonTrueque) {
+      public Response postularTrueque(String jsonTrueque, @Context HttpHeaders header) {
     	TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
-        Usuario usuarioLogueado = Main.getLoggedUser();
+        Usuario usuarioLogueado = LlamadasFB.getLoggedUser(header);
         Usuario usuarioAmigo = Main.usuarios.findById(unTruequeRequest.idAmigo);
         Item itemSolicitado = Main.items.findById(unTruequeRequest.idItemSolicitado);
         Item itemOfrecido = Main.items.findById(unTruequeRequest.idItemOfrecido);

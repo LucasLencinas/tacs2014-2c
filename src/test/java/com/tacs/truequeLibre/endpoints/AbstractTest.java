@@ -52,11 +52,11 @@ public abstract class AbstractTest {
 	  	items.add(item3);
 	  	items.add(item4);
 	  	
-	  	miUsuario = new Usuario("Mi Usuario");
+	  	miUsuario = new Usuario("Mi Usuario","123");
 	  	miUsuario.agregarItem(item1);
 	  	miUsuario.agregarItem(item3);
 	  	
-	  	usuarioAmigo = new Usuario("Usuario Amigo");
+	  	usuarioAmigo = new Usuario("Usuario Amigo","1234");
 	  	usuarioAmigo.agregarItem(item2);
 	}
 

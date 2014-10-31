@@ -3,13 +3,13 @@ package com.tacs.truequeLibre.domain;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
-import com.tacs.truequeLibre.Main;
+
 
 @SuppressWarnings("serial")
 public class Usuario implements Serializable{
 
 	
-	@Expose private int id;
+	@Expose private String id;
 
 	@Expose private String nombre;
 
@@ -21,8 +21,8 @@ public class Usuario implements Serializable{
   
   //Falta ListaDeAmigos TODO
   
-  public Usuario(String unNombre) {
-  	this.setId(ListaDeUsuarios.getNewID());
+  public Usuario(String unNombre,String id) {
+  	this.setId(id);
     this.setNombre(unNombre);
     this.setItems(new ListaDeItems());
     this.setTrueques(new ListaDeTrueques());
@@ -33,11 +33,11 @@ public class Usuario implements Serializable{
    * 
    * Getters and Setters
    */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -16,14 +16,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
 import com.tacs.truequeLibre.Main;
-import com.tacs.truequeLibre.Utils.PropiedadesFB;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Trueque;
+import com.tacs.truequeLibre.domain.Usuario;
 
 
 /* 
@@ -39,9 +39,10 @@ public class Trueques {
 	 */
     @GET 
     @Produces("application/json")
-    public Response index() {
+    public Response index(@Context HttpHeaders header) {
     	System.out.println("Me pidieron los Trueques");
-    	String itemsJson = new Gson().toJson(Main.trueques.getByUser());
+  		Usuario miUsuario = LlamadasFB.getLoggedUser(header);
+    	String itemsJson = new Gson().toJson(Main.trueques.getByUser(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -71,7 +72,7 @@ public class Trueques {
 	public String accept(@PathParam("id") Integer truequeId, @Context HttpHeaders hh) throws Exception {
 			Map<String, Cookie> pathParams = hh.getCookies();
 			String accessToken = pathParams.get("token").getValue();			
-		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, PropiedadesFB.appSecret);
+		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
 		  
     	Trueque trueque = Trueque.getById(truequeId);
     	trueque.aceptarTrueque();

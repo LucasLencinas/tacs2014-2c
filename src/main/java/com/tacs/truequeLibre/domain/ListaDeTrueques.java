@@ -2,8 +2,9 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.ArrayList;
 
-import com.google.gson.JsonElement;
+
 import com.tacs.truequeLibre.Main;
+
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
 
 @SuppressWarnings("serial")
@@ -29,8 +30,8 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 		return ++contador;
 	}
 
-	public ListaDeTrueques getByUser() {
-		Usuario miUsuario = Main.getLoggedUser();
+	public ListaDeTrueques getByUser(Usuario miUsuario) {
+
 		ListaDeTrueques result = new ListaDeTrueques();
 		for (Trueque trueque: Main.trueques) {
 		  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {

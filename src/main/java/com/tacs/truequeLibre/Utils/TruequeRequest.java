@@ -5,6 +5,6 @@ import com.google.gson.annotations.Expose;
 public class TruequeRequest {
 	@Expose public int idItemSolicitado;
 	@Expose public int idItemOfrecido;
-	@Expose public int idAmigo;
+	@Expose public String idAmigo;
 	
 }

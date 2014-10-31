@@ -10,16 +10,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
-import com.restfb.Parameter;
-import com.restfb.types.FacebookType;
+
 import com.tacs.truequeLibre.Main;
-import com.tacs.truequeLibre.Utils.PropiedadesFB;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Usuario;
@@ -67,11 +66,11 @@ public class Items {
     @POST
     @Produces("application/json")
     @Consumes("application/json")
-	public Response create(String item_json) {
-    	int idUsuarioLogueado=1;
+	public Response create(String item_json, @Context HttpHeaders header) {
+      Usuario user = LlamadasFB.getLoggedUser(header);
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
-    	Usuario actual = Main.usuarios.findById(idUsuarioLogueado);
+    	Usuario actual = Main.usuarios.findById(user.getId());
     	actual.agregarItem(unItem);
     	Main.items.add(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();

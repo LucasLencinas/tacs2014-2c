@@ -8,6 +8,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
@@ -33,6 +34,7 @@ public class Main {
     public static Usuario usuarioAmigo1;
     public static Usuario usuarioAmigo2;
     public static Usuario usuarioAmigo3;
+    public static Usuario usuarioAmigo4;
     
     public static Trueque trueque1;
     public static Trueque trueque2;
@@ -96,29 +98,33 @@ public class Main {
 		private static void loadUsuarios() {
 			usuarios = new ListaDeUsuarios();
     	//Falta el agregarAmigos a todos los usuarios. TODO
-    	miUsuario = new Usuario("Mi Usuario");
+    	miUsuario = new Usuario("Tom A", "1492722194320819");
     	miUsuario.agregarItem(item1);
     	miUsuario.agregarItem(item3);
     	miUsuario.agregarItem(item10);
 
-    	usuarioAmigo1 = new Usuario("Usuario Amigo1");
+    	usuarioAmigo1 = new Usuario("Tom B","272570376286889");
     	usuarioAmigo1.agregarItem(item2);
     	usuarioAmigo1.agregarItem(item4);
 
-    	usuarioAmigo2 = new Usuario("Usuario Amigo2");
+    	usuarioAmigo2 = new Usuario("Tom C","307305166123222");
     	usuarioAmigo2.agregarItem(item5);
     	usuarioAmigo2.agregarItem(item6);
     	usuarioAmigo2.agregarItem(item7);
    	
-    	usuarioAmigo3 = new Usuario("Usuario Amigo3");
+    	usuarioAmigo3 = new Usuario("Tom D","359154707587167");
     	usuarioAmigo3.agregarItem(item8);
     	usuarioAmigo3.agregarItem(item9);
 
+    	usuarioAmigo4 = new Usuario("Tom E","347614002065391");
+
+    	
     	
     	usuarios.add(miUsuario);
     	usuarios.add(usuarioAmigo1);
     	usuarios.add(usuarioAmigo2);
     	usuarios.add(usuarioAmigo3);
+    	usuarios.add(usuarioAmigo4);
     	
     	miUsuario.getAmigos().add(usuarioAmigo1);
     	miUsuario.getAmigos().add(usuarioAmigo2);
@@ -192,10 +198,6 @@ public class Main {
         }
     }
     
-    public static Usuario getLoggedUser(){
-    	int loggedUserId = 1;
-    	return Main.usuarios.findById(loggedUserId);
-    }
 
 
 }

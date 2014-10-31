@@ -7,10 +7,10 @@ public class ListaDeUsuarios extends ArrayList<Usuario>{
 
 	public static int contador = 0;
 	
-	public Usuario findById(int unId){
+	public Usuario findById(String idUser){
 		
 		for (Usuario unUsuario : this) {
-			if(unUsuario.getId() == unId)
+			if(unUsuario.getId().equalsIgnoreCase(idUser))
 				return unUsuario;
 		}
 			return null;
@@ -21,10 +21,6 @@ public class ListaDeUsuarios extends ArrayList<Usuario>{
 	public void clear(){
 		super.clear();
 		ListaDeUsuarios.contador = 0;
-	}
-
-	public static int getNewID() {
-		return ++contador;
 	}
 
 	
