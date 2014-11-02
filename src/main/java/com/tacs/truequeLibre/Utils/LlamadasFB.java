@@ -23,7 +23,11 @@ public class LlamadasFB implements ILlamadasFB {
   	DefaultFacebookClient facebookClient =  getFBClient(token);
     User user = facebookClient.fetchObject("me", User.class);
     System.out.println("Id user: " + user.getId());
-  	return Main.usuarios.findById(user.getId());
+    Usuario usuario = Main.usuarios.findById(user.getId());
+    if(usuario == null)
+		usuario = new Usuario(user.getName(), user.getId());
+    System.out.println("Logged User: " + usuario.getNombre());
+  	return usuario;
   }
 	
 	public ListaDeUsuarios getAmigos(Usuario user, HttpHeaders header){

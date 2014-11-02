@@ -10,13 +10,17 @@
 	        url: "truequeLibre/amigos/",
 	        success: function (data) {
 	        	var items = "";
-	        	data.forEach( function(amigo){
-    	        	amigo.items.forEach( function(it){
-    	        			items += generarVistaOtherItem(it, amigo);
-    	        	});    	       
-	        	});
-	            $('#dynamicRow').html(items);
-	            $('.img-thumbnail').tooltip();
+	        	if(data[0] == null){
+	            	$('#dynamicRow').html("<div class='row'><div class='col-md-12' style='text-align:center'><h3>No tienes amigos que usen esta aplicación.</h3></div></div>");
+	        	} else {
+		        	data.forEach( function(amigo){
+	    	        	amigo.items.forEach( function(it){
+	    	        			items += generarVistaOtherItem(it, amigo);
+	    	        	});    	       
+		        	});
+		            $('#dynamicRow').html(items);
+		            $('.img-thumbnail').tooltip();
+	        	}
 	        }
 	    });
 	}
