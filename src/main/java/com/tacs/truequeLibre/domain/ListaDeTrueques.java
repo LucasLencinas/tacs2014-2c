@@ -42,10 +42,10 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 	}
 	
 
-	public ListaDeTrueques getPending() {
+	public ListaDeTrueques getPending(Usuario miUsuario) {
 		ListaDeTrueques result = new ListaDeTrueques();
 		for (Trueque trueque: Main.trueques) {
-			  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == Main.miUsuario) {
+			  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == miUsuario) {
 			    result.add(trueque);
 			  }
 			}

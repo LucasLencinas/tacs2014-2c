@@ -49,9 +49,10 @@ public class Trueques {
 	@GET
 	@Path("/pendientes")
 	@Produces("text/plain")
-	public Response solicitudes(){
+	public Response solicitudes(@Context HttpHeaders header){
     	System.out.println("Me pidieron las solicitudes");
-    	String itemsJson = new Gson().toJson(Main.trueques.getPending());
+  		Usuario miUsuario = LlamadasFB.getLoggedUser(header);
+    	String itemsJson = new Gson().toJson(Main.trueques.getPending(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}
 
