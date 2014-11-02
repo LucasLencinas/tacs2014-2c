@@ -19,10 +19,11 @@
 		$.ajax({
 		  type: "POST",
 		  url: "truequeLibre/trueques/accept/"+truequeId,
-		  success: function(){
+		  success: function(data){
+		  	console.log(data);
 		  	setTruequeAlert('Aceptado');
 		  	getMySolicitudes();
-		  	publishOnFB();
+		  	publishTruequeOnFB(data);
 		  	
 		  }
 		});
@@ -43,3 +44,15 @@
 		$("#notificationsRow").append("<div class='alert alert-success' role='alert'>Trueque "+status+
 			"!<button type='button' class='close' data-dismiss='alert'>&times;</span></div>");
 	}
+
+      
+  	function publishTruequeOnFB(trueque){
+		FB.ui({
+			method: 'feed',
+			name: "Trueque aceptado a "+trueque.usuarioSolicitante.nombre+"!",
+			picture: trueque.itemOfrecido.ml.thumbnail,
+			caption: trueque.itemOfrecido.title,
+			description: "Obtuve "+trueque.itemOfrecido.title+" por "+trueque.itemSolicitado.title
+
+		}, function(response){});
+  	}

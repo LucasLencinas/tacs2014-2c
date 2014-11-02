@@ -70,7 +70,7 @@ public class Trueques {
     
     @POST
     @Path("/accept/{id}")
-	public String accept(@PathParam("id") Integer truequeId, @Context HttpHeaders hh) throws Exception {
+	public Response accept(@PathParam("id") Integer truequeId, @Context HttpHeaders hh) throws Exception {
 			Map<String, Cookie> pathParams = hh.getCookies();
 			String accessToken = pathParams.get("token").getValue();			
 		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
@@ -79,7 +79,7 @@ public class Trueques {
     	trueque.aceptarTrueque();
     	enviarNotificacionAlOtro(facebookClient,"1492722194320819", "Te acepte el trueque Tom A. Esto es una notificacion de FB","https://www.youtube.com/");
     	
-    	return "Trueque "+truequeId+" aceptado";
+    	return Response.ok(new Gson().toJson(trueque), MediaType.APPLICATION_JSON).build();
     }
     
     @POST
