@@ -68,15 +68,15 @@ var MlSearch = function(table, template, after_results){
 
 }
 
-	function publishOnFB(){
-			FB.ui({
-				method: 'feed',
-				name: "Cree un nuevo producto para poder hacer un trueque",
-				picture: "unaImagen.jpg",
-				caption: "Una definicion de TruequeLibre o algo asi",
-				description: "cambie una silla por una cafetera"
+	function publishCreacionOnFB(item){
+		FB.ui({
+			method: 'feed',
+			name: "Item creado:  "+item.title +"!",
+			picture: item.ml.thumbnail,
+			caption: item.description,
+			description: "Mira el nuevo item que cree en TruequeLibre"
 
-			}, function(response){});
+		}, function(response){});
 	}
 
 			
@@ -118,7 +118,7 @@ $(document).ready(function(){
 		var ml_item = $(e.target).closest(".ml-item-row");
 		$("#ml_permalink").val(ml_item.data().permalink);
 		$("#ml_id").val(ml_item.data().id);
-		if($("#title").val()=="") $("#title").val(ml_item.data().title);
+		$("#title").val(ml_item.data().title);
 		$("#ml_thumbnail").val(ml_item.data().thumbnail);
 
 	});
@@ -142,14 +142,11 @@ $(document).ready(function(){
 					success: function(e){
 						$("#modalResultadoOperacion").modal('show');
 						$("#descripcionResultadoOperacion").html('Operacion Exitosa!<br>Item creado.<br>' );
-						$("#descripcionResultadoOperacion").append('<a onclick="publishOnFB();">Share on Facebook</a>');
-				
+						publishCreacionOnFB(item);		
 					},
 			   	dataType: 'json'
 			  }
 
 			);
-		}
-
-	);
+		});
 });

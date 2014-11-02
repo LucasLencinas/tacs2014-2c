@@ -45,7 +45,7 @@
 			"!<button type='button' class='close' data-dismiss='alert'>&times;</span></div>");
 	}
 
-      
+
   	function publishTruequeOnFB(trueque){
 		FB.ui({
 			method: 'feed',

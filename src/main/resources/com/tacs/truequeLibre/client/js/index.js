@@ -30,7 +30,7 @@
 		vista += sprintf("<h4>%s</h4>",item.title);
 		vista += sprintf("<img src=\"%s\" alt=\"%s\" class=\"img-thumbnail\" width=\"100\" height=\"100\" " + 
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
-				,item.ml.thumbnail,item.description,"Nombre de Usuario:<br>" + item.description);
+				,item.ml.thumbnail,item.description, amigo.nombre +":<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
 		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s);\">Postular Trueque</button></p>",item.id, amigo.id);
 		vista += "</div>";
