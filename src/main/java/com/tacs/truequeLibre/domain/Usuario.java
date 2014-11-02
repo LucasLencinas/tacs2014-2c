@@ -27,9 +27,7 @@ public class Usuario implements Serializable{
     this.setNombre(unNombre);
     this.setItems(new ListaDeItems());
     this.setTrueques(new ListaDeTrueques());
-    this.setAmigos(new ListaDeUsuarios());
-    Main.usuarios.add(this);
-  }
+    this.setAmigos(new ListaDeUsuarios());  }
  
   /**
    * 

@@ -1,8 +1,7 @@
 /*
  * Esto se carga y ejecuta para el login en pagina principal
  * */
-
-
+ 
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
         	
