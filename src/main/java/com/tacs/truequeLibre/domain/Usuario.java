@@ -3,6 +3,7 @@ package com.tacs.truequeLibre.domain;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
+import com.tacs.truequeLibre.Main;
 
 
 @SuppressWarnings("serial")
@@ -27,6 +28,7 @@ public class Usuario implements Serializable{
     this.setItems(new ListaDeItems());
     this.setTrueques(new ListaDeTrueques());
     this.setAmigos(new ListaDeUsuarios());
+    Main.usuarios.add(this);
   }
  
   /**
