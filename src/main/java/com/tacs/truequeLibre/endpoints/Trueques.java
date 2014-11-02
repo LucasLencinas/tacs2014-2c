@@ -72,12 +72,15 @@ public class Trueques {
     @Path("/accept/{id}")
 	public Response accept(@PathParam("id") Integer truequeId, @Context HttpHeaders hh) throws Exception {
 			Map<String, Cookie> pathParams = hh.getCookies();
-			String accessToken = pathParams.get("token").getValue();			
+			String accessToken = pathParams.get("token").getValue();
 		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
 		  
     	Trueque trueque = Trueque.getById(truequeId);
     	trueque.aceptarTrueque();
-    	enviarNotificacionAlOtro(facebookClient,"1492722194320819", "Te acepte el trueque Tom A. Esto es una notificacion de FB","https://www.youtube.com/");
+    	Usuario usuarioANotificar = trueque.getUsuarioSolicitante();
+    	String mensaje = trueque.getUsuarioSolicitado().getNombre()+" Ha aceptado tu solicitud. "+
+    			"El item "+trueque.getItemSolicitado().getTitulo()+" es tuyo.";
+    	enviarNotificacionAlOtro(facebookClient,usuarioANotificar.getId(), mensaje,"");
     	
     	return Response.ok(new Gson().toJson(trueque), MediaType.APPLICATION_JSON).build();
     }
@@ -92,14 +95,17 @@ public class Trueques {
     
  
     public void enviarNotificacionAlOtro(DefaultFacebookClient facebookClient, 
-    		String externalUserId, String message, String href) {
-
-	    try {
-	        facebookClient.publish(externalUserId
-	                + "/notifications", FacebookType.class,
+    	String externalUserId, String message, String href) {
+    	String	app_access_token = facebookClient.obtainAppAccessToken("347575272090580", "28f123fe638801f3f519663c4f747d0c").getAccessToken();
+    	//tengo que generar un facebookClient con el APP_access_token
+    	DefaultFacebookClient facebookClientAppAccessToken = new DefaultFacebookClient( app_access_token );
+        try {
+        	facebookClientAppAccessToken.publish(externalUserId
+	                + "/notifications?access_token="+app_access_token, FacebookType.class,
 	                Parameter.with("template", message),
 	                Parameter.with("href", href));
 	    } catch (FacebookOAuthException e) {
+        	System.out.println("Error: " + e.getErrorType() + e.getMessage());
 	        if (e.getErrorCode() == 200) { //No es un usuario de la aplicacion
 	        	System.out.println("Error: " + e.getErrorType() + e.getMessage());
 	        } else if (e.getErrorCode() == 100) {//El mensaje no puede tener mas de 80 caracteres
