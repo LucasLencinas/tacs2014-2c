@@ -12,12 +12,12 @@ import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
-public class LlamadasFB {
+public class LlamadasFB implements ILlamadasFB {
 	
 	public static String appID = "347575272090580";
 	public static String appSecret = "28f123fe638801f3f519663c4f747d0c";
 	
-	public static  Usuario getLoggedUser(HttpHeaders header){
+	public Usuario getLoggedUser(HttpHeaders header){
 		System.out.println("Function: getLoggedUser");
 		String token = header.getCookies().get("token").getValue();
   	DefaultFacebookClient facebookClient =  getFBClient(token);
@@ -26,7 +26,7 @@ public class LlamadasFB {
   	return Main.usuarios.findById(user.getId());
   }
 	
-	public static ListaDeUsuarios getAmigos(Usuario user, HttpHeaders header){
+	public ListaDeUsuarios getAmigos(Usuario user, HttpHeaders header){
 		
 		String token = header.getCookies().get("token").getValue();
 		DefaultFacebookClient facebookClient =  getFBClient(token);
@@ -43,7 +43,7 @@ public class LlamadasFB {
 		
 	}
 	
-	public static DefaultFacebookClient getFBClient(String accessToken){		
+	public DefaultFacebookClient getFBClient(String accessToken){		
     return new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
 	}
 	

@@ -9,6 +9,8 @@ import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import com.tacs.truequeLibre.Utils.ILlamadasFB;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
@@ -52,6 +54,8 @@ public class Main {
     public static Item item9;
     public static Item item10;
     
+    public static ILlamadasFB facebook;
+    
     public static HttpServer startServer() {
   		//Los recursos los va a buscar a este paquete
       final ResourceConfig rc = new ResourceConfig().packages("com.tacs.truequeLibre.endpoints");
@@ -68,6 +72,8 @@ public class Main {
     	loadItems();
     	loadUsuarios();
      	loadTrueques();
+     	facebook = new LlamadasFB();
+     	
     }
 
 	private static void loadTrueques() {

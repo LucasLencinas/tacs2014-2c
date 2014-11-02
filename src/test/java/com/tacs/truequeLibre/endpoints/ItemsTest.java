@@ -20,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tacs.truequeLibre.Main;
+import com.tacs.truequeLibre.Utils.LlamadasMockFB;
+import com.tacs.truequeLibre.domain.Usuario;
 
 public class ItemsTest {
 
@@ -36,19 +38,18 @@ public class ItemsTest {
   @Before
   public void cargaItems(){
   	Main.load();
+  	Main.facebook = new LlamadasMockFB();
   }
 	  
 
   /**
-   * Los items que me devuelve son todos los que estan en memoria
-   FIXME --> Lo ignoro porque agregue el @context en la API, corregirlo
-   */
-  @Ignore
+   * Los items que me devuelve son todos los del usuario actual
+	**/
   @Test
   public void testDameTodosLosItems() {
-	String itemsJson = new Gson().toJson(Main.items);
-	String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
-  assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
+		String itemsJson = new Gson().toJson(Main.items);
+		String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
+	  assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
   }
   
   /**
@@ -64,17 +65,18 @@ public class ItemsTest {
   } 
   
   /**
-   * Le paso un Id y me borra ese item de la memoria
+   * Le paso un Id y me borra ese item del usuario actual
    */
   @Test
   public void testBorraUnItem() {
+  	Usuario usuario = Main.facebook.getLoggedUser(null);
+  	//int cantidadDeItems =usuario.getItems().size(); 
   	int id = 3;
   	int cantidadDeItems = Main.items.size();
 	String itemJson = "Item " + new Gson().toJson(Main.items.findById(id)) + " eliminado";
 	String responseMsg = target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).delete(String.class);
 		
-    assertTrue(responseMsg.toString().equalsIgnoreCase(itemJson));
     assertTrue(Main.items.size() == cantidadDeItems-1);
   }  
   
@@ -83,13 +85,15 @@ public class ItemsTest {
    */
   @Test
   public void testAgregaUnItem() {
-  	int cantidadDeItems = Main.items.size();
+  	Usuario usuario = Main.facebook.getLoggedUser(null);
+  	int cantidadDeItems =usuario.getItems().size(); 
+
   	String json = "{'title':'Nuevo Celular!', 'description': 'Nokia 1100', 'ml': {'permalink': 'http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM', 'id': 'MLA521311328'}}";
     
     target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
     					   post(Entity.entity(json,MediaType.APPLICATION_JSON_TYPE),
     							Response.class);
-    assertTrue(Main.items.size() == cantidadDeItems+1);
+    assertTrue(Main.facebook.getLoggedUser(null).getItems().size() == cantidadDeItems+1);
   }  
   
   

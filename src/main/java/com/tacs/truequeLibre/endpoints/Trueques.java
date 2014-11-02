@@ -41,7 +41,7 @@ public class Trueques {
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
     	System.out.println("Me pidieron los Trueques");
-  		Usuario miUsuario = LlamadasFB.getLoggedUser(header);
+  		Usuario miUsuario = Main.facebook.getLoggedUser(header);
     	String itemsJson = new Gson().toJson(Main.trueques.getByUser(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
@@ -51,7 +51,7 @@ public class Trueques {
 	@Produces("text/plain")
 	public Response solicitudes(@Context HttpHeaders header){
     	System.out.println("Me pidieron las solicitudes");
-  		Usuario miUsuario = LlamadasFB.getLoggedUser(header);
+  		Usuario miUsuario = Main.facebook.getLoggedUser(header);
     	String itemsJson = new Gson().toJson(Main.trueques.getPending(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}

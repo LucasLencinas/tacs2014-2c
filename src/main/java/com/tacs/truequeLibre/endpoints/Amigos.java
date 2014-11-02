@@ -36,12 +36,12 @@ public class Amigos {
     @GET 
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
-      Usuario user = LlamadasFB.getLoggedUser(header);
+      Usuario user = Main.facebook.getLoggedUser(header);
       if(user == null)
       return Response.status(500).build();
       
       System.out.println("me pidieron los amigos de " + user.getNombre());
-      ListaDeUsuarios amigos = LlamadasFB.getAmigos(user, header);
+      ListaDeUsuarios amigos = Main.facebook.getAmigos(user, header);
     	String usuariosJson = new Gson().toJson(amigos);
     	System.out.println("Amigos: " + usuariosJson);
     	

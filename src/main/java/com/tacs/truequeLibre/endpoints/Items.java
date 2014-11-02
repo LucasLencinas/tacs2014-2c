@@ -67,7 +67,7 @@ public class Items {
     @Produces("application/json")
     @Consumes("application/json")
 	public Response create(String item_json, @Context HttpHeaders header) {
-      Usuario user = LlamadasFB.getLoggedUser(header);
+      Usuario user = Main.facebook.getLoggedUser(header);
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
     	Usuario actual = Main.usuarios.findById(user.getId());
