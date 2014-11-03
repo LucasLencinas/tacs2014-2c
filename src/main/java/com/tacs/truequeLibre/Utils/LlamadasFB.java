@@ -24,8 +24,10 @@ public class LlamadasFB implements ILlamadasFB {
     User user = facebookClient.fetchObject("me", User.class);
     System.out.println("Id user: " + user.getId());
     Usuario usuario = Main.usuarios.findById(user.getId());
-    if(usuario == null)
-		usuario = new Usuario(user.getName(), user.getId());
+    if(usuario == null){
+    	usuario = new Usuario(user.getName(), user.getId());
+    	Main.usuarios.add(usuario);
+		}
     System.out.println("Logged User: " + usuario.getNombre());
   	return usuario;
   }
