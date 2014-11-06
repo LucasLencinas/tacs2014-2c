@@ -39,6 +39,7 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
 		</dependency>
+		
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -77,8 +78,7 @@
 		  <artifactId>restfb</artifactId>
 		  <version>1.6.16</version>
 		</dependency>
-        
-        
+       
 
         <!-- Test Dependencies -->
         <dependency>
