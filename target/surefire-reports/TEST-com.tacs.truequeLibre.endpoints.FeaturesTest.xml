@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.01" errors="0" skipped="0" tests="6" name="com.tacs.truequeLibre.endpoints.FeaturesTest">
+<testsuite failures="0" time="0.02" errors="0" skipped="0" tests="6" name="com.tacs.truequeLibre.endpoints.FeaturesTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_71\jre\bin"/>
@@ -60,7 +60,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.01" classname="com.tacs.truequeLibre.endpoints.FeaturesTest" name="testUnaListaNoTieneUnElementoConId350"/>
+  <testcase time="0.02" classname="com.tacs.truequeLibre.endpoints.FeaturesTest" name="testUnaListaNoTieneUnElementoConId350"/>
   <testcase time="0" classname="com.tacs.truequeLibre.endpoints.FeaturesTest" name="testUnaListaContieneUnItemConDeterminadoID"/>
   <testcase time="0" classname="com.tacs.truequeLibre.endpoints.FeaturesTest" name="testDosItemsSonDistintosConDistintosCamposYDistintoID"/>
   <testcase time="0" classname="com.tacs.truequeLibre.endpoints.FeaturesTest" name="testDosItemsSonIgualesConDiferentesCamposSalvoElID"/>

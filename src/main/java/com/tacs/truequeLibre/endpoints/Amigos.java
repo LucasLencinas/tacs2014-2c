@@ -11,14 +11,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
+
+
+
+
+
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.EmbeddedEntity;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gson.Gson;
 import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
+import com.tacs.truequeLibre.domain.ObjetoML;
+import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/amigos")
@@ -45,7 +55,11 @@ public class Amigos {
       	Setup.setup();
       }
       
-      guardarItemDePrueba();
+      guardarItemDePrueba(Setup.trueque1.getItemOfrecido());
+      guardarItemDePrueba(Setup.trueque1.getItemSolicitado());
+      guardarUsuarioDePrueba(Setup.trueque1.getUsuarioSolicitado());
+      guardarUsuarioDePrueba(Setup.trueque1.getUsuarioSolicitante());
+      guardarTruequeDePrueba(Setup.trueque1);
       
       
     	
@@ -61,26 +75,11 @@ public class Amigos {
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
     
-     private void guardarItemDePrueba() {
-    	 /**
-    	  * Kind es una tabla
-				*	Entity es una fila
-				*	Key es una pK
-				*	Property es un campo
-    	  * **/
-       Key itemKey = KeyFactory.createKey("Item", Setup.item1.getId());
-       Entity item = new Entity("Item", itemKey);
-       item.setProperty("id", Setup.item1.getId());
-       item.setProperty("title", Setup.item1.getTitulo());
-       item.setProperty("description", Setup.item1.getDescripcion());
-       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-       datastore.put(item);
-    	 
-    	 
-    	 
-		
-	}
 
+
+     
+     
+     
 		/**
       * FIXME (Lucas)--> Este lo modifique, ahora se le pasa un String id, ver si hay error
       *  Listar un determinado usuario.
@@ -112,4 +111,59 @@ public class Amigos {
     }
 
 
+    /*Funciones de prueba para el GAE DataStore*/
+    
+    private void guardarItemDePrueba(Item item) {
+
+    	
+      Key itemKey = KeyFactory.createKey("Item", item.getId());
+      Entity entityItem = new Entity("Item", itemKey);
+      entityItem.setProperty("id", item.getId());
+      entityItem.setProperty("title", item.getTitulo());
+      entityItem.setProperty("description", item.getDescripcion());
+      
+      entityItem.setProperty("objML",crearObjetoMLDePrueba(item.getObjML()));
+      
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(entityItem);
+	}
+    
+    private void guardarUsuarioDePrueba(Usuario usuario) {
+
+      Key usuarioKey = KeyFactory.createKey("Usuario", usuario.getId());
+      Entity entityUsuario = new Entity("Usuario", usuarioKey);
+      entityUsuario.setProperty("id", usuario.getId());
+      entityUsuario.setProperty("nombre", usuario.getNombre());
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(entityUsuario);
+	}
+    
+    private EmbeddedEntity crearObjetoMLDePrueba(ObjetoML objetoML) {
+
+    	
+    	EmbeddedEntity embeddedObjetoML = new EmbeddedEntity();
+
+    	embeddedObjetoML.setProperty("id", objetoML.getId());
+    	embeddedObjetoML.setProperty("permalink", objetoML.getPermalink());
+    	embeddedObjetoML.setProperty("thumbnail", objetoML.getThumbnail());
+			
+    	return embeddedObjetoML;
+	}
+    
+    private void guardarTruequeDePrueba(Trueque trueque) {
+
+      Key truequeKey = KeyFactory.createKey("Trueque", trueque.getId());
+      Entity entityTrueque = new Entity("Trueque", truequeKey);
+      entityTrueque.setProperty("id", trueque.getId());
+      entityTrueque.setProperty("estado", trueque.getEstado());
+      entityTrueque.setProperty("description", trueque.getDescripcion());
+      entityTrueque.setProperty("itemOfrecido", trueque.getItemOfrecido().getId());
+      entityTrueque.setProperty("itemSolicitado", trueque.getItemSolicitado().getId());
+      entityTrueque.setProperty("usuarioSolicitado", trueque.getUsuarioSolicitado().getId());
+      entityTrueque.setProperty("usuarioSolicitante", trueque.getUsuarioSolicitante().getId());
+      
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(entityTrueque);
+	}
+    
 }
