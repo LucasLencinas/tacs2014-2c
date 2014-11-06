@@ -2,8 +2,10 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.ArrayList;
 
+
+import com.tacs.truequeLibre.Main;
+
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
-import com.tacs.truequeLibre.setup.Setup;
 
 @SuppressWarnings("serial")
 public class ListaDeTrueques extends ArrayList<Trueque>{
@@ -31,7 +33,7 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 	public ListaDeTrueques getByUser(Usuario miUsuario) {
 
 		ListaDeTrueques result = new ListaDeTrueques();
-		for (Trueque trueque: Setup.trueques) {
+		for (Trueque trueque: Main.trueques) {
 		  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
 			  result.add(trueque);
 		  }
@@ -42,7 +44,7 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 
 	public ListaDeTrueques getPending(Usuario miUsuario) {
 		ListaDeTrueques result = new ListaDeTrueques();
-		for (Trueque trueque: Setup.trueques) {
+		for (Trueque trueque: Main.trueques) {
 			  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == miUsuario) {
 			    result.add(trueque);
 			  }

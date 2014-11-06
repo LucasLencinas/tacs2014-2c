@@ -9,10 +9,6 @@ public class ObjetoML implements Serializable {
  @SerializedName("id") private String ml_id;
  @SerializedName("thumbnail") private String ml_thumbnail;
 
- public ObjetoML(){
-	 
- }
- 
   public ObjetoML(String unPermalink, String unId, String unThumbnail) {
       this.setPermalink(unPermalink);
       this.setId(unId);

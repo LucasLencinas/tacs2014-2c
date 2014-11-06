@@ -2,7 +2,7 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.Date;
 
-import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
 
 public class Trueque {
@@ -141,7 +141,7 @@ public class Trueque {
 	
 	//BD
 	public static Trueque getById(int truequeID){
-		return Setup.trueques.findById(truequeID);
+		return Main.trueques.findById(truequeID);
 	}
 	
 

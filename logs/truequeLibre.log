@@ -1,3 +1,0 @@
-2014-09-26 16:07:19 [com.tacs.truequeLibre.Main.main()]  INFO org.glassfish.jersey.server.ApplicationHandler      - Initiating Jersey application, version Jersey: 2.7 2014-03-12 18:11:31...
-2014-09-26 16:07:22 [com.tacs.truequeLibre.Main.main()]  INFO org.glassfish.grizzly.http.server.NetworkListener   - Started listener bound to [localhost:8080]
-2014-09-26 16:07:22 [com.tacs.truequeLibre.Main.main()]  INFO org.glassfish.grizzly.http.server.HttpServer        - [HttpServer] Started.

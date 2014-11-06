@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ObjetoML;
@@ -33,7 +33,7 @@ public class Items {
     @GET 
     @Produces("application/json")
     public Response index(){
-      String itemsJson = new Gson().toJson(Setup.items);
+      String itemsJson = new Gson().toJson(Main.items);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -47,7 +47,7 @@ public class Items {
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	
-    	Item unItem= Setup.items.findById(id);	
+    	Item unItem= Main.items.findById(id);	
     	Gson unGson = new Gson();
     	String unItemJson = unGson.toJson(unItem);
     	return Response.ok(unItemJson, MediaType.APPLICATION_JSON).build();
@@ -67,12 +67,12 @@ public class Items {
     @Produces("application/json")
     @Consumes("application/json")
 	public Response create(String item_json, @Context HttpHeaders header) {
-      Usuario user = Setup.facebook.getLoggedUser(header);
+      Usuario user = Main.facebook.getLoggedUser(header);
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
-    	Usuario actual = Setup.usuarios.findById(user.getId());
+    	Usuario actual = Main.usuarios.findById(user.getId());
     	actual.agregarItem(unItem);
-    	Setup.items.add(unItem);
+    	Main.items.add(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
 
@@ -96,7 +96,7 @@ public class Items {
 			@FormParam("ml_permalink") String permalink, 
 			@FormParam("ml_id") String ml_id,
 			@FormParam("ml_thumbnail") String ml_thumbnail) {
-    	Item unItemDeLista = Setup.items.findById(id);
+    	Item unItemDeLista = Main.items.findById(id);
     	unItemDeLista.setId(id);
     	unItemDeLista.setDescripcion(description);;
     	unItemDeLista.setTitulo(title);;
@@ -112,8 +112,8 @@ public class Items {
     @DELETE
     @Path("/{id}")
     public Response destroy(@PathParam("id") Integer id){
-    	Item unItem = Setup.items.findById(id);
-    	Setup.items.remove(unItem);
+    	Item unItem = Main.items.findById(id);
+    	Main.items.remove(unItem);
     	return Response.ok("Item "+ new Gson().toJson(unItem)+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }

@@ -1,9 +1,6 @@
 package com.tacs.truequeLibre.endpoints;
 
 
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.ws.rs.FormParam;
@@ -23,7 +20,7 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
-import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
@@ -44,8 +41,8 @@ public class Trueques {
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
     	System.out.println("Me pidieron los Trueques");
-  		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
-    	String itemsJson = new Gson().toJson(Setup.trueques.getByUser(miUsuario));
+  		Usuario miUsuario = Main.facebook.getLoggedUser(header);
+    	String itemsJson = new Gson().toJson(Main.trueques.getByUser(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -54,8 +51,8 @@ public class Trueques {
 	@Produces("text/plain")
 	public Response solicitudes(@Context HttpHeaders header){
     	System.out.println("Me pidieron las solicitudes");
-  		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
-    	String itemsJson = new Gson().toJson(Setup.trueques.getPending(miUsuario));
+  		Usuario miUsuario = Main.facebook.getLoggedUser(header);
+    	String itemsJson = new Gson().toJson(Main.trueques.getPending(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}
 
@@ -103,8 +100,8 @@ public class Trueques {
     	//tengo que generar un facebookClient con el APP_access_token
     	DefaultFacebookClient facebookClientAppAccessToken = new DefaultFacebookClient( app_access_token );
         try {
-        	facebookClientAppAccessToken.publish(URLEncoder.encode(externalUserId
-	                + "/notifications?access_token="+app_access_token, "UTF-8"), FacebookType.class,
+        	facebookClientAppAccessToken.publish(externalUserId
+	                + "/notifications?access_token="+app_access_token, FacebookType.class,
 	                Parameter.with("template", message),
 	                Parameter.with("href", href));
 	    } catch (FacebookOAuthException e) {
@@ -114,10 +111,7 @@ public class Trueques {
 	        } else if (e.getErrorCode() == 100) {//El mensaje no puede tener mas de 80 caracteres
 	        
 	        }
-	    } catch (UnsupportedEncodingException e) {// Por lo del encoding, error de la barra
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    }
 	}
     
 }

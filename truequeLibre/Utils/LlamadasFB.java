@@ -8,7 +8,7 @@ import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.User;
-import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Main;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -23,12 +23,10 @@ public class LlamadasFB implements ILlamadasFB {
   	DefaultFacebookClient facebookClient =  getFBClient(token);
     User user = facebookClient.fetchObject("me", User.class);
     System.out.println("Id user: " + user.getId());
-
-    	
-    Usuario usuario = Setup.usuarios.findById(user.getId());
+    Usuario usuario = Main.usuarios.findById(user.getId());
     if(usuario == null){
     	usuario = new Usuario(user.getName(), user.getId());
-    	Setup.usuarios.add(usuario);
+    	Main.usuarios.add(usuario);
 		}
     System.out.println("Logged User: " + usuario.getNombre());
   	return usuario;
@@ -45,7 +43,7 @@ public class LlamadasFB implements ILlamadasFB {
     for (List<User> myFriendConnection : myFriends)
       for (User usuario : myFriendConnection ){
       	System.out.println("Amigo: "+ usuario.getName() +"," + usuario.getId() );
-      	amigos.add(Setup.usuarios.findById(usuario.getId()));
+      	amigos.add(Main.usuarios.findById(usuario.getId()));
       }
 		return amigos;
 		

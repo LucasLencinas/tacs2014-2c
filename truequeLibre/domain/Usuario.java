@@ -3,6 +3,7 @@ package com.tacs.truequeLibre.domain;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
+import com.tacs.truequeLibre.Main;
 
 
 @SuppressWarnings("serial")
