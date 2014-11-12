@@ -2,21 +2,30 @@ package com.tacs.truequeLibre.domain;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.Persistent;
+
 import com.google.gson.annotations.Expose;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 
-
+@Entity
 @SuppressWarnings("serial")
 public class Usuario implements Serializable{
 
 	
-	@Expose private String id;
-
+	@Expose
+	@Id
+	private String id;
+	
 	@Expose private String nombre;
-
+	
 	@Expose private ListaDeItems items;
-  
+	
+	@Ignore
 	@Expose private ListaDeTrueques trueques;
 	
+	@Ignore
 	@Expose private ListaDeUsuarios amigos;
   
   //Falta ListaDeAmigos TODO

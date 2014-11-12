@@ -7,7 +7,7 @@ public class ListaDeItems extends ArrayList<Item>{
 
 	public static int contador = 0;
 	
-	public Item findById(int unId){
+	public Item findById(long unId){
 		
 		for (Item unItem : this) {
 			if(unItem.getId() == unId)

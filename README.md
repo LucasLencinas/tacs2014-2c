@@ -6,7 +6,7 @@ Grupo4
 
 ## Instrucciones
 
-Para levantar el servidor realizar **mvn exec:java**  
+Para levantar el servidor realizar **mvn appengine:devserver**  
 
 
 ## Integrantes:

@@ -10,20 +10,11 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
-
-
-
-
-
-
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.EmbeddedEntity;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gson.Gson;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
@@ -55,11 +46,30 @@ public class Amigos {
       	Setup.setup();
       }
       
-      guardarItemDePrueba(Setup.trueque1.getItemOfrecido());
-      guardarItemDePrueba(Setup.trueque1.getItemSolicitado());
-      guardarUsuarioDePrueba(Setup.trueque1.getUsuarioSolicitado());
-      guardarUsuarioDePrueba(Setup.trueque1.getUsuarioSolicitante());
-      guardarTruequeDePrueba(Setup.trueque1);
+
+      System.out.println("Guardo el primer item del trueque");
+      ofy().save().entity(Setup.trueque1.getItemOfrecido()).now(); 
+      System.out.println("Traigo el primer item del trueque");
+      Item item = ofy().load().type(Item.class).id(Setup.trueque1.getItemOfrecido().getId()).now();
+      System.out.println("El item es: " + item.getTitulo() + "  -->" +item.getDescripcion());
+      System.out.println("Su item de mercado libre es : " + item.getObjML().getPermalink());
+      
+      
+      System.out.println("Guardo el segundo item del trueque");
+      ofy().save().entity(Setup.trueque1.getItemSolicitado()).now(); 
+      System.out.println("Traigo el segundo item del trueque");
+      item = ofy().load().type(Item.class).id(Setup.trueque1.getItemSolicitado().getId()).now();
+      System.out.println("El item es: " + item.getTitulo() + "  -->" + item.getDescripcion());
+      System.out.println("Su item de mercado libre es : " + item.getObjML().getPermalink());
+      
+      System.out.println("Guardo el primer usuario del trueque");
+      ofy().save().entity(Setup.trueque1.getUsuarioSolicitado()).now(); 
+      System.out.println("Traigo el primer usuario del trueque");
+      Usuario usuario = ofy().load().type(Usuario.class).id(Setup.trueque1.getUsuarioSolicitado().getId()).now();
+      System.out.println("El item es: " + usuario.getNombre() + "  -->" + usuario.getId());
+      
+
+      //guardarTruequeDePrueba(Setup.trueque1);
       
       
     	
@@ -113,57 +123,6 @@ public class Amigos {
 
     /*Funciones de prueba para el GAE DataStore*/
     
-    private void guardarItemDePrueba(Item item) {
-
-    	
-      Key itemKey = KeyFactory.createKey("Item", item.getId());
-      Entity entityItem = new Entity("Item", itemKey);
-      entityItem.setProperty("id", item.getId());
-      entityItem.setProperty("title", item.getTitulo());
-      entityItem.setProperty("description", item.getDescripcion());
-      
-      entityItem.setProperty("objML",crearObjetoMLDePrueba(item.getObjML()));
-      
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.put(entityItem);
-	}
-    
-    private void guardarUsuarioDePrueba(Usuario usuario) {
-
-      Key usuarioKey = KeyFactory.createKey("Usuario", usuario.getId());
-      Entity entityUsuario = new Entity("Usuario", usuarioKey);
-      entityUsuario.setProperty("id", usuario.getId());
-      entityUsuario.setProperty("nombre", usuario.getNombre());
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.put(entityUsuario);
-	}
-    
-    private EmbeddedEntity crearObjetoMLDePrueba(ObjetoML objetoML) {
-
-    	
-    	EmbeddedEntity embeddedObjetoML = new EmbeddedEntity();
-
-    	embeddedObjetoML.setProperty("id", objetoML.getId());
-    	embeddedObjetoML.setProperty("permalink", objetoML.getPermalink());
-    	embeddedObjetoML.setProperty("thumbnail", objetoML.getThumbnail());
-			
-    	return embeddedObjetoML;
-	}
-    
-    private void guardarTruequeDePrueba(Trueque trueque) {
-
-      Key truequeKey = KeyFactory.createKey("Trueque", trueque.getId());
-      Entity entityTrueque = new Entity("Trueque", truequeKey);
-      entityTrueque.setProperty("id", trueque.getId());
-      entityTrueque.setProperty("estado", trueque.getEstado());
-      entityTrueque.setProperty("description", trueque.getDescripcion());
-      entityTrueque.setProperty("itemOfrecido", trueque.getItemOfrecido().getId());
-      entityTrueque.setProperty("itemSolicitado", trueque.getItemSolicitado().getId());
-      entityTrueque.setProperty("usuarioSolicitado", trueque.getUsuarioSolicitado().getId());
-      entityTrueque.setProperty("usuarioSolicitante", trueque.getUsuarioSolicitante().getId());
-      
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.put(entityTrueque);
-	}
+   
     
 }

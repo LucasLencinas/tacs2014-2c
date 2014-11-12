@@ -2,9 +2,10 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
-
+@Entity
 public class Trueque {
 	
 	private int id;

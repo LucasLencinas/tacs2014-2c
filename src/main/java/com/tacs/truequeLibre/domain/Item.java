@@ -4,17 +4,23 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public class Item implements Serializable{
 	
-  @Expose private int id;
+	@Id
+  @Expose private long id;
 	 
-  @Expose private String title;
+  @Expose 
+  private String title;
   //Sirve para describir por que tipo de item se quiere truequear
-  @Expose private String description;
+  @Expose 
+  private String description;
   
-
-  @SerializedName("ml") private ObjetoML objML;
+  @SerializedName("ml") 
+  private ObjetoML objML;
   
   public Item(){
 	  
@@ -45,7 +51,7 @@ public class Item implements Serializable{
    * 
    * Getters and Setters
    */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

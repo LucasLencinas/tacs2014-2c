@@ -1,5 +1,6 @@
 package com.tacs.truequeLibre.setup;
 
+import com.googlecode.objectify.ObjectifyService;
 import com.tacs.truequeLibre.Utils.ILlamadasFB;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Item;
@@ -164,6 +165,11 @@ public class Setup {
 
     public static void setup() {
       load();
+      ObjectifyService.register(Item.class);
+      ObjectifyService.register(Usuario.class);
+      //ObjectifyService.register(Trueque.class);
+      
+      
     }
     
 }
