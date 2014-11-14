@@ -11,15 +11,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyService;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
-import com.tacs.truequeLibre.domain.ObjetoML;
-import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/amigos")
@@ -46,32 +42,6 @@ public class Amigos {
       	Setup.setup();
       }
       
-
-      System.out.println("Guardo el primer item del trueque");
-      ofy().save().entity(Setup.trueque1.getItemOfrecido()).now(); 
-      System.out.println("Traigo el primer item del trueque");
-      Item item = ofy().load().type(Item.class).id(Setup.trueque1.getItemOfrecido().getId()).now();
-      System.out.println("El item es: " + item.getTitulo() + "  -->" +item.getDescripcion());
-      System.out.println("Su item de mercado libre es : " + item.getObjML().getPermalink());
-      
-      
-      System.out.println("Guardo el segundo item del trueque");
-      ofy().save().entity(Setup.trueque1.getItemSolicitado()).now(); 
-      System.out.println("Traigo el segundo item del trueque");
-      item = ofy().load().type(Item.class).id(Setup.trueque1.getItemSolicitado().getId()).now();
-      System.out.println("El item es: " + item.getTitulo() + "  -->" + item.getDescripcion());
-      System.out.println("Su item de mercado libre es : " + item.getObjML().getPermalink());
-      
-      System.out.println("Guardo el primer usuario del trueque");
-      ofy().save().entity(Setup.trueque1.getUsuarioSolicitado()).now(); 
-      System.out.println("Traigo el primer usuario del trueque");
-      Usuario usuario = ofy().load().type(Usuario.class).id(Setup.trueque1.getUsuarioSolicitado().getId()).now();
-      System.out.println("El item es: " + usuario.getNombre() + "  -->" + usuario.getId());
-      
-
-      //guardarTruequeDePrueba(Setup.trueque1);
-      
-      
     	
     	System.out.println(header.toString());
       Usuario user = Setup.facebook.getLoggedUser(header);
@@ -85,10 +55,6 @@ public class Amigos {
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
     
-
-
-     
-     
      
 		/**
       * FIXME (Lucas)--> Este lo modifique, ahora se le pasa un String id, ver si hay error

@@ -1,16 +1,18 @@
 package com.tacs.truequeLibre.endpoints;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
-import com.google.appengine.api.datastore.Query;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.Usuario;
+import com.tacs.truequeLibre.setup.Setup;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class DataStoreTest {
@@ -21,6 +23,7 @@ public class DataStoreTest {
     @Before
     public void setUp() {
         helper.setUp();
+        Setup.setup();
     }
 
     @After
@@ -30,11 +33,20 @@ public class DataStoreTest {
 
     // run this test twice to prove we're not leaking any state across tests
     private void doTest() {
-        DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        assertEquals(0, ds.prepare(new Query("yam")).countEntities(withLimit(10)));
-        ds.put(new Entity("yam"));
-        ds.put(new Entity("yam"));
-        assertEquals(2, ds.prepare(new Query("yam")).countEntities(withLimit(10)));
+        
+        ofy().save().entity(Setup.trueque1.getItemOfrecido()).now(); 
+        Item item = ofy().load().type(Item.class).id(Setup.trueque1.getItemOfrecido().getId()).now();
+        assertEquals(Setup.trueque1.getItemOfrecido(),  item);
+        
+        ofy().save().entity(Setup.trueque1.getItemSolicitado()).now(); 
+        item = ofy().load().type(Item.class).id(Setup.trueque1.getItemSolicitado().getId()).now();
+        assertEquals(item.getDescripcion(), Setup.trueque1.getItemSolicitado().getDescripcion());
+        assertEquals(item.getObjML().getPermalink(), Setup.trueque1.getItemSolicitado().getObjML().getPermalink());
+        
+        ofy().save().entity(Setup.trueque1.getUsuarioSolicitado()).now(); 
+        Usuario usuario = ofy().load().type(Usuario.class).id(Setup.trueque1.getUsuarioSolicitado().getId()).now();
+        assertEquals(usuario, Setup.trueque1.getUsuarioSolicitado());
+        assertEquals(usuario.getNombre(), Setup.trueque1.getUsuarioSolicitado().getNombre());
     }
 
     @Test
