@@ -1,7 +1,7 @@
 package com.tacs.truequeLibre.endpoints;
 
 import static org.junit.Assert.*;
-
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,9 +25,11 @@ import com.tacs.truequeLibre.domain.Usuario;
 public class ItemsTest {
 
   private static WebTarget target;
+  private static HttpServer server;
 
   @BeforeClass
   public static void setUp() throws Exception {
+    	server = Setup.startServer();
       Client cliente = ClientBuilder.newClient();
       target = cliente.target(Setup.BASE_URI);
   }
@@ -37,18 +39,11 @@ public class ItemsTest {
   	Setup.load();
   	Setup.facebook = new LlamadasMockFB();
   }
-	  
-  /**
-   * IGNORO LOS TEST PORQUE NO SE COMO LEVANTAR EL SERVIDOR DE GAE PARA TEST
-   * 
-   * **/
-  
-  
+
   /**
    * Los items que me devuelve son todos los del usuario actual
 	**/
   @Test
-  @Ignore
   public void testDameTodosLosItems() {
 		String itemsJson = new Gson().toJson(Setup.items);
 		String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
@@ -59,7 +54,6 @@ public class ItemsTest {
    * Le paso un Id y me devuelve el item
    */
   @Test
-  @Ignore
   public void testDameUnItem() {	
 	int id = 1;
 	String itemJson = new Gson().toJson(Setup.items.findById(id));
@@ -72,7 +66,6 @@ public class ItemsTest {
    * Le paso un Id y me borra ese item del usuario actual
    */
   @Test
-  @Ignore
   public void testBorraUnItem() {
   	Usuario usuario = Setup.facebook.getLoggedUser(null);
   	//int cantidadDeItems =usuario.getItems().size(); 
@@ -89,7 +82,6 @@ public class ItemsTest {
    * Le paso los parametros para crear un item y me lo agrega a la memoria
    */
   @Test
-  @Ignore
   public void testAgregaUnItem() {
   	Usuario usuario = Setup.facebook.getLoggedUser(null);
   	int cantidadDeItems =usuario.getItems().size(); 

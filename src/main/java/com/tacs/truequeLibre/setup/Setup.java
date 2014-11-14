@@ -1,5 +1,13 @@
 package com.tacs.truequeLibre.setup;
 
+import java.net.URI;
+
+import org.glassfish.grizzly.http.server.HttpHandler;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
+
 import com.googlecode.objectify.ObjectifyService;
 import com.tacs.truequeLibre.Utils.ILlamadasFB;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
@@ -171,5 +179,16 @@ public class Setup {
       
       
     }
-    
+
+		public static HttpServer startServer() {
+	   		//Los recursos los va a buscar a este paquete
+	       final ResourceConfig rc = new ResourceConfig().packages("com.tacs.truequeLibre.endpoints");
+	       
+	       HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+	       HttpHandler handlerStatico = new StaticHttpHandler(System.getProperty("user.dir") + RESOURCES_PATH + "/client/");
+	       System.out.println(System.getProperty("user.dir"));
+	       httpServer.getServerConfiguration().addHttpHandler(handlerStatico, "/");
+	 
+	       return httpServer;
+	     }
 }
