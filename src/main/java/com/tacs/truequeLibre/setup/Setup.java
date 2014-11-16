@@ -9,6 +9,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import com.googlecode.objectify.ObjectifyService;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.Utils.ILlamadasFB;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Item;
@@ -79,6 +80,10 @@ public class Setup {
     	trueques.add(trueque2);
     	trueques.add(trueque3);
     	trueques.add(trueque4);
+    	
+    	for (Trueque trueque : trueques) {
+    		HandlerDS.guardarTrueque(trueque);	
+			}
 		}
 
 		private static void loadUsuarios() {
@@ -104,17 +109,18 @@ public class Setup {
 
     	usuarioAmigo4 = new Usuario("Tom E","347614002065391");
 
-    	
-    	
     	usuarios.add(miUsuario);
     	usuarios.add(usuarioAmigo1);
     	usuarios.add(usuarioAmigo2);
     	usuarios.add(usuarioAmigo3);
     	usuarios.add(usuarioAmigo4);
     	
-    	miUsuario.getAmigos().add(usuarioAmigo1);
-    	miUsuario.getAmigos().add(usuarioAmigo2);
-    	miUsuario.getAmigos().add(usuarioAmigo3);
+    	miUsuario.agregarAmigo(usuarioAmigo1);
+    	miUsuario.agregarAmigo(usuarioAmigo2);
+    	miUsuario.agregarAmigo(usuarioAmigo3);
+    	
+    	usuarioAmigo2.agregarAmigo(usuarioAmigo3);
+    	usuarioAmigo2.agregarAmigo(usuarioAmigo4);
     	
     	
 		}
@@ -163,6 +169,11 @@ public class Setup {
     	items.add(item8);
     	items.add(item9);
     	items.add(item10);
+    	
+    	for (Item item : items) {
+				HandlerDS.guardarItem(item);
+			}
+    	
 		}
     
     public static void unload(){

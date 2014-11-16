@@ -93,5 +93,23 @@ public class DataStoreTest {
       assertEquals(usuario, Setup.trueque1.getUsuarioSolicitado());
       assertEquals(usuario.getNombre(), Setup.trueque1.getUsuarioSolicitado().getNombre());
     }
+    
+    @Test
+    public void saveAnUserAndGetAnItemOfAFriendTest(){
+    	HandlerDS.guardarUsuario(Setup.miUsuario);
+    	Usuario usuarioGuardado = HandlerDS.findUsuarioById(Setup.miUsuario.getId());
+    	assertEquals(usuarioGuardado, Setup.miUsuario);
+    	
+    	Usuario amigoOfDataStore = usuarioGuardado.getAmigos().findById(Setup.usuarioAmigo1.getId());
+    	assertEquals(amigoOfDataStore.getId(), Setup.usuarioAmigo1.getId());
+    	assertEquals(amigoOfDataStore.getItems().findById(Setup.item2.getId()), 
+    			Setup.usuarioAmigo1.getItems().findById(Setup.item2.getId()));
+    	
+    	
+    	
+    	
+    }
+
 }
+
 

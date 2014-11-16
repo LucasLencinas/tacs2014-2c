@@ -75,6 +75,10 @@ public class Usuario implements Serializable{
 
 	//Cambiarlo FIXME
 	public ListaDeUsuarios getAmigos() {
+		ListaDeUsuarios amigos = new ListaDeUsuarios();
+		for (String amigosId : this.amigosId) {
+			amigos.add(ofy().load().type(Usuario.class).id(amigosId).now());
+		}
 		return amigos;
 	}
 
@@ -83,13 +87,10 @@ public class Usuario implements Serializable{
 	}
 
 	
-  //Items
+  /*----------For Items------------*/
 	public void agregarItem(Item item){
-		
 		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
 		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
-		//this.items.add(item);
-		
 	}
 	
 	public void quitarItem(Item item){
@@ -100,7 +101,27 @@ public class Usuario implements Serializable{
 	public void truequearItem(Item miViejoItem, Item miNuevoItem) {
 		this.agregarItem(miNuevoItem);
 		this.quitarItem(miViejoItem);
+	}
+	
+	/*----------For Friends------------*/
+	
+	public void agregarAmigo(Usuario amigo){
+		this.amigosId.add(amigo.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
+		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
+		
+		amigo.amigosId.add(this.getId());	//Ahora hago lo mismo con el amigo	
+		ofy().save().entity(amigo).now();	
 		
 	}
+	
+	public void quitarAmigo(Usuario amigo){
+		int index = this.amigosId.indexOf(amigo.getId());
+		this.amigosId.remove(index);
+		
+		index = amigo.amigosId.indexOf(this.getId());
+		amigo.amigosId.remove(index);
+	}
+	
+	
 
 }
