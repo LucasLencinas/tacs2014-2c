@@ -3,22 +3,21 @@ package com.tacs.truequeLibre.domain;
 import java.util.Date;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
 @Entity
 public class Trueque {
 	
-	private int id;
+	@Id
+	private long id;
 	
-	//No se todavia si tendria que tener los dos usuarios, ya que con el 
-	//id del item podrias buscar el usuario que lo tiene en la base de datos final.
-	
-	//Puede que un item conozca a su propietario/usuario, entonces no haria falta poner aca el usuario que lo tiene.
   private String description;
-  private Item itemOfrecido;
-  private Usuario usuarioSolicitante;
-  private Item itemSolicitado;
-  private Usuario usuarioSolicitado;
+  @Index private Item itemOfrecido;
+  @Index private Usuario usuarioSolicitante;
+  @Index private Item itemSolicitado;
+  @Index private Usuario usuarioSolicitado;
   
   //Todavia no lo use, pero despues capaz que quiero hacer un filtro
   // u ordenar algun trueque por fecha
@@ -55,11 +54,11 @@ public class Trueque {
    * 
    * Getters and Setters
    */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

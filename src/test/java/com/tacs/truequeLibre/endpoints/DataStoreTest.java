@@ -5,7 +5,12 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.objectify.Key;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.ListaDeTrueques;
+import com.tacs.truequeLibre.domain.ObjetoML;
+import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 import com.tacs.truequeLibre.setup.Setup;
 
@@ -16,6 +21,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DataStoreTest {
+	
+		public Item anteojos;
+		public Item camisetaRacing;
+		Usuario usuario1;
+		Usuario usuario2;
 
     private final LocalServiceTestHelper helper =
         new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -24,6 +34,28 @@ public class DataStoreTest {
     public void setUp() {
         helper.setUp();
         Setup.setup();
+        
+        anteojos = new Item("Anteojos De Sol Para Test", "Los Cambio por una Camiseta de futbol", new ObjetoML(
+      			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",
+      			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg"));
+      	
+      	camisetaRacing= new Item("Camiseta Futbol Racing 2004", "La cambio por unos Anteojos", new ObjetoML(
+      			"http://articulo.mercadolibre.com.ar/MLA-525681267-remera-original-racing-2004-topper-nunca-se-uso-negociable-_JM", "MLA525681267",
+      			"http://mla-s1-p.mlstatic.com/19377-MLA20169415720_092014-I.jpg"));
+      	
+      	usuario1 = new Usuario("Usuario1", "1234567890");
+      	usuario1.agregarItem(anteojos);
+      	usuario2 = new Usuario("Usuario2", "0987654321");
+      	usuario2.agregarItem(camisetaRacing);
+      	
+        HandlerDS.guardarItem(anteojos);
+        HandlerDS.guardarItem(camisetaRacing);
+        
+        HandlerDS.guardarUsuario(usuario1);
+        HandlerDS.guardarUsuario(usuario2);
+        
+        Trueque truequeTest = new Trueque(anteojos, camisetaRacing, usuario1, usuario2, "Cambio anteojos por camiseta");
+        HandlerDS.guardarTrueque(truequeTest);
     }
 
     @After
@@ -31,32 +63,35 @@ public class DataStoreTest {
         helper.tearDown();
     }
 
-    // run this test twice to prove we're not leaking any state across tests
-    private void doTest() {
-        
-        ofy().save().entity(Setup.trueque1.getItemOfrecido()).now(); 
-        Item item = ofy().load().type(Item.class).id(Setup.trueque1.getItemOfrecido().getId()).now();
-        assertEquals(Setup.trueque1.getItemOfrecido(),  item);
-        
-        ofy().save().entity(Setup.trueque1.getItemSolicitado()).now(); 
-        item = ofy().load().type(Item.class).id(Setup.trueque1.getItemSolicitado().getId()).now();
-        assertEquals(item.getDescripcion(), Setup.trueque1.getItemSolicitado().getDescripcion());
-        assertEquals(item.getObjML().getPermalink(), Setup.trueque1.getItemSolicitado().getObjML().getPermalink());
-        
-        ofy().save().entity(Setup.trueque1.getUsuarioSolicitado()).now(); 
-        Usuario usuario = ofy().load().type(Usuario.class).id(Setup.trueque1.getUsuarioSolicitado().getId()).now();
-        assertEquals(usuario, Setup.trueque1.getUsuarioSolicitado());
-        assertEquals(usuario.getNombre(), Setup.trueque1.getUsuarioSolicitado().getNombre());
+    
+    @Test
+    public void filtroTruequesPorUsuarioTest(){
+
+      ListaDeTrueques truequesFiltrados = HandlerDS.findTruequeByUser(usuario1);
+      assertEquals(truequesFiltrados.size(), 1);      
+      assertEquals(truequesFiltrados.get(0).getUsuarioSolicitante().getId(), usuario1.getId()); 	
     }
 
     @Test
-    public void testInsert1() {
-        doTest();
-    }
+    public void filtroTruequesPorItemTest(){
 
+      ListaDeTrueques truequesFiltrados = HandlerDS.findTruequeByItem(anteojos);
+      assertEquals(truequesFiltrados.size(), 1);      
+      assertEquals(truequesFiltrados.get(0).getUsuarioSolicitante().getId(), usuario1.getId());
+      assertEquals(truequesFiltrados.get(0).getItemOfrecido().getId(), anteojos.getId()); 
+    }
+    
+    
     @Test
-    public void testInsert2() {
-        doTest();
+    public void saveAndGetItemAndUserTest() {
+    	HandlerDS.guardarItem(Setup.trueque1.getItemOfrecido()); 
+      Item item = HandlerDS.findItemById(Setup.trueque1.getItemOfrecido().getId());
+      assertEquals(Setup.trueque1.getItemOfrecido(),  item);
+      
+      HandlerDS.guardarUsuario(Setup.trueque1.getUsuarioSolicitado()); 
+      Usuario usuario = HandlerDS.findUsuarioById(Setup.trueque1.getUsuarioSolicitado().getId());
+      assertEquals(usuario, Setup.trueque1.getUsuarioSolicitado());
+      assertEquals(usuario.getNombre(), Setup.trueque1.getUsuarioSolicitado().getNombre());
     }
 }
 

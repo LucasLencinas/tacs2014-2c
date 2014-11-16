@@ -172,10 +172,10 @@ public class Setup {
     }
 
     public static void setup() {
+    	ObjectifyService.register(Item.class);
+    	ObjectifyService.register(Usuario.class);
+    	ObjectifyService.register(Trueque.class);
       load();
-      ObjectifyService.register(Item.class);
-      ObjectifyService.register(Usuario.class);
-      //ObjectifyService.register(Trueque.class);
       
       
     }

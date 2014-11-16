@@ -68,6 +68,7 @@ public class MiPerfil {
         Item itemSolicitado = Setup.items.findById(unTruequeRequest.idItemSolicitado);
         Item itemOfrecido = Setup.items.findById(unTruequeRequest.idItemOfrecido);
         Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
+        
         Setup.trueques.add(trueque);
     	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
     }

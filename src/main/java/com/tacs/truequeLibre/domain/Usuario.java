@@ -1,6 +1,8 @@
 package com.tacs.truequeLibre.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.annotations.Persistent;
 
@@ -8,6 +10,9 @@ import com.google.gson.annotations.Expose;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.tacs.truequeLibre.setup.Setup;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 @Entity
 @SuppressWarnings("serial")
@@ -19,23 +24,22 @@ public class Usuario implements Serializable{
 	private String id;
 	
 	@Expose private String nombre;
-	
 	@Expose private ListaDeItems items;
-	
-	@Ignore
-	@Expose private ListaDeTrueques trueques;
 	
 	@Ignore
 	@Expose private ListaDeUsuarios amigos;
   
-  //Falta ListaDeAmigos TODO
+	private List<String> amigosId;
+	private List<Long> itemsId;
   
   public Usuario(String unNombre,String id) {
   	this.setId(id);
     this.setNombre(unNombre);
     this.setItems(new ListaDeItems());
-    this.setTrueques(new ListaDeTrueques());
-    this.setAmigos(new ListaDeUsuarios());  }
+    this.setAmigos(new ListaDeUsuarios());  
+  	amigosId = new ArrayList<String>();
+  	itemsId = new ArrayList<Long>();
+  }
  
   /**
    * 
@@ -58,6 +62,10 @@ public class Usuario implements Serializable{
 	}
 
 	public ListaDeItems getItems() {
+		ListaDeItems items = new ListaDeItems();
+		for (long itemId : this.itemsId) {
+			items.add(ofy().load().type(Item.class).id(itemId).now());
+		}
 		return items;
 	}
 
@@ -65,6 +73,7 @@ public class Usuario implements Serializable{
 		this.items= unosItems;
 	}
 
+	//Cambiarlo FIXME
 	public ListaDeUsuarios getAmigos() {
 		return amigos;
 	}
@@ -72,34 +81,25 @@ public class Usuario implements Serializable{
 	public void setAmigos(ListaDeUsuarios unosAmigos) {
 		this.amigos= unosAmigos;
 	}
-	
-	
-	public ListaDeTrueques getTrueques() {
-		return trueques;
-	}
-	
-	public void setTrueques(ListaDeTrueques unosTrueques) {
-		this.trueques= unosTrueques;
-	}
 
-	public void setObjML(ListaDeTrueques unosTrueques) {
-		this.trueques = unosTrueques;
-	}
 	
   //Items
 	public void agregarItem(Item item){
-		//Analizar si un item debe conocer a su dueño tambien, no creo y me hace mucho ruido pero hablarlo con los chicos.
-		this.items.add(item);
+		
+		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
+		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
+		//this.items.add(item);
+		
 	}
 	
 	public void quitarItem(Item item){
-		this.items.remove(item);
+		int index = this.itemsId.indexOf(item.getId());
+		this.itemsId.remove(index);
 	}
 
 	public void truequearItem(Item miViejoItem, Item miNuevoItem) {
 		this.agregarItem(miNuevoItem);
 		this.quitarItem(miViejoItem);
-		// TODO Auto-generated method stub
 		
 	}
 
