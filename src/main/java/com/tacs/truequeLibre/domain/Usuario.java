@@ -32,6 +32,9 @@ public class Usuario implements Serializable{
   	amigosId = new ArrayList<String>();
   	itemsId = new ArrayList<Long>();
   }
+  
+  public Usuario() {
+  }
  
   /**
    * 
@@ -80,6 +83,7 @@ public class Usuario implements Serializable{
 	
   /*----------For Items------------*/
 	public void agregarItem(Item item){
+		System.out.println("Agrego al usuario, el item: " + item.getTitulo() + " con Id: " + item.getId());
 		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
 		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
 	}

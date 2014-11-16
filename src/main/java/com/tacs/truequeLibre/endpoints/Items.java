@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/items")
@@ -67,6 +68,7 @@ public class Items {
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
     	Usuario actual = HandlerDS.findUsuarioById(user.getId());
+    	unItem.setId(ListaDeTrueques.getNewID());
     	actual.agregarItem(unItem);
     	HandlerDS.guardarItem(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();

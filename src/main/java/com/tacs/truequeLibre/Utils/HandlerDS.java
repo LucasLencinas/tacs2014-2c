@@ -2,6 +2,9 @@ package com.tacs.truequeLibre.Utils;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
+
+import com.googlecode.objectify.NotFoundException;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
@@ -13,13 +16,20 @@ public class HandlerDS {
 	
 	public static ListaDeItems items(){
 		ListaDeItems itemsResult = new ListaDeItems();
-		Iterable<Item> itemsDS = ofy().load().type(Item.class);
+		Iterable<Item> itemsDS = new ArrayList<Item>() ;
+		try {
+			itemsDS = ofy().load().type(Item.class);
+		} catch(NotFoundException ex){
+			System.out.println("Item no encontrado!!!!");
+		}
+		
 		for (Item item : itemsDS) 
 			itemsResult.add(item);
 		return itemsResult;
 	}
 	
 	public static long guardarItem(Item item){
+		System.out.println("Agrego el item: " + item.getTitulo() + " con Id: " + item.getId());
 		ofy().save().entity(item).now();
 		return item.getId();
 	}

@@ -42,11 +42,12 @@ public class Amigos {
       
       System.out.println("me pidieron los amigos de " + user.getNombre());
       ListaDeUsuarios amigos = Setup.facebook.getAmigos(user, header);
-    	String usuariosJson = new Gson().toJson(amigos);
+      ListaDeUsuarios amigosConItems = amigosConItems(amigos);
+    	String usuariosJson = new Gson().toJson(amigosConItems);
+    	System.out.println("Amigos: " + amigosConItems);
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
-    
-     
+
 		/**
       * FIXME (Lucas)--> Este lo modifique, ahora se le pasa un String id, ver si hay error
       *  Listar un determinado usuario.
@@ -75,6 +76,15 @@ public class Amigos {
     	Gson unGson = new Gson();
     	String itemsDeUsuarioJson = unGson.toJson(amigo.getItems());
     	return Response.ok(itemsDeUsuarioJson, MediaType.APPLICATION_JSON).build();
+    }
+    
+    private ListaDeUsuarios amigosConItems(ListaDeUsuarios amigos){
+    	
+    	for (Usuario amigo : amigos) {
+    		//Hago que se rellene la lista posta de Items teninedo los ids de items
+				amigo.setItems(amigo.getItems());
+			}
+    	return amigos;
     }
 
 }

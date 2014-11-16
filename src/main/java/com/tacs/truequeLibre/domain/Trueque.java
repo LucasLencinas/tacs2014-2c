@@ -30,6 +30,8 @@ public class Trueque {
     this.setEstado(TruequeStatusConstants.PENDING.getID());
   }
   
+  public Trueque() {
+}
   
   /**
    * Solo para poder saber si una lista contiene
