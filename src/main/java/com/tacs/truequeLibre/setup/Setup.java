@@ -20,10 +20,6 @@ import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
-/**
- * Main class.
- * 
- */
 public class Setup {
 	
     public static final String RESOURCES_PATH = "/src/main/resources/com/tacs/truequeLibre/";
@@ -40,7 +36,7 @@ public class Setup {
     public static Usuario usuarioAmigo4;
     
     public static Trueque trueque1;
-    public static Trueque trueque2;
+    public static Trueque trueque2;    
     public static Trueque trueque3;
     public static Trueque trueque4;
     
@@ -88,7 +84,6 @@ public class Setup {
 
 		private static void loadUsuarios() {
 			usuarios = new ListaDeUsuarios();
-    	//Falta el agregarAmigos a todos los usuarios. TODO
     	miUsuario = new Usuario("Tom A", "1492722194320819");
     	miUsuario.agregarItem(item1);
     	miUsuario.agregarItem(item3);
@@ -115,13 +110,16 @@ public class Setup {
     	usuarios.add(usuarioAmigo3);
     	usuarios.add(usuarioAmigo4);
     	
+    	for (Usuario usuario : usuarios) {
+				HandlerDS.guardarUsuario(usuario);
+			}
+    	
     	miUsuario.agregarAmigo(usuarioAmigo1);
     	miUsuario.agregarAmigo(usuarioAmigo2);
     	miUsuario.agregarAmigo(usuarioAmigo3);
     	
     	usuarioAmigo2.agregarAmigo(usuarioAmigo3);
     	usuarioAmigo2.agregarAmigo(usuarioAmigo4);
-    	
     	
 		}
 
@@ -158,7 +156,6 @@ public class Setup {
     			"http://articulo.mercadolibre.com.ar/MLA-525681267-remera-original-racing-2004-topper-nunca-se-uso-negociable-_JM", "MLA525681267",
     			"http://mla-s1-p.mlstatic.com/19377-MLA20169415720_092014-I.jpg"));
     	
-    	
     	items.add(item1);
     	items.add(item2);
     	items.add(item3);
@@ -173,7 +170,6 @@ public class Setup {
     	for (Item item : items) {
 				HandlerDS.guardarItem(item);
 			}
-    	
 		}
     
     public static void unload(){
@@ -187,14 +183,12 @@ public class Setup {
     	ObjectifyService.register(Usuario.class);
     	ObjectifyService.register(Trueque.class);
       load();
-      
-      
     }
 
+    /*--------------For testing--------------*/
 		public static HttpServer startServer() {
 	   		//Los recursos los va a buscar a este paquete
 	       final ResourceConfig rc = new ResourceConfig().packages("com.tacs.truequeLibre.endpoints");
-	       
 	       HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	       HttpHandler handlerStatico = new StaticHttpHandler(System.getProperty("user.dir") + RESOURCES_PATH + "/client/");
 	       System.out.println(System.getProperty("user.dir"));

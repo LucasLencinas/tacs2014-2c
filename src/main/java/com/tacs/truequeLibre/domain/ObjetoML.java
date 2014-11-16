@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.SerializedName;
 
+@SuppressWarnings("serial")
 public class ObjetoML implements Serializable {
  @SerializedName("permalink") private String ml_permalink;	 
  @SerializedName("id") private String ml_id;

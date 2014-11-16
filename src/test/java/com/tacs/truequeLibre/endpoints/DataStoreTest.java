@@ -1,11 +1,7 @@
 package com.tacs.truequeLibre.endpoints;
 
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.googlecode.objectify.Key;
 import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
@@ -24,8 +20,9 @@ public class DataStoreTest {
 	
 		public Item anteojos;
 		public Item camisetaRacing;
-		Usuario usuario1;
-		Usuario usuario2;
+		public Usuario usuario1;
+		public Usuario usuario2;
+		public Trueque truequeTest;
 
     private final LocalServiceTestHelper helper =
         new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -54,7 +51,7 @@ public class DataStoreTest {
         HandlerDS.guardarUsuario(usuario1);
         HandlerDS.guardarUsuario(usuario2);
         
-        Trueque truequeTest = new Trueque(anteojos, camisetaRacing, usuario1, usuario2, "Cambio anteojos por camiseta");
+        truequeTest = new Trueque(anteojos, camisetaRacing, usuario1, usuario2, "Cambio anteojos por camiseta");
         HandlerDS.guardarTrueque(truequeTest);
     }
 
@@ -104,12 +101,14 @@ public class DataStoreTest {
     	assertEquals(amigoOfDataStore.getId(), Setup.usuarioAmigo1.getId());
     	assertEquals(amigoOfDataStore.getItems().findById(Setup.item2.getId()), 
     			Setup.usuarioAmigo1.getItems().findById(Setup.item2.getId()));
-    	
-    	
-    	
-    	
     }
 
+    @Test
+    public void getTruequeByItemTest(){
+    	ListaDeTrueques trueques = HandlerDS.findTruequeByItem(truequeTest.getItemOfrecido());
+    	Trueque truequeBuscado = trueques.get(0);
+    	assertEquals(truequeBuscado.getId(),truequeTest.getId());
+    }
 }
 
 

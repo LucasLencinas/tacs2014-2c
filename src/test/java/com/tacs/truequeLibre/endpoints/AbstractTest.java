@@ -5,22 +5,23 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.objectify.ObjectifyService;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.ObjetoML;
+import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 public abstract class AbstractTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-	 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+  private final LocalServiceTestHelper helper =
+      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	
 
 	protected  Item item1;
 	protected Item item2;
@@ -33,6 +34,10 @@ public abstract class AbstractTest {
 
 	@Before
 	public void setUp() {
+			helper.setUp();
+    	ObjectifyService.register(Item.class);
+    	ObjectifyService.register(Usuario.class);
+    	ObjectifyService.register(Trueque.class);
 		
 	  	items = new ListaDeItems();
 	  	item1 = new Item("Anteojos", "De Sol", new ObjetoML(
@@ -52,11 +57,20 @@ public abstract class AbstractTest {
 	  	items.add(item3);
 	  	items.add(item4);
 	  	
+	  	HandlerDS.guardarItem(item1);
+	  	HandlerDS.guardarItem(item2);
+	  	HandlerDS.guardarItem(item3);
+	  	HandlerDS.guardarItem(item4);
+	  	
 	  	miUsuario = new Usuario("Mi Usuario","123");
+	  	usuarioAmigo = new Usuario("Usuario Amigo","1234");
+	  	
+	  	HandlerDS.guardarUsuario(miUsuario);
+	  	HandlerDS.guardarUsuario(usuarioAmigo);
+	  	
 	  	miUsuario.agregarItem(item1);
 	  	miUsuario.agregarItem(item3);
 	  	
-	  	usuarioAmigo = new Usuario("Usuario Amigo","1234");
 	  	usuarioAmigo.agregarItem(item2);
 	}
 
@@ -65,7 +79,8 @@ public abstract class AbstractTest {
 		ListaDeItems.contador = 0;
 		ListaDeTrueques.contador = 0;
 		ListaDeUsuarios.contador = 0;
-	}
+		helper.tearDown();
+		}
 		 
 	  
 	

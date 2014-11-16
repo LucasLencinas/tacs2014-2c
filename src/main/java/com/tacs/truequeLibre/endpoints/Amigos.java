@@ -11,10 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import com.tacs.truequeLibre.setup.Setup;
-import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -28,10 +26,6 @@ public class Amigos {
 	/*En el @Context HttpHeader hh estan los parametros que se envian, como headers, cookies y esas cosas.
 	 *Desde javascript tengo que guardar previamente la cookie en la sesion, por ahora lo hago con:
 	 *document.cookie = 'key=' + value;
-	 *
-	 *Lo empiezo a probar aca porque es la primer llamada que se hace desde javascript hasta el servidor, supongo que tendria que ser
-	 *en otra pero despues los cambiamos
-	 *
 	 * */
     @GET 
     @Produces("application/json")
@@ -42,16 +36,13 @@ public class Amigos {
       	Setup.setup();
       }
       
-    	
-    	System.out.println(header.toString());
       Usuario user = Setup.facebook.getLoggedUser(header);
       if(user == null)
-      return Response.status(500).build();
+      	return Response.status(500).build();
       
       System.out.println("me pidieron los amigos de " + user.getNombre());
       ListaDeUsuarios amigos = Setup.facebook.getAmigos(user, header);
     	String usuariosJson = new Gson().toJson(amigos);
-    	
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -67,9 +58,9 @@ public class Amigos {
     @Produces("application/json")
     public Response show(@PathParam("id") String id){
     	
-    	Usuario unUsuario= Setup.usuarios.findById(id);	
+    	Usuario amigo= HandlerDS.findUsuarioById(id);	
     	Gson unGson = new Gson();
-    	String unUsuarioJson = unGson.toJson(unUsuario);
+    	String unUsuarioJson = unGson.toJson(amigo);
     	return Response.ok(unUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
     
@@ -80,15 +71,10 @@ public class Amigos {
     @Path("/{id}/items")
     @Produces("application/json")
     public Response showItems(@PathParam("id") String id){
-    	Usuario unUsuario= Setup.usuarios.findById(id);	
+    	Usuario amigo= HandlerDS.findUsuarioById(id);	
     	Gson unGson = new Gson();
-    	String itemsDeUsuarioJson = unGson.toJson(unUsuario.getItems());	//No se si va a andar
+    	String itemsDeUsuarioJson = unGson.toJson(amigo.getItems());
     	return Response.ok(itemsDeUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
 
-
-    /*Funciones de prueba para el GAE DataStore*/
-    
-   
-    
 }

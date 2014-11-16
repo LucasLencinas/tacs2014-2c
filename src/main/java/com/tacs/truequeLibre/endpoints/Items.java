@@ -3,10 +3,8 @@ package com.tacs.truequeLibre.endpoints;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,11 +14,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-
 import com.tacs.truequeLibre.setup.Setup;
-import com.tacs.truequeLibre.Utils.LlamadasFB;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
-import com.tacs.truequeLibre.domain.ObjetoML;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/items")
@@ -33,7 +29,7 @@ public class Items {
     @GET 
     @Produces("application/json")
     public Response index(){
-      String itemsJson = new Gson().toJson(Setup.items);
+      String itemsJson = new Gson().toJson(HandlerDS.items());
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -47,7 +43,7 @@ public class Items {
     @Produces("application/json")
     public Response show(@PathParam("id") Integer id){
     	
-    	Item unItem= Setup.items.findById(id);	
+    	Item unItem= HandlerDS.findItemById(id);	
     	Gson unGson = new Gson();
     	String unItemJson = unGson.toJson(unItem);
     	return Response.ok(unItemJson, MediaType.APPLICATION_JSON).build();
@@ -70,38 +66,10 @@ public class Items {
       Usuario user = Setup.facebook.getLoggedUser(header);
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
-    	Usuario actual = Setup.usuarios.findById(user.getId());
+    	Usuario actual = HandlerDS.findUsuarioById(user.getId());
     	actual.agregarItem(unItem);
-    	Setup.items.add(unItem);
+    	HandlerDS.guardarItem(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
-    }
-
-    
-    /**
-     * Actualiza un item de la base de datos del sistema dado un determinado id. TESTEAR
-     * @param id: del producto a actualizar
-     * @param title: dato a actualizar
-     * @param description: dato a actualizar
-     * @param permalink: dato a actualizar
-     * @param ma_id: dato a actualizar
-     * @return: el mismo objeto en formato json actualizado
-     */
-    @PUT
-    @Path("/{id}")
-    @Produces("application/json")
-   	public Response update(
-			@PathParam("id") Integer id, 			
-			@FormParam("title") String title,
-			@FormParam("description") String description, 
-			@FormParam("ml_permalink") String permalink, 
-			@FormParam("ml_id") String ml_id,
-			@FormParam("ml_thumbnail") String ml_thumbnail) {
-    	Item unItemDeLista = Setup.items.findById(id);
-    	unItemDeLista.setId(id);
-    	unItemDeLista.setDescripcion(description);;
-    	unItemDeLista.setTitulo(title);;
-    	unItemDeLista.setObjML(new ObjetoML(permalink, ml_id, ml_thumbnail));
-    	return Response.ok(new Gson().toJson(unItemDeLista), MediaType.APPLICATION_JSON).build();
     }
     
     /**
@@ -112,8 +80,8 @@ public class Items {
     @DELETE
     @Path("/{id}")
     public Response destroy(@PathParam("id") Integer id){
-    	Item unItem = Setup.items.findById(id);
-    	Setup.items.remove(unItem);
+    	Item unItem = HandlerDS.findItemById(id);
+    	HandlerDS.deleteItem(unItem);
     	return Response.ok("Item "+ new Gson().toJson(unItem)+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }

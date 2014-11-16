@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class ListaDeItems extends ArrayList<Item>{
 
 	public static int contador = 0;
-	
 	public Item findById(long unId){
 		
 		for (Item unItem : this) {
@@ -15,8 +14,7 @@ public class ListaDeItems extends ArrayList<Item>{
 		}
 			return null;
 	}
-	
-	
+
 	
 	public void clear(){
 		super.clear();

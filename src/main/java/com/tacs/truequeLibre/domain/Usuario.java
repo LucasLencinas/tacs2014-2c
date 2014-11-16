@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.annotations.Persistent;
-
 import com.google.gson.annotations.Expose;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
-import com.tacs.truequeLibre.setup.Setup;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -19,15 +16,10 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class Usuario implements Serializable{
 
 	
-	@Expose
-	@Id
-	private String id;
-	
+	@Expose @Id private String id;
 	@Expose private String nombre;
 	@Expose private ListaDeItems items;
-	
-	@Ignore
-	@Expose private ListaDeUsuarios amigos;
+	@Ignore @Expose private ListaDeUsuarios amigos;
   
 	private List<String> amigosId;
 	private List<Long> itemsId;
@@ -66,20 +58,19 @@ public class Usuario implements Serializable{
 		for (long itemId : this.itemsId) {
 			items.add(ofy().load().type(Item.class).id(itemId).now());
 		}
-		return items;
+		return this.items = items;
 	}
 
 	public void setItems(ListaDeItems unosItems) {
 		this.items= unosItems;
 	}
 
-	//Cambiarlo FIXME
 	public ListaDeUsuarios getAmigos() {
 		ListaDeUsuarios amigos = new ListaDeUsuarios();
 		for (String amigosId : this.amigosId) {
 			amigos.add(ofy().load().type(Usuario.class).id(amigosId).now());
 		}
-		return amigos;
+		return this.amigos = amigos;
 	}
 
 	public void setAmigos(ListaDeUsuarios unosAmigos) {

@@ -3,11 +3,21 @@ package com.tacs.truequeLibre.Utils;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 public class HandlerDS {
+	
+	
+	public static ListaDeItems items(){
+		ListaDeItems itemsResult = new ListaDeItems();
+		Iterable<Item> itemsDS = ofy().load().type(Item.class);
+		for (Item item : itemsDS) 
+			itemsResult.add(item);
+		return itemsResult;
+	}
 	
 	public static long guardarItem(Item item){
 		ofy().save().entity(item).now();
@@ -58,4 +68,19 @@ public class HandlerDS {
 		return truequesBuscados;
 	}
 	
+	
+	public static ListaDeTrueques findPendingTruequesByUser(Usuario usuario){
+	ListaDeTrueques result = new ListaDeTrueques();
+	Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
+	for (Trueque trueque: trueques) {
+		  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == usuario) {
+		    result.add(trueque);
+		  }
+		}
+	return result;
+	}
+
+	public static void deleteItem(Item item) {
+		ofy().delete().entity(item);
+	}
 }

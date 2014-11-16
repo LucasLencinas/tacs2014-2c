@@ -2,11 +2,9 @@ package com.tacs.truequeLibre.endpoints;
 
 
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,15 +22,12 @@ import com.restfb.Parameter;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
 import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
 
-/* 
- *  Por el momento asumo que la solicitud y el trueque son la misma entidad,
- *  siendo la solicitud un trueque en estado pendiente (no fue aceptado ni rechazado)
- */
 @Path("/trueques")
 public class Trueques {
 
@@ -45,7 +40,7 @@ public class Trueques {
     public Response index(@Context HttpHeaders header) {
     	System.out.println("Me pidieron los Trueques");
   		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
-    	String itemsJson = new Gson().toJson(Setup.trueques.getByUser(miUsuario));
+    	String itemsJson = new Gson().toJson(HandlerDS.findTruequeByUser(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -55,21 +50,9 @@ public class Trueques {
 	public Response solicitudes(@Context HttpHeaders header){
     	System.out.println("Me pidieron las solicitudes");
   		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
-    	String itemsJson = new Gson().toJson(Setup.trueques.getPending(miUsuario));
+    	String itemsJson = new Gson().toJson(HandlerDS.findPendingTruequesByUser(miUsuario));
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
 	}
-
-    
-    /*
-     * Crea una solicitud de trueque. 
-     */
-    @POST
-    @Path("/new")
-    @Produces("application/json")
-	public Response create(@FormParam("item_1[id]") Integer item_1_id, @FormParam("item_2[id]") Integer item_2_id) {
-    	String json = "{id: 2, item_1:{id:"+item_1_id+", user: 'Pepe'}, item_2: {id:" + item_2_id+ ", user: 'Juan'}, status: 'pending'}";
-    	return Response.ok(json, MediaType.APPLICATION_JSON).build();
-    }
     
     @POST
     @Path("/accept/{id}")
@@ -78,7 +61,7 @@ public class Trueques {
 			String accessToken = pathParams.get("token").getValue();
 		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
 		  
-    	Trueque trueque = Trueque.getById(truequeId);
+    	Trueque trueque = HandlerDS.findTruequeById(truequeId);
     	trueque.aceptarTrueque();
     	Usuario usuarioANotificar = trueque.getUsuarioSolicitante();
     	String mensaje = trueque.getUsuarioSolicitado().getNombre()+" Ha aceptado tu solicitud. "+
@@ -91,7 +74,7 @@ public class Trueques {
     @POST
     @Path("/reject/{id}")
 	public String reject(@PathParam("id") Integer truequeId) {
-    	Trueque trueque = Trueque.getById(truequeId);
+    	Trueque trueque = HandlerDS.findTruequeById(truequeId);
     	trueque.rechazarTrueque();
     	return "Trueque "+truequeId+" aceptado";
     }  
@@ -115,7 +98,6 @@ public class Trueques {
 	        
 	        }
 	    } catch (UnsupportedEncodingException e) {// Por lo del encoding, error de la barra
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}

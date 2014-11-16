@@ -5,24 +5,19 @@ import java.util.Date;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.Utils.TruequeStatusConstants;
 @Entity
 public class Trueque {
 	
-	@Id
-	private long id;
+	@Id private long id;
 	
   private String description;
   @Index private Item itemOfrecido;
   @Index private Usuario usuarioSolicitante;
   @Index private Item itemSolicitado;
   @Index private Usuario usuarioSolicitado;
-  
-  //Todavia no lo use, pero despues capaz que quiero hacer un filtro
-  // u ordenar algun trueque por fecha
   private Date fecha;  
-  //definidos en TruequeStatusConstants
   private int estado;
   
   public Trueque(Item itemOfrecido, Item itemSolicitado, Usuario usuarioSolicitante, Usuario usuarioSolicitado, String unaDescripcion) {
@@ -51,7 +46,6 @@ public class Trueque {
   }
   
   /**
-   * 
    * Getters and Setters
    */
 	public long getId() {
@@ -86,7 +80,6 @@ public class Trueque {
 		this.usuarioSolicitado = unUsuario2;
 	}
 
-
 	public Usuario getUsuarioSolicitante() {
 		return usuarioSolicitante;
 	}
@@ -94,9 +87,6 @@ public class Trueque {
 	public void setUsuarioSolicitante(Usuario unUsuario1) {
 		this.usuarioSolicitante = unUsuario1;
 	}
-	
-	
-	
 
 	public String getDescripcion() {
 		return description;
@@ -106,11 +96,9 @@ public class Trueque {
 		this.description = descripcion;
 	}
 
-
 	public Date getFecha() {
 		return fecha;
 	}
-
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
@@ -123,27 +111,20 @@ public class Trueque {
 		return this.estado;
 	}
 
-	//Aceptar y rechazar trueques
 	public void aceptarTrueque() throws Exception {
-		if(/*this.usuarioSolicitado == Main.miUsuario*/true){
-			this.estado = TruequeStatusConstants.ACCEPTED.getID();
-			this.usuarioSolicitado.truequearItem(this.itemSolicitado, this.itemOfrecido);
-			this.usuarioSolicitante.truequearItem(this.itemOfrecido, this.itemSolicitado);
-			//TODO: Hacer que notifique la aceptacion/rechazo
-		} else {
-			throw new Exception("No me corresponde aceptar dicha solicitud porque no me lo solicitaron a mí");
-		}
+	
+		this.estado = TruequeStatusConstants.ACCEPTED.getID();
+		this.usuarioSolicitado.truequearItem(this.itemSolicitado, this.itemOfrecido);
+		this.usuarioSolicitante.truequearItem(this.itemOfrecido, this.itemSolicitado);
+		HandlerDS.guardarTrueque(this);
 	}
 	
 	public void rechazarTrueque() {
 		this.estado = TruequeStatusConstants.REJECTED.getID();
+		HandlerDS.guardarTrueque(this);
 	}
 	
-	//BD
-	public static Trueque getById(int truequeID){
-		return Setup.trueques.findById(truequeID);
-	}
-	
+
 
 
 

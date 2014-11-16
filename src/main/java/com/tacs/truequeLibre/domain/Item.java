@@ -10,21 +10,15 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class Item implements Serializable{
 	
-	@Id
-  @Expose private long id;
-	 
-  @Expose 
-  private String title;
-  //Sirve para describir por que tipo de item se quiere truequear
-  @Expose 
-  private String description;
+	@Id @Expose private long id;
+  @Expose private String title;
+  @Expose private String description;
   
   @SerializedName("ml") 
   private ObjetoML objML;
   
-  public Item(){
-	  
-  }
+  public Item(){}//Necesario para el Gson
+  
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
   	this.setId(ListaDeItems.getNewID());
     this.setTitulo(unTitulo);
@@ -43,12 +37,10 @@ public class Item implements Serializable{
 
     if (otroItem != null && otroItem instanceof Item)
         return (this.id == ((Item) otroItem).id);
-
     return false;
   }
   
   /**
-   * 
    * Getters and Setters
    */
 	public long getId() {

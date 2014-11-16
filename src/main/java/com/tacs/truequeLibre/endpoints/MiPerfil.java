@@ -2,22 +2,19 @@ package com.tacs.truequeLibre.endpoints;
 
 
 import javax.ws.rs.DELETE;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
-
 import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.Utils.TruequeRequest;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
@@ -46,8 +43,8 @@ public class MiPerfil {
     	Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
     	Item itemABorrar = usuarioLogueado.getItems().findById(idItem);
     	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + usuarioLogueado.getNombre());
-    	usuarioLogueado.getItems().remove(itemABorrar);
-    	Setup.items.remove(itemABorrar);
+    	usuarioLogueado.quitarItem(itemABorrar);
+    	HandlerDS.deleteItem(itemABorrar);
     	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
     }
     
@@ -55,7 +52,7 @@ public class MiPerfil {
     @Path("/trueques")
     public Response getMyTrueques(@Context HttpHeaders header){
   		Usuario user = Setup.facebook.getLoggedUser(header);
-      String truequesJson = new Gson().toJson(Setup.trueques.getByUser(user));
+      String truequesJson = new Gson().toJson(HandlerDS.findTruequeByUser(user));
       return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -63,13 +60,12 @@ public class MiPerfil {
     @Path("/trueques")
       public Response postularTrueque(String jsonTrueque, @Context HttpHeaders header) {
     	TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
-        Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
-        Usuario usuarioAmigo = Setup.usuarios.findById(unTruequeRequest.idAmigo);
-        Item itemSolicitado = Setup.items.findById(unTruequeRequest.idItemSolicitado);
-        Item itemOfrecido = Setup.items.findById(unTruequeRequest.idItemOfrecido);
-        Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
-        
-        Setup.trueques.add(trueque);
+      Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
+      Usuario usuarioAmigo = HandlerDS.findUsuarioById(unTruequeRequest.idAmigo);
+      Item itemSolicitado = HandlerDS.findItemById(unTruequeRequest.idItemSolicitado);
+      Item itemOfrecido = HandlerDS.findItemById(unTruequeRequest.idItemOfrecido);
+      Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
+      HandlerDS.guardarTrueque(trueque);
     	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
     }
 }
