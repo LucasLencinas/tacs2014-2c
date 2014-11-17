@@ -86,8 +86,7 @@ public class Trueques {
     	//tengo que generar un facebookClient con el APP_access_token
     	DefaultFacebookClient facebookClientAppAccessToken = new DefaultFacebookClient( app_access_token );
         try {
-        	facebookClientAppAccessToken.publish(URLEncoder.encode(externalUserId
-	                + "/notifications?access_token="+app_access_token, "UTF-8"), FacebookType.class,
+        	facebookClientAppAccessToken.publish("/"+externalUserId+"/notifications?access_token="+URLEncoder.encode(app_access_token, "UTF-8"), FacebookType.class,
 	                Parameter.with("template", message),
 	                Parameter.with("href", href));
 	    } catch (FacebookOAuthException e) {
