@@ -59,11 +59,11 @@ public class HandlerDS {
 	public static ListaDeTrueques findTruequeByUser(Usuario usuario){
 		ListaDeTrueques truequesBuscados = new ListaDeTrueques();
     Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
-    for (Trueque trueque : trueques) 
-			if(trueque.getUsuarioSolicitado().getId() == usuario.getId() || 
-					trueque.getUsuarioSolicitante().getId() == usuario.getId())
-				truequesBuscados.add(trueque);
-		
+    for (Trueque trueque : trueques) {
+    	if(trueque.getUsuarioSolicitado().getId().equals(usuario.getId()) || 
+    			trueque.getUsuarioSolicitante().getId().equals(usuario.getId()))
+    		truequesBuscados.add(trueque);
+    }
 		return truequesBuscados;
 	}
 	
@@ -74,7 +74,6 @@ public class HandlerDS {
 			if(trueque.getItemOfrecido().getId() == item.getId() || 
 					trueque.getItemSolicitado().getId() == item.getId())
 				truequesBuscados.add(trueque);
-		
 		return truequesBuscados;
 	}
 	
@@ -83,7 +82,7 @@ public class HandlerDS {
 	ListaDeTrueques result = new ListaDeTrueques();
 	Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
 	for (Trueque trueque: trueques) {
-		  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado() == usuario) {
+		  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado().getId().equals(usuario.getId())) {
 		    result.add(trueque);
 		  }
 		}

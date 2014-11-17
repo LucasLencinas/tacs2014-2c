@@ -60,7 +60,8 @@
           $('#main').load("mainData.html");
         	$('.img-thumbnail').tooltip();
           FB.api('/me', function(response) {
-              $('#nombreUsuario').html(response.name);
+              $('#nombreUsuarioDropdown').show();
+              $('#nombreUsuario').html(response.name+" <span class='caret'></span>");
               document.cookie = 'nombre=' + response.name;
               
           });
