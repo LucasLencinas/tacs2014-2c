@@ -44,7 +44,9 @@ public class LlamadasFB implements ILlamadasFB {
     for (List<User> myFriendConnection : myFriends)
       for (User usuario : myFriendConnection ){
       	System.out.println("Amigo: "+ usuario.getName() +"," + usuario.getId() );
-      	amigos.add(HandlerDS.findUsuarioById(usuario.getId()));
+      	Usuario amigo = HandlerDS.findUsuarioById(usuario.getId());
+      	if(amigo != null)
+      		amigos.add(amigo);
       }
 		return amigos;
 	}
