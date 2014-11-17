@@ -40,10 +40,13 @@
 	        data: JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}),
 	        url: "truequeLibre/miPerfil/trueques",
 					contentType: 'application/json', 
-	        dataType:"json",
+	        success: function (data){
+	        	console.log(data);
+				$('#modalHacerTrueque').modal('hide');
+				$("#modalResultadoOperacion").modal('show');
+	  	  		$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
+	 			getMyTrueques();	
+	        }
 	    });
-			$('#modalHacerTrueque').modal('hide');
-			$("#modalResultadoOperacion").modal('show');
-  	  $("#descripcionResultadoOperacion").html('Operacion Exitosa!');
- 			getMyTrueques();	
+	    console.log("HOLA");
 	}

@@ -66,6 +66,6 @@ public class MiPerfil {
       Item itemOfrecido = HandlerDS.findItemById(unTruequeRequest.idItemOfrecido);
       Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
       HandlerDS.guardarTrueque(trueque);
-    	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
+    	return Response.ok("ok", MediaType.TEXT_PLAIN).build();
     }
 }
