@@ -58,8 +58,10 @@ public class Usuario implements Serializable{
 
 	public ListaDeItems getItems() {
 		ListaDeItems items = new ListaDeItems();
-		for (long itemId : this.itemsId) {
-			items.add(ofy().load().type(Item.class).id(itemId).now());
+		if(this.itemsId != null){
+			for (long itemId : this.itemsId) {
+				items.add(ofy().load().type(Item.class).id(itemId).now());
+			}
 		}
 		return this.items = items;
 	}
