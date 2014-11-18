@@ -83,9 +83,10 @@ public class Items {
      */
     @DELETE
     @Path("/{id}")
-    public Response destroy(@PathParam("id") Integer id){
+    public Response destroy(@PathParam("id") Integer id, @Context HttpHeaders header) {
+      Usuario user = Setup.facebook.getLoggedUser(header);
     	Item unItem = HandlerDS.findItemById(id);
-    	HandlerDS.deleteItem(unItem);
+    	HandlerDS.deleteItem(unItem,user);
     	return Response.ok("Item "+ new Gson().toJson(unItem)+" eliminado", MediaType.TEXT_PLAIN).build();
     }
 }

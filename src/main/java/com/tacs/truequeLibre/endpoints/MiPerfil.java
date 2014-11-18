@@ -44,9 +44,12 @@ public class MiPerfil {
     	Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
     	Item itemABorrar = usuarioLogueado.getItems().findById(idItem);
     	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + usuarioLogueado.getNombre());
-    	usuarioLogueado.quitarItem(itemABorrar);
-    	HandlerDS.deleteItem(itemABorrar);
-    	return Response.ok("ok", MediaType.APPLICATION_JSON).build();
+
+    	boolean deleteOK = HandlerDS.deleteItem(itemABorrar,usuarioLogueado);
+    	if(deleteOK == true)
+    		return Response.ok("ok", MediaType.APPLICATION_JSON).build();
+    	else
+    		return Response.status(Response.Status.CONFLICT).build();
     }
     
     @GET

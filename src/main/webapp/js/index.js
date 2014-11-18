@@ -37,6 +37,22 @@
 		return vista;
 	}
 	
-	
+	function cargarDatos(){
+		$.ajax({
+	        type: "POST",
+			contentType: 'application/json', 
+	        url: "truequeLibre/admin",
+	        data:$("#codigoCargarDatos").val(),
+	        dataType:"json",
+	        statusCode: {
+	            409: function (response) {//Conflicto
+	            	alert('Codigo Incorrecto!');
+	            }
+	        },
+	        200: function(response) {
+	        	alert('Carga Completada!');
+	        }
+	    });
+	}
 	
 	

@@ -42,6 +42,9 @@ public class Amigos {
       
       System.out.println("me pidieron los amigos de " + user.getNombre());
       ListaDeUsuarios amigos = Setup.facebook.getAmigos(user, header);
+      for (Usuario amigo : amigos) {				
+      	user.agregarAmigo(amigo);
+			}
       ListaDeUsuarios amigosConItems = amigosConItems(amigos);
     	String usuariosJson = new Gson().toJson(amigosConItems);
     	System.out.println("Amigos con items: " + amigosConItems);

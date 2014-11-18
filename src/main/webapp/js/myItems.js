@@ -37,9 +37,13 @@
 					contentType: 'application/json', 
 	        url: "truequeLibre/miPerfil/items/"+idDeItem,
 	        dataType:"json",
-	        success: function(data) {
+	        statusCode: {
+	            409: function (response) {//Conflicto
+	            	$("#descripcionResultadoOperacion").html('No se pudo realizar la operacion. El Items se encuentra en un treque Pendiente!');
+	            }
+	        },
+	        success: function(response) {
 	          	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
-	    		getMyItems();
 	        }
 	    });
 

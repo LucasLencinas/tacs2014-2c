@@ -16,6 +16,36 @@
     	    xfbml      : true,  // parse social plugins on this page
     	    version    : 'v2.1' // use version 2.1
     	  });
+    	  
+    	  FB.Event.subscribe('auth.authResponseChange', function(response) {
+		     if (response.status === 'connected') {
+		    	document.cookie = "token" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		    	document.cookie = "id" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+		        document.cookie = 'token=' + response.authResponse.accessToken;
+		        document.cookie = 'id=' + response.authResponse.userID;
+		     }   
+		     else if (response.status === 'not_authorized') 
+		    {/*FAILED*/} 
+		     else{/*UNKNOWN*/}
+			});
+    	  
+    	  FB.Event.subscribe('auth.statusChange', function(response) {
+ 		     if (response.status === 'connected') {
+ 		    	document.cookie = "token" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+ 		    	document.cookie = "id" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+ 		        document.cookie = 'token=' + response.authResponse.accessToken;
+ 		        document.cookie = 'id=' + response.authResponse.userID;
+ 		     }   
+ 		     else if (response.status === 'not_authorized') 
+ 		    {/*FAILED*/} 
+ 		     else{/*UNKNOWN*/}
+ 			});
+    	  
+    	  FB.Event.subscribe('auth.login', function() {
+    		  location.reload();
+    		});
     	  /*
     	  	Ahora que inicializamos el SDK de Javascript, llamamos a FB.getLoginStatus().
     	  	Esta funcion obtiene el estado de la persona que visita la pagina y puede devolver
@@ -46,24 +76,24 @@
       
       function statusChangeCallback(response) {
         console.log('statusChangeCallback');
+        if(response == null){
+        	location.reload();
+        }
         console.log(response);
-        document.cookie = 'token=' + response.authResponse.accessToken;
-        document.cookie = 'id=' + response.authResponse.userID;
-
-        
         // El response tiene muchos datos del usuario loggueado, entre ellos el estado
         if (response.status === 'connected') {
+        	
         	/*
         	 * ACA ya estoy loggueado y puedo empezar a modificar la pagina,cargar los datos y todo eso
         	 * */
-        	
-          $('#main').load("mainData.html");
+			document.cookie = 'token=' + response.authResponse.accessToken;
+		    document.cookie = 'id=' + response.authResponse.userID;
+		    $('#main').load("mainData.html");
         	$('.img-thumbnail').tooltip();
-          FB.api('/me', function(response) {
+        	FB.api('/me', function(response) {
               $('#nombreUsuarioDropdown').show();
               $('#nombreUsuario').html(response.name+" <span class='caret'></span>");
               document.cookie = 'nombre=' + response.name;
-              
           });
           getOtherItems($.cookie("id"));
           
@@ -77,7 +107,6 @@
         } else {
           	// No esta loggueado en facebook por lo tanto no reconoce a la persona
           	$('#statusLogin').innerHTML = 'Please log into Facebook.';
-          	
         }
       }
 

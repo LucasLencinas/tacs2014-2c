@@ -109,10 +109,16 @@ public class Usuario implements Serializable{
 	/*----------For Friends------------*/
 	
 	public void agregarAmigo(Usuario amigo){
-		this.amigosId.add(amigo.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
+		if(this.amigosId == null)
+			this.amigosId = new ArrayList<String>();
+		if(!this.amigosId.contains(amigo.getId()))
+			this.amigosId.add(amigo.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
 		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
 		
-		amigo.amigosId.add(this.getId());	//Ahora hago lo mismo con el amigo	
+		if(amigo.amigosId == null)
+			amigo.amigosId = new ArrayList<String>();
+		if(!amigo.amigosId.contains(this.getId()))
+			amigo.amigosId.add(this.getId());	//Ahora hago lo mismo con el amigo	
 		ofy().save().entity(amigo).now();	
 		
 	}

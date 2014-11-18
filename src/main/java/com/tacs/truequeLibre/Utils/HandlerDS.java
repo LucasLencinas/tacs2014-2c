@@ -40,8 +40,6 @@ public class HandlerDS {
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
-		System.out.println("Agrego el trueque: " +trueque.getUsuarioSolicitante().getNombre()+ ":"+trueque.getItemOfrecido().getDescripcion() + " --> " +
-				trueque.getUsuarioSolicitado().getNombre()+ ":"+trueque.getItemSolicitado().getDescripcion());
 		ofy().save().entity(trueque).now();
 		return trueque.getId();
 	}
@@ -83,7 +81,13 @@ public class HandlerDS {
 	public static ListaDeTrueques findPendingTruequesByUser(Usuario usuario){
 	ListaDeTrueques result = new ListaDeTrueques();
 	Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
+	if(trueques == null){
+		int a = 5/0;
+	}
 	for (Trueque trueque: trueques) {
+			if(trueque == null) {
+				int x = 3/0;
+			}
 		  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado().getId().equals(usuario.getId())) {
 		    result.add(trueque);
 		  }
@@ -91,7 +95,14 @@ public class HandlerDS {
 	return result;
 	}
 
-	public static void deleteItem(Item item) {
+	public static boolean deleteItem(Item item, Usuario user) {
+		ListaDeTrueques truequesPendientes = findPendingTruequesByUser(user);
+		for (Trueque trueque : truequesPendientes) {
+			if(trueque.getItemOfrecido().getId() == item.getId() || trueque.getItemSolicitado().getId() == item.getId())
+				return false;
+		}
 		ofy().delete().entity(item).now();
+  	user.quitarItem(item);
+		return true;
 	}
 }

@@ -66,8 +66,6 @@ public class Setup {
 	private static void loadTrueques() {
 			
 		trueques = new ListaDeTrueques();
-    	//Parece media fea la creacion de un trueque, solo deberian estar los items.
-    	//Pero si lo hago asi, entonces cada item tendria que saber su dueño. Pregunarlo. FIXME
     	trueque1 = new Trueque(item1,item2,miUsuario, usuarioAmigo1,"Anteojos por Notebook");
     	trueque2 = new Trueque(item3,item5,miUsuario, usuarioAmigo2,"Mesa por Moto");
     	trueque3 = new Trueque(item7,item8,usuarioAmigo2, usuarioAmigo3,"Musculosa por Auto");
