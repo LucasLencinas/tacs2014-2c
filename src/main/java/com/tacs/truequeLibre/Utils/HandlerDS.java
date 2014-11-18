@@ -92,6 +92,6 @@ public class HandlerDS {
 	}
 
 	public static void deleteItem(Item item) {
-		ofy().delete().entity(item);
+		ofy().delete().entity(item).now();
 	}
 }

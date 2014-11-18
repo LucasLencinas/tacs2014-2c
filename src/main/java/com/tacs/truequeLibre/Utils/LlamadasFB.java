@@ -17,11 +17,9 @@ public class LlamadasFB implements ILlamadasFB {
 	public static String appSecret = "28f123fe638801f3f519663c4f747d0c";
 	
 	public Usuario getLoggedUser(HttpHeaders header){
-		System.out.println("Function: getLoggedUser");
 		String token = header.getCookies().get("token").getValue();
   	DefaultFacebookClient facebookClient =  getFBClient(token);
     User user = facebookClient.fetchObject("me", User.class);
-    System.out.println("Id user: " + user.getId());
     	
     Usuario usuario = HandlerDS.findUsuarioById(user.getId());
     if(usuario == null){
@@ -37,7 +35,6 @@ public class LlamadasFB implements ILlamadasFB {
 		
 		String token = header.getCookies().get("token").getValue();
 		DefaultFacebookClient facebookClient =  getFBClient(token);
-		System.out.println("User name: " + user.getNombre());
     Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class,
     		Parameter.with("fields", "id, name"));
     ListaDeUsuarios amigos = new ListaDeUsuarios();
