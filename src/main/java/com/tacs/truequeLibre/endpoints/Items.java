@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
+import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -64,11 +65,12 @@ public class Items {
     @Produces("application/json")
     @Consumes("application/json")
 	public Response create(String item_json, @Context HttpHeaders header) {
+    	System.out.println("Item a crear: " + item_json);
       Usuario user = Setup.facebook.getLoggedUser(header);
     	Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
     	Usuario actual = HandlerDS.findUsuarioById(user.getId());
-    	unItem.setId(ListaDeTrueques.getNewID());
+    	unItem.setId(ListaDeItems.getNewID());
     	actual.agregarItem(unItem);
     	HandlerDS.guardarItem(unItem);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();

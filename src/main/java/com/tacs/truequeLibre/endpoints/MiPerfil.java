@@ -33,6 +33,7 @@ public class MiPerfil {
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
       String itemsJson = new Gson().toJson(Setup.facebook.getLoggedUser(header).getItems());
+      System.out.println("Items del usuario: " + itemsJson);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     

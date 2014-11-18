@@ -22,6 +22,7 @@ import com.tacs.truequeLibre.domain.Usuario;
 
 public class Setup {
 	
+		
     public static final String RESOURCES_PATH = "/src/main/resources/com/tacs/truequeLibre/";
     public static final String BASE_URI = "http://localhost:8080/truequeLibre/";
     

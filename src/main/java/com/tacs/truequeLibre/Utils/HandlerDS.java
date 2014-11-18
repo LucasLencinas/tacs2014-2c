@@ -40,6 +40,8 @@ public class HandlerDS {
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
+		System.out.println("Agrego el trueque: " +trueque.getUsuarioSolicitante().getNombre()+ ":"+trueque.getItemOfrecido().getDescripcion() + " --> " +
+				trueque.getUsuarioSolicitado().getNombre()+ ":"+trueque.getItemSolicitado().getDescripcion());
 		ofy().save().entity(trueque).now();
 		return trueque.getId();
 	}

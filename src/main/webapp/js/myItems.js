@@ -8,7 +8,8 @@
 	        success: function (data) {
 	        	var items = "";
 	        	data.forEach( function(el){
-	        		items += generarVistaMyItem(el);
+	        		if(el != null)
+	        			items += generarVistaMyItem(el);
 	        	});
 	            $('#dynamicRow').html(items);
 	            $('.img-thumbnail').tooltip();
@@ -31,14 +32,15 @@
 	
 	function deleteItem(idDeItem){
 		$("#modalDeleteItem").modal('hide');
-		//Me crea bien el deleteRequest pero llega mal al servidor
-		//Stringify funciona bien
 		$.ajax({
 	        type: "DELETE",
 					contentType: 'application/json', 
 	        url: "truequeLibre/miPerfil/items/"+idDeItem,
 	        dataType:"json",
+	        success: function(data) {
+	          	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
+	    		getMyItems();
+	        }
 	    });
-  	$("#descripcionResultadoOperacion").html('Operacion Exitosa!');
-		getMyItems();
+
 	}
