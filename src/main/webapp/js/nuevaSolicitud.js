@@ -35,6 +35,7 @@
 	
 	function postularTrueque(idAmigo, idItemSolicitado){
 		var idItemOfrecido = Number($("#selectDeModalHacerTrueque").val());
+		console.log({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido});
 		$.ajax({
 	        type: "POST",
 	        data: JSON.stringify({"idAmigo": idAmigo, "idItemSolicitado": idItemSolicitado, "idItemOfrecido":idItemOfrecido}),

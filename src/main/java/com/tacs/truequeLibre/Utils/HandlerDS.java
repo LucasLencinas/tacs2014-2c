@@ -40,6 +40,7 @@ public class HandlerDS {
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
+		System.out.println("Antes de guardar el trueque:" + trueque.getUsuarioSolicitado().getId());
 		ofy().save().entity(trueque).now();
 		return trueque.getId();
 	}
@@ -60,6 +61,7 @@ public class HandlerDS {
 		ListaDeTrueques truequesBuscados = new ListaDeTrueques();
     Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
     for (Trueque trueque : trueques) {
+    	System.out.println("Un trueque traido del DS" + trueque.toString());
     	if(trueque.getUsuarioSolicitado().getId().equals(usuario.getId()) || 
     			trueque.getUsuarioSolicitante().getId().equals(usuario.getId()))
     		truequesBuscados.add(trueque);

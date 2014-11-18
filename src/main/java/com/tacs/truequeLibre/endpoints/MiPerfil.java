@@ -65,7 +65,9 @@ public class MiPerfil {
       public Response postularTrueque(String jsonTrueque, @Context HttpHeaders header) {
     	TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
       Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
+      System.out.println("Trueque Request: " + unTruequeRequest.idAmigo + ", toString: " + unTruequeRequest.toString());
       Usuario usuarioAmigo = HandlerDS.findUsuarioById(unTruequeRequest.idAmigo);
+      System.out.println("Usuario Solicitado: " + usuarioAmigo.getNombre() + usuarioAmigo.getId());
       Item itemSolicitado = HandlerDS.findItemById(unTruequeRequest.idItemSolicitado);
       Item itemOfrecido = HandlerDS.findItemById(unTruequeRequest.idItemOfrecido);
       Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
