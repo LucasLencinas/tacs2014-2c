@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -63,7 +64,9 @@ public class Usuario implements Serializable{
 				items.add(ofy().load().type(Item.class).id(itemId).now());
 			}
 		}
-		return this.items = items;
+		this.setItems(items);
+		HandlerDS.guardarUsuario(this);
+		return this.items;
 	}
 
 	public void setItems(ListaDeItems unosItems) {

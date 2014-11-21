@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -71,8 +72,10 @@ public class Items {
     	Item unItem = parser.fromJson(item_json, Item.class);
     	Usuario actual = HandlerDS.findUsuarioById(user.getId());
     	unItem.setId(ListaDeItems.getNewID());
+    	System.out.println("Cantidad de items "+actual.getId()+" antes de agregar uno: " + Setup.facebook.getLoggedUser(header).getItems().size());
     	actual.agregarItem(unItem);
     	HandlerDS.guardarItem(unItem);
+    	System.out.println("Cantidad de items del usuario "+actual.getId()+" despues de agregarlo: " + Setup.facebook.getLoggedUser(header).getItems().size());
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
     

@@ -11,12 +11,12 @@ public class LlamadasMockFB implements ILlamadasFB {
 
 	@Override
 	public Usuario getLoggedUser(HttpHeaders header) {
-		return Setup.usuarios.findById(Setup.miUsuario.getId());
+		return HandlerDS.findUsuarioById(Setup.miUsuario.getId());
 	}
 
 	@Override
 	public ListaDeUsuarios getAmigos(Usuario user, HttpHeaders header) {
-		return Setup.usuarios;
+		return HandlerDS.findAllUsers();
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.HandlerDS;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -32,10 +33,12 @@ public class Amigos {
     public Response index(@Context HttpHeaders header) {
       // NEGRADA FIXME
       if(Setup.isSet == false){
-      	Setup.isSet = true;
+
       	Setup.setup();
       }
       
+      if(Setup.facebook == null)
+      	Setup.facebook = new LlamadasFB();
       Usuario user = Setup.facebook.getLoggedUser(header);
       if(user == null)
       	return Response.status(500).build();
@@ -47,7 +50,7 @@ public class Amigos {
 			}
       ListaDeUsuarios amigosConItems = amigosConItems(amigos);
     	String usuariosJson = new Gson().toJson(amigosConItems);
-    	System.out.println("Amigos con items: " + amigosConItems);
+    	//System.out.println("Amigos con items: " + amigosConItems);
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
 

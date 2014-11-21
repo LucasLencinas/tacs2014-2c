@@ -25,16 +25,6 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 		return ++contador;
 	}
 
-	public ListaDeTrueques getByUser(Usuario miUsuario) {
-
-		ListaDeTrueques result = new ListaDeTrueques();
-		for (Trueque trueque: Setup.trueques) {
-		  if (trueque.getUsuarioSolicitante() == miUsuario || trueque.getUsuarioSolicitado() == miUsuario) {
-			  result.add(trueque);
-		  }
-		}
-		return result;
-	}
 	
 
 }

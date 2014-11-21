@@ -40,17 +40,35 @@
 	function cargarDatos(){
 		$.ajax({
 	        type: "POST",
-			contentType: 'application/json', 
+			contentType: 'text/plain', 
 	        url: "truequeLibre/admin",
-	        data:$("#codigoCargarDatos").val(),
-	        dataType:"json",
+	        data:$("#CodigocargarDatos").val(),
+	        dataType:"text/plain",
 	        statusCode: {
 	            409: function (response) {//Conflicto
 	            	alert('Codigo Incorrecto!');
+	            },
+	            200: function(response) {
+	            	alert('Carga Completada!');
 	            }
-	        },
-	        200: function(response) {
-	        	alert('Carga Completada!');
+	        }
+	    });
+	}
+	
+	function borrarDatos(){
+		$.ajax({
+	        type: "POST",
+			contentType: 'text/plain', 
+	        url: "truequeLibre/admin",
+	        data:$("#CodigocargarDatos").val() + "-borrado",
+	        dataType:"text/plain",
+	        statusCode: {
+	            409: function (response) {//Conflicto
+	            	alert('Codigo Incorrecto!');
+	            },
+	            200: function(response) {
+	            	alert('Borrado Completado!');
+	            }
 	        }
 	    });
 	}

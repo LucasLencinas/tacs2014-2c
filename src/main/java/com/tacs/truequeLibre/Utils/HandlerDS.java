@@ -3,11 +3,14 @@ package com.tacs.truequeLibre.Utils;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.ListaDeTrueques;
+import com.tacs.truequeLibre.domain.ListaDeUsuarios;
 import com.tacs.truequeLibre.domain.Trueque;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -18,7 +21,7 @@ public class HandlerDS {
 		ListaDeItems itemsResult = new ListaDeItems();
 		Iterable<Item> itemsDS = new ArrayList<Item>() ;
 		try {
-			itemsDS = ofy().load().type(Item.class);
+			itemsDS = ofy().load().type(Item.class).list();
 		} catch(NotFoundException ex){
 			System.out.println("Item no encontrado!!!!");
 		}
@@ -106,5 +109,18 @@ public class HandlerDS {
 		ofy().delete().entity(item).now();
   	user.quitarItem(item);
 		return true;
+	}
+
+	public static void deleteAll() {
+		List<Key<Usuario>> userKeys = ofy().load().type(Usuario.class).keys().list();
+		ofy().delete().keys(userKeys).now();
+		List<Key<Item>> itemKeys= ofy().load().type(Item.class).keys().list();
+		ofy().delete().keys(itemKeys).now();
+		List<Key<Trueque>> truequeKeys= ofy().load().type(Trueque.class).keys().list();
+		ofy().delete().keys(truequeKeys).now();
+	}
+
+	public static ListaDeUsuarios findAllUsers() {
+		return (ListaDeUsuarios) ofy().load().type(Usuario.class).list();
 	}
 }

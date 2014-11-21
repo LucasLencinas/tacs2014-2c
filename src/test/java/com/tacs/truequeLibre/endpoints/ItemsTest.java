@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.tacs.truequeLibre.setup.Setup;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.Utils.LlamadasMockFB;
 import com.tacs.truequeLibre.domain.Usuario;
 
@@ -58,7 +59,7 @@ public class ItemsTest extends AbstractTest{
   @Ignore
   public void testDameTodosLosItems() throws InterruptedException {
   	Thread.sleep(1000);
-		String itemsJson = new Gson().toJson(Setup.items);
+		String itemsJson = new Gson().toJson(HandlerDS.items());
 		String responseMsg = target.path("/items").request(MediaType.APPLICATION_JSON).get(String.class);
 	  assertTrue(responseMsg.equalsIgnoreCase(itemsJson));
   }
@@ -70,7 +71,7 @@ public class ItemsTest extends AbstractTest{
   @Ignore
   public void testDameUnItem() {	
 	int id = 1;
-	String itemJson = new Gson().toJson(Setup.items.findById(id));
+	String itemJson = new Gson().toJson(HandlerDS.findItemById(id));
 	String responseMsg = target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).get(String.class);
     assertTrue(responseMsg.equalsIgnoreCase(itemJson));
@@ -81,16 +82,13 @@ public class ItemsTest extends AbstractTest{
    */
   @Test
   @Ignore
-  public void testBorraUnItem() {
-  	Usuario usuario = Setup.facebook.getLoggedUser(null);
-  	//int cantidadDeItems =usuario.getItems().size(); 
-  	int id = 3;
-  	int cantidadDeItems = Setup.items.size();
-	String itemJson = "Item " + new Gson().toJson(Setup.items.findById(id)) + " eliminado";
-	String responseMsg = target.path("/items/".
+  public void testBorraUnItem() { 
+  	int id = 1;
+  	int cantidadDeItems = HandlerDS.items().size();
+  	target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).delete(String.class);
 		
-    assertTrue(Setup.items.size() == cantidadDeItems-1);
+    assertTrue(HandlerDS.items().size() == cantidadDeItems-1);
   }  
   
   /**
@@ -101,12 +99,13 @@ public class ItemsTest extends AbstractTest{
   public void testAgregaUnItem() {
   	Usuario usuario = Setup.facebook.getLoggedUser(null);
   	int cantidadDeItems =usuario.getItems().size(); 
-
+  	System.out.println("Cantidad de items "+usuario.getId()+" antes de agregar uno: " + cantidadDeItems);
   	String json = "{'title':'Nuevo Celular!', 'description': 'Nokia 1100', 'ml': {'permalink': 'http://articulo.mercadolibre.com.ar/MLA-521311328-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM', 'id': 'MLA521311328'}}";
     
     target.path("/items/").request(MediaType.APPLICATION_JSON_TYPE).
     					   post(Entity.entity(json,MediaType.APPLICATION_JSON_TYPE),
     							Response.class);
+    System.out.println("Cantidad de items del usuario "+usuario.getId()+" despues de agregarlo: " + Setup.facebook.getLoggedUser(null).getItems().size());
     assertTrue(Setup.facebook.getLoggedUser(null).getItems().size() == cantidadDeItems+1);
   }  
   

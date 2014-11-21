@@ -16,10 +16,11 @@ import com.tacs.truequeLibre.setup.Setup;
 public class Admin {
 	  
 	@POST
-  @Produces("application/json")
-  @Consumes("application/json")
+  @Produces("text/plain")
+  @Consumes("text/plain")
 	public Response loadDataStore(String code, @Context HttpHeaders header) {
 		//El codigo es 1234 - Lo hago para que se cargue una sola vez la base de datos
+		System.out.println("El codigo que se ingreso es: " + code);
 		if(code.equalsIgnoreCase("1234")){
     	Setup.setup();
     	return Response.status(Response.Status.OK).build();
@@ -28,4 +29,19 @@ public class Admin {
   	
 	  }
 
+	@POST
+  @Produces("text/plain")
+  @Consumes("text/plain")
+	public Response deleteDataStore(String code, @Context HttpHeaders header) {
+		//El codigo es 1234 - Lo hago para que se cargue una sola vez la base de datos
+		System.out.println("El codigo que se ingreso es: " + code);
+		if(code.equalsIgnoreCase("1234-borrado")){
+    	Setup.setup();
+    	return Response.status(Response.Status.OK).build();
+		}else
+			return Response.status(Response.Status.CONFLICT).build();
+  	
+	  }
+	
+	
 	}
