@@ -32,10 +32,8 @@ public class Amigos {
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
       // NEGRADA FIXME
-      if(Setup.isSet == false){
-
+      if(Setup.isSet == false)
       	Setup.setup();
-      }
       
       if(Setup.facebook == null)
       	Setup.facebook = new LlamadasFB();

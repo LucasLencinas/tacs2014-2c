@@ -1,6 +1,7 @@
 package com.tacs.truequeLibre.domain;
 
 import java.util.ArrayList;
+
 import com.tacs.truequeLibre.setup.Setup;
 
 @SuppressWarnings("serial")
@@ -25,6 +26,20 @@ public class ListaDeTrueques extends ArrayList<Trueque>{
 		return ++contador;
 	}
 
+	public String toString(){
+		String stringTrueques = "[";
+		String stringSolicitante;
+		String stringSolicitado;
+		for (Trueque trueque : this) {
+			stringSolicitante =  trueque.getUsuarioSolicitante().getNombre() +"-"+ trueque.getItemOfrecido().getTitulo();
+			stringSolicitado = trueque.getUsuarioSolicitado().getNombre() +"-"+ trueque.getItemSolicitado().getTitulo();
+			stringTrueques += trueque.getId() + "-" + trueque.getEstado() + ":" + stringSolicitante +"-->" +stringSolicitado + ", "  ;
+		}
+  	stringTrueques += "]";
+  	stringTrueques = stringTrueques.replace(", ]", "]");
+		return stringTrueques;
+				
+	}
 	
 
 }

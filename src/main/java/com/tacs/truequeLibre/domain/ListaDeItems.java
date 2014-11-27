@@ -25,5 +25,15 @@ public class ListaDeItems extends ArrayList<Item>{
 		return ++contador;
 	}
 
+	public String toString(){
+		String stringItems = "[";
+		for (Item item : this) {
+			stringItems += item.getId() + "-" + item.getTitulo() + ", ";
+		}
+  	stringItems += "]";
+  	stringItems = stringItems.replace(", ]", "]");
+		return stringItems;
+				
+	}
 	
 }

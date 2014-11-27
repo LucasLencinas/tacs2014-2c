@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="11.07" errors="0" skipped="4" tests="4" name="com.tacs.truequeLibre.endpoints.ItemsTest">
+<testsuite failures="0" time="11.44" errors="0" skipped="4" tests="4" name="com.tacs.truequeLibre.endpoints.ItemsTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_71\jre\bin"/>
@@ -43,7 +43,7 @@
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.7.0_71\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher appengine:devserver"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -60,25 +60,25 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="2.76" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameTodosLosItems">
+  <testcase time="2.86" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameTodosLosItems">
     <skipped/>
     <system-out>D:\workspace\tacs2014-2c
 </system-out>
-    <system-err>nov 21, 2014 1:19:11 AM org.glassfish.jersey.server.ApplicationHandler initialize
+    <system-err>nov 27, 2014 8:50:03 PM org.glassfish.jersey.server.ApplicationHandler initialize
 INFORMACIÓN: Initiating Jersey application, version Jersey: 2.7 2014-03-12 18:11:31...
-nov 21, 2014 1:19:13 AM org.glassfish.grizzly.http.server.NetworkListener start
+nov 27, 2014 8:50:05 PM org.glassfish.grizzly.http.server.NetworkListener start
 INFORMACIÓN: Started listener bound to [localhost:8080]
-nov 21, 2014 1:19:13 AM org.glassfish.grizzly.http.server.HttpServer start
+nov 27, 2014 8:50:05 PM org.glassfish.grizzly.http.server.HttpServer start
 INFORMACIÓN: [HttpServer] Started.
 </system-err>
   </testcase>
-  <testcase time="2.77" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testBorraUnItem">
+  <testcase time="2.86" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testBorraUnItem">
     <skipped/>
   </testcase>
-  <testcase time="2.77" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testAgregaUnItem">
+  <testcase time="2.86" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testAgregaUnItem">
     <skipped/>
   </testcase>
-  <testcase time="2.77" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameUnItem">
+  <testcase time="2.86" classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameUnItem">
     <skipped/>
   </testcase>
 </testsuite>

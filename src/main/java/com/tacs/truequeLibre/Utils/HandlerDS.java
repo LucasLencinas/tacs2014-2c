@@ -32,19 +32,23 @@ public class HandlerDS {
 	}
 	
 	public static long guardarItem(Item item){
-		System.out.println("Agrego el item: " + item.getTitulo() + " con Id: " + item.getId());
+		System.out.print("Item nuevo: " +item.toString());
 		ofy().save().entity(item).now();
+		System.out.println("  OK");
 		return item.getId();
 	}
 	
 	public static String guardarUsuario(Usuario usuario){
+		System.out.print("Usuario nuevo: " +usuario.toString());
 		ofy().save().entity(usuario).now();
+		System.out.println("  OK"); 	
 		return usuario.getId();
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
-		System.out.println("Antes de guardar el trueque:" + trueque.getUsuarioSolicitado().getId());
+		System.out.print("Trueque nuevo:" + trueque.toString());
 		ofy().save().entity(trueque).now();
+		System.out.println("  OK");
 		return trueque.getId();
 	}
 	
@@ -64,11 +68,12 @@ public class HandlerDS {
 		ListaDeTrueques truequesBuscados = new ListaDeTrueques();
     Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
     for (Trueque trueque : trueques) {
-    	System.out.println("Un trueque traido del DS" + trueque.toString());
+    	//System.out.println("Un trueque traido del DS" + trueque.toString());
     	if(trueque.getUsuarioSolicitado().getId().equals(usuario.getId()) || 
     			trueque.getUsuarioSolicitante().getId().equals(usuario.getId()))
     		truequesBuscados.add(trueque);
     }
+    System.out.println("Trueques de " +usuario.toString() +": " + truequesBuscados.toString());
 		return truequesBuscados;
 	}
 	
@@ -79,13 +84,15 @@ public class HandlerDS {
 			if(trueque.getItemOfrecido().getId() == item.getId() || 
 					trueque.getItemSolicitado().getId() == item.getId())
 				truequesBuscados.add(trueque);
+    System.out.println("Trueques con " +item.toString() +": " + truequesBuscados.toString());
 		return truequesBuscados;
 	}
 	
 	
 	public static ListaDeTrueques findPendingTruequesByUser(Usuario usuario){
-	ListaDeTrueques result = new ListaDeTrueques();
+	ListaDeTrueques truequesBuscados = new ListaDeTrueques();
 	Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
+	/*		Negrada para saber donde rompe. FIXME		*/
 	if(trueques == null){
 		int a = 5/0;
 	}
@@ -94,10 +101,11 @@ public class HandlerDS {
 				int x = 3/0;
 			}
 		  if (trueque.getEstado() == TruequeStatusConstants.PENDING.getID() && trueque.getUsuarioSolicitado().getId().equals(usuario.getId())) {
-		    result.add(trueque);
+		    truequesBuscados.add(trueque);
 		  }
 		}
-	return result;
+	System.out.println("Trueques Pendientes: " + truequesBuscados.toString());
+	return truequesBuscados;
 	}
 
 	public static boolean deleteItem(Item item, Usuario user) {
@@ -106,18 +114,26 @@ public class HandlerDS {
 			if(trueque.getItemOfrecido().getId() == item.getId() || trueque.getItemSolicitado().getId() == item.getId())
 				return false;
 		}
+		user.quitarItem(item);
+		System.out.print("Item: " + item.toString() + "  Borrado");
 		ofy().delete().entity(item).now();
-  	user.quitarItem(item);
+		System.out.println("   OK");
 		return true;
 	}
 
 	public static void deleteAll() {
+		System.out.print("Borrado de Usuarios");
 		List<Key<Usuario>> userKeys = ofy().load().type(Usuario.class).keys().list();
 		ofy().delete().keys(userKeys).now();
+		System.out.println("   OK");
+		System.out.print("Borrado de Items");
 		List<Key<Item>> itemKeys= ofy().load().type(Item.class).keys().list();
 		ofy().delete().keys(itemKeys).now();
+		System.out.println("   OK");
+		System.out.print("Borrado de Items");
 		List<Key<Trueque>> truequeKeys= ofy().load().type(Trueque.class).keys().list();
 		ofy().delete().keys(truequeKeys).now();
+		System.out.println("   OK");
 	}
 
 	public static ListaDeUsuarios findAllUsers() {

@@ -41,7 +41,7 @@
 		$.ajax({
 	        type: "POST",
 			contentType: 'text/plain', 
-	        url: "truequeLibre/admin",
+	        url: "truequeLibre/admin/load",
 	        data:$("#CodigocargarDatos").val(),
 	        dataType:"text/plain",
 	        statusCode: {
@@ -59,7 +59,7 @@
 		$.ajax({
 	        type: "POST",
 			contentType: 'text/plain', 
-	        url: "truequeLibre/admin",
+	        url: "truequeLibre/admin/delete",
 	        data:$("#CodigocargarDatos").val() + "-borrado",
 	        dataType:"text/plain",
 	        statusCode: {

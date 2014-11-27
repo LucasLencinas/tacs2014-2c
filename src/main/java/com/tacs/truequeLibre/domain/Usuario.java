@@ -37,6 +37,27 @@ public class Usuario implements Serializable{
   public Usuario() {
   }
  
+  @Override
+  public String toString(){
+  	
+  	String stringItemsId = "[";
+  	String stringAmigosId = "[";
+  	for (Long itemId : this.itemsId) {
+			stringItemsId += itemId + ", ";
+		}
+  	for (String amigoId : this.amigosId) {
+			stringAmigosId += amigoId + ", ";
+		}
+  	stringAmigosId += "]";
+  	stringAmigosId = stringAmigosId.replace(", ]", "]");
+  	
+  	stringItemsId += "]";
+  	stringItemsId = stringItemsId.replace(", ]", "]");
+  	
+  	return "Usuario " + this.nombre + ": " + "Amigos: " + stringAmigosId + ",Items: " + stringItemsId;
+  	
+  }
+  
   /**
    * 
    * Getters and Setters
@@ -88,32 +109,39 @@ public class Usuario implements Serializable{
 	
   /*----------For Items------------*/
 	public void agregarItem(Item item){
-		System.out.println("Agrego al usuario: " + this.getNombre()  +", el item: " + item.getTitulo() + " con Id: " + item.getId());
-		System.out.println("ItemsID antes de agregar un item: " + this.printItemsId());
-		if(this.itemsId == null)
-				this.itemsId = new ArrayList<Long>();
+		System.out.print("Item: " + item.toString() + " agregado al usuario: " + this.toString());
+		if(this.itemsId == null){
+			System.out.print(" --El usuario tiene itemsId == null, entonces la creo --");
+			this.itemsId = new ArrayList<Long>();
+		}
 		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
 		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
-		System.out.println("ItemsID despues de agregar un item: " + this.printItemsId());
+		System.out.println("   OK");
 	}
 	
 	public void quitarItem(Item item){
 		int index = this.itemsId.indexOf(item.getId());
+		System.out.print("Item: " + item.toString() + " quitado del usuario: " + this.toString());
 		this.itemsId.remove(index);
-		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
-		System.out.println("Despues de quitarItem, ItemsId: " + this.printItemsId());
+		ofy().save().entity(this).now();
+		System.out.println("   OK");
 	}
 
 	public void truequearItem(Item miViejoItem, Item miNuevoItem) {
+		System.out.print("Truequear Items: " +miViejoItem.toString() +", " + miNuevoItem.toString());
 		this.agregarItem(miNuevoItem);
 		this.quitarItem(miViejoItem);
+		System.out.println("   OK");
 	}
 	
 	/*----------For Friends------------*/
 	
 	public void agregarAmigo(Usuario amigo){
-		if(this.amigosId == null)
+		System.out.print("Agrego al usuario: " + this.toString()  +", el amigo: " + amigo.toString());
+		if(this.amigosId == null){
+			System.out.print(" --El usuario tiene amigosId == null, entonces la creo --");
 			this.amigosId = new ArrayList<String>();
+		}
 		if(!this.amigosId.contains(amigo.getId()))
 			this.amigosId.add(amigo.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
 		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
@@ -124,14 +152,21 @@ public class Usuario implements Serializable{
 			amigo.amigosId.add(this.getId());	//Ahora hago lo mismo con el amigo	
 		ofy().save().entity(amigo).now();	
 		
+		System.out.println("   OK");
+		
 	}
 	
 	public void quitarAmigo(Usuario amigo){
+		System.out.print("Amigo: " + amigo.toString() + "quitado del usuario: " + this.toString());
 		int index = this.amigosId.indexOf(amigo.getId());
 		this.amigosId.remove(index);
+		ofy().save().entity(this).now();
 		
 		index = amigo.amigosId.indexOf(this.getId());
 		amigo.amigosId.remove(index);
+		ofy().save().entity(amigo).now();
+		
+		System.out.print("   OK");
 	}
 
 	public String printItemsId() {

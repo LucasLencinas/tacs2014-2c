@@ -126,6 +126,16 @@ public class Trueque {
 		HandlerDS.guardarTrueque(this);
 	}
 	
+	
+	@Override
+	public String toString(){
+		String itemOfr = "ItemOfrecido: " +itemOfrecido.toString();
+		String usuarioSte = "UsuarioSolicitante: " +usuarioSolicitante.toString();
+		String itemSol = "ItemSolicitado: " +itemSolicitado.toString();
+		String usuarioSdo = "UsuarioSolicitado: " +usuarioSolicitado.toString();
+		String state = "Estado: " + estado;
+		return "Trueque " + this.id + ": "  + itemOfr + usuarioSte + itemSol + usuarioSdo + state;
+	}
 
 
 

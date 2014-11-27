@@ -26,6 +26,11 @@ public class Item implements Serializable{
     this.setObjML(unObjML);
   }
   
+  @Override
+  public String toString(){
+  	return id + ": " + title;
+  }
+  
   
   /**
    * Solo para poder saber si una lista contiene

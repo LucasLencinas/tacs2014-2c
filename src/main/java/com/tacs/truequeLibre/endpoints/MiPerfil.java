@@ -32,8 +32,10 @@ public class MiPerfil {
     @Path("/items")
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
-      String itemsJson = new Gson().toJson(Setup.facebook.getLoggedUser(header).getItems());
-      System.out.println("Items del usuario: " + itemsJson);
+    	Usuario usuario = Setup.facebook.getLoggedUser(header);
+    	System.out.println("Request --> Items del usuario: " + usuario.toString() );
+      String itemsJson = new Gson().toJson(usuario.getItems());
+      System.out.println("Response OK--> Items del usuario: " + itemsJson);
       return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
@@ -41,37 +43,48 @@ public class MiPerfil {
     @Produces("application/json")
     @Path("/items/{id}")
 	public Response deleteItem(@PathParam("id") Integer idItem, @Context HttpHeaders header) {
-    	Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
-    	Item itemABorrar = usuarioLogueado.getItems().findById(idItem);
-    	System.out.println("Se borra el item:" +itemABorrar.getTitulo() + " del usuario " + usuarioLogueado.getNombre());
+    	Usuario usuario = Setup.facebook.getLoggedUser(header);
+    	System.out.println("Request --> Delete Item "+idItem +" del usuario: " + usuario.toString() );
+    	Item itemABorrar = usuario.getItems().findById(idItem);
+    	
 
-    	boolean deleteOK = HandlerDS.deleteItem(itemABorrar,usuarioLogueado);
-    	if(deleteOK == true)
+    	boolean deleteOK = HandlerDS.deleteItem(itemABorrar,usuario);
+    	if(deleteOK == true){
+    		System.out.println("Response OK--> Delete Item:" +itemABorrar.toString() + " del usuario " + usuario.toString());
     		return Response.ok("ok", MediaType.APPLICATION_JSON).build();
-    	else
+    	}
+    	else{
+    		System.out.println("Response CONFLICT--> Delete Item:" +itemABorrar.toString() + " del usuario " + usuario.toString());
     		return Response.status(Response.Status.CONFLICT).build();
+    	}
     }
     
     @GET
     @Path("/trueques")
     public Response getMyTrueques(@Context HttpHeaders header){
-  		Usuario user = Setup.facebook.getLoggedUser(header);
-      String truequesJson = new Gson().toJson(HandlerDS.findTruequeByUser(user));
+    	Usuario usuario = Setup.facebook.getLoggedUser(header);
+    	System.out.println("Request --> Trueques del usuario " + usuario.toString());
+      String truequesJson = new Gson().toJson(HandlerDS.findTruequeByUser(usuario));
+      System.out.println("Response OK--> Trueques del usuario, " + truequesJson);
       return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
     }
     
     @POST
     @Path("/trueques")
       public Response postularTrueque(String jsonTrueque, @Context HttpHeaders header) {
-    	TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
-      Usuario usuarioLogueado = Setup.facebook.getLoggedUser(header);
-      System.out.println("Trueque Request: " + unTruequeRequest.idAmigo + ", toString: " + unTruequeRequest.toString());
+      Usuario usuario = Setup.facebook.getLoggedUser(header);
+    	System.out.println("Request --> Nuevo Trueque del usuario " + usuario.toString());      
+      TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
+      System.out.println("Trueque Request: " + unTruequeRequest.toString());
       Usuario usuarioAmigo = HandlerDS.findUsuarioById(unTruequeRequest.idAmigo);
-      System.out.println("Usuario Solicitado: " + usuarioAmigo.getNombre() + usuarioAmigo.getId());
+      System.out.println("Usuario Solicitado: " + usuarioAmigo.toString());
       Item itemSolicitado = HandlerDS.findItemById(unTruequeRequest.idItemSolicitado);
+      System.out.println("Item Solicitado: " + itemSolicitado.toString());
       Item itemOfrecido = HandlerDS.findItemById(unTruequeRequest.idItemOfrecido);
-      Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuarioLogueado,usuarioAmigo, "");
+      System.out.println("Item Ofrecido: " + itemOfrecido.toString());
+      Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuario,usuarioAmigo, "Prueba");
       HandlerDS.guardarTrueque(trueque);
+      System.out.println("Response --> Nuevo Trueque del usuario, " + usuario.toString());     
     	return Response.ok("ok", MediaType.TEXT_PLAIN).build();
     }
 }

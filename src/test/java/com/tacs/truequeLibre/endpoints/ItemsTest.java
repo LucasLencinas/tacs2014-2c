@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.gson.Gson;
-import com.googlecode.objectify.ObjectifyService;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

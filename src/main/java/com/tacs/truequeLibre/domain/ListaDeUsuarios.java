@@ -20,6 +20,17 @@ public class ListaDeUsuarios extends ArrayList<Usuario>{
 		super.clear();
 		ListaDeUsuarios.contador = 0;
 	}
+	
+	public String toString(){
+		String stringUsuarios = "[";
+		for (Usuario usuario : this) {
+			stringUsuarios += usuario.getId() + "-" + usuario.getNombre() + ", ";
+		}
+  	stringUsuarios += "]";
+  	stringUsuarios = stringUsuarios.replace(", ]", "]");
+		return stringUsuarios;
+				
+	}
 
 	
 }

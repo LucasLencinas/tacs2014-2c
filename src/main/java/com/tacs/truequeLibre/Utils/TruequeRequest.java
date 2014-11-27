@@ -7,4 +7,8 @@ public class TruequeRequest {
 	@Expose public int idItemOfrecido;
 	@Expose public String idAmigo;
 	
+	
+	public String toString(){
+		return "Item Ofrecido: " + idItemOfrecido + ", Items Solicitado: "+ idItemSolicitado +", Amigo: "+ idAmigo;
+	}
 }
