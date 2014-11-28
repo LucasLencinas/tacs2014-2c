@@ -41,14 +41,14 @@ public class Amigos {
       if(user == null)
       	return Response.status(500).build();
       
-      System.out.println("me pidieron los amigos de " + user.getNombre());
+      System.out.println("Request --> Amigos del usuario" + user.toString());
       ListaDeUsuarios amigos = Setup.facebook.getAmigos(user, header);
       for (Usuario amigo : amigos) {				
       	user.agregarAmigo(amigo);
 			}
       ListaDeUsuarios amigosConItems = amigosConItems(amigos);
     	String usuariosJson = new Gson().toJson(amigosConItems);
-    	//System.out.println("Amigos con items: " + amigosConItems);
+    	System.out.println("Response OK --> Amigos del usuario, " + usuariosJson);
       return Response.ok(usuariosJson,MediaType.APPLICATION_JSON).build();
     }
 
@@ -62,30 +62,31 @@ public class Amigos {
     @Path("/{id}")
     @Produces("application/json")
     public Response show(@PathParam("id") String id){
-    	
+    	System.out.println("Request --> Usuario con id: " + id);
     	Usuario amigo= HandlerDS.findUsuarioById(id);	
     	Gson unGson = new Gson();
     	String unUsuarioJson = unGson.toJson(amigo);
+    	System.out.println("Request --> Usuario con id " + id+", " + unUsuarioJson);
     	return Response.ok(unUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
     
-    /**
-     * FIXME(Lucas) --> Este lo modifique, ahora se le pasa un String id, ver si hay error
-    **/
+    
+    
     @GET
     @Path("/{id}/items")
     @Produces("application/json")
     public Response showItems(@PathParam("id") String id){
+    	System.out.println("Request --> Items del usuario: " + id);
     	Usuario amigo= HandlerDS.findUsuarioById(id);	
     	Gson unGson = new Gson();
     	String itemsDeUsuarioJson = unGson.toJson(amigo.getItems());
+    	System.out.println("Request --> Items del usuario: " + id+", " + itemsDeUsuarioJson);
     	return Response.ok(itemsDeUsuarioJson, MediaType.APPLICATION_JSON).build();
     }
     
     private ListaDeUsuarios amigosConItems(ListaDeUsuarios amigos){
-    	
     	for (Usuario amigo : amigos) {
-    		//Hago que se rellene la lista posta de Items teninedo los ids de items
+    		/*--Hago que se rellene la lista posta de Items teninedo los ids de items--*/
 				amigo.setItems(amigo.getItems());
 			}
     	return amigos;

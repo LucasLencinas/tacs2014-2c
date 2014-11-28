@@ -38,20 +38,22 @@ public class Trueques {
     @GET 
     @Produces("application/json")
     public Response index(@Context HttpHeaders header) {
-    	System.out.println("Me pidieron los Trueques");
+    	System.out.println("Request --> All Trueques");
   		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
     	String itemsJson = new Gson().toJson(HandlerDS.findTruequeByUser(miUsuario));
-      return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
+    	System.out.println("Response OK --> All Trueques: " + itemsJson);
+    	return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
     }
     
 	@GET
 	@Path("/pendientes")
 	@Produces("text/plain")
 	public Response solicitudes(@Context HttpHeaders header){
-    	System.out.println("Me pidieron las solicitudes");
   		Usuario miUsuario = Setup.facebook.getLoggedUser(header);
-    	String itemsJson = new Gson().toJson(HandlerDS.findPendingTruequesByUser(miUsuario));
-      return Response.ok(itemsJson,MediaType.APPLICATION_JSON).build();
+  		System.out.println("Request --> Trueques pendientes del usuario: " + miUsuario.toString());
+    	String truequesJson = new Gson().toJson(HandlerDS.findPendingTruequesByUser(miUsuario));
+    	System.out.println("Response OK--> Trueques pendientes del usuario, " + truequesJson);
+    	return Response.ok(truequesJson,MediaType.APPLICATION_JSON).build();
 	}
     
     @POST
@@ -60,6 +62,8 @@ public class Trueques {
 			Map<String, Cookie> pathParams = hh.getCookies();
 			String accessToken = pathParams.get("token").getValue();
 		  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
+		  Usuario usuario = Setup.facebook.getLoggedUser(hh);
+  		System.out.println("Request --> Aceptar trueque " + truequeId + " del usuario: " + usuario.toString());
 		  
     	Trueque trueque = HandlerDS.findTruequeById(truequeId);
     	trueque.aceptarTrueque();
@@ -68,15 +72,19 @@ public class Trueques {
     			"El item "+trueque.getItemSolicitado().getTitulo()+" es tuyo.";
     	enviarNotificacionAlOtro(facebookClient,usuarioANotificar.getId(), mensaje,"");
     	
+    	System.out.println("Response OK--> Aceptar trueque: " + trueque.toString());
     	return Response.ok(new Gson().toJson(trueque), MediaType.APPLICATION_JSON).build();
     }
     
     @POST
     @Path("/reject/{id}")
-	public String reject(@PathParam("id") Integer truequeId) {
+	public String reject(@PathParam("id") Integer truequeId, @Context HttpHeaders hh) {
+    	Usuario usuario = Setup.facebook.getLoggedUser(hh);
+    	System.out.println("Request --> Rechazar trueque " + truequeId + " del usuario: " + usuario.toString());
     	Trueque trueque = HandlerDS.findTruequeById(truequeId);
     	trueque.rechazarTrueque();
-    	return "Trueque "+truequeId+" aceptado";
+    	System.out.println("Response OK--> Rechazar trueque: " + trueque.toString());
+    	return "Trueque "+truequeId+" rechazado";
     }  
     
  
