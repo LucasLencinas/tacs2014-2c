@@ -2,8 +2,6 @@ package com.tacs.truequeLibre.domain;
 
 import java.util.ArrayList;
 
-import com.tacs.truequeLibre.setup.Setup;
-
 @SuppressWarnings("serial")
 public class ListaDeTrueques extends ArrayList<Trueque>{
 

@@ -32,38 +32,51 @@ public class HandlerDS {
 	}
 	
 	public static long guardarItem(Item item){
-		System.out.print("Item nuevo: " +item.toString());
+		System.out.print("Guardar Item: " +item.toString());
 		ofy().save().entity(item).now();
 		System.out.println("  OK");
 		return item.getId();
 	}
 	
 	public static String guardarUsuario(Usuario usuario){
-		System.out.print("Usuario nuevo: " +usuario.toString());
+		System.out.print("Guardar Usuario : " +usuario.toString());
 		ofy().save().entity(usuario).now();
 		System.out.println("  OK"); 	
 		return usuario.getId();
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
-		System.out.print("Trueque nuevo:" + trueque.toString());
+		System.out.print("Guardar Trueque :" + trueque.toString());
 		ofy().save().entity(trueque).now();
 		System.out.println("  OK");
 		return trueque.getId();
 	}
 	
 	public static Trueque findTruequeById(long id){
-		return ofy().load().type(Trueque.class).id(id).now();
+		Trueque trueque;
+		try{
+		  trueque = ofy().load().type(Trueque.class).id(id).now();
+		} catch (NullPointerException e){
+		  trueque = null;
+		}
+		return trueque;
 	}
 	
 	public static Item findItemById(long id){
-		return ofy().load().type(Item.class).id(id).now();
+		Item item;
+		try{
+		  item = ofy().load().type(Item.class).id(id).now();
+		} catch (NullPointerException e){
+		  item = null;
+		}
+		return item;
+		
 	}
 	
 	public static Usuario findUsuarioById(String id){
 		Usuario user;
 		try{
-		  Usuario user = ofy().load().type(Usuario.class).id(id).now();
+		  user = ofy().load().type(Usuario.class).id(id).now();
 		} catch (NullPointerException e){
 		  user = null;
 		}
@@ -137,7 +150,7 @@ public class HandlerDS {
 		List<Key<Item>> itemKeys= ofy().load().type(Item.class).keys().list();
 		ofy().delete().keys(itemKeys).now();
 		System.out.println("   OK");
-		System.out.print("Borrado de Items");
+		System.out.print("Borrado de Trueques");
 		List<Key<Trueque>> truequeKeys= ofy().load().type(Trueque.class).keys().list();
 		ofy().delete().keys(truequeKeys).now();
 		System.out.println("   OK");

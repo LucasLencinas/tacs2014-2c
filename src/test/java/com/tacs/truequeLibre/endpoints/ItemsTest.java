@@ -72,7 +72,8 @@ public class ItemsTest extends AbstractTest{
 	String itemJson = new Gson().toJson(HandlerDS.findItemById(id));
 	String responseMsg = target.path("/items/".
     		concat(String.valueOf(id))).request(MediaType.APPLICATION_JSON).get(String.class);
-    assertTrue(responseMsg.equalsIgnoreCase(itemJson));
+	System.out.println("itemJson: " + itemJson + ", responseMsg: " + responseMsg);
+  assertTrue(responseMsg.equalsIgnoreCase(itemJson));
   } 
   
   /**

@@ -45,7 +45,7 @@ public class MiPerfil {
 	public Response deleteItem(@PathParam("id") Integer idItem, @Context HttpHeaders header) {
     	Usuario usuario = Setup.facebook.getLoggedUser(header);
     	System.out.println("Request --> Delete Item "+idItem +" del usuario: " + usuario.toString() );
-    	Item itemABorrar = usuario.getItems().findById(idItem);
+    	Item itemABorrar = HandlerDS.findItemById(idItem);
     	
 
     	boolean deleteOK = HandlerDS.deleteItem(itemABorrar,usuario);
@@ -77,6 +77,8 @@ public class MiPerfil {
       TruequeRequest unTruequeRequest = new Gson().fromJson(jsonTrueque, TruequeRequest.class);
       System.out.println("Trueque Request: " + unTruequeRequest.toString());
       Usuario usuarioAmigo = HandlerDS.findUsuarioById(unTruequeRequest.idAmigo);
+      if(usuarioAmigo == null)
+      	System.out.println("Usuario Solicitado: null");
       System.out.println("Usuario Solicitado: " + usuarioAmigo.toString());
       Item itemSolicitado = HandlerDS.findItemById(unTruequeRequest.idItemSolicitado);
       System.out.println("Item Solicitado: " + itemSolicitado.toString());

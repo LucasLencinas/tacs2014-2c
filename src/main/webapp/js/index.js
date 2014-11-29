@@ -15,6 +15,7 @@
 	        	} else {
 		        	data.forEach( function(amigo){
 	    	        	amigo.items.forEach( function(it){
+	    	        		if(it != null)
 	    	        			items += generarVistaOtherItem(it, amigo);
 	    	        	});    	       
 		        	});

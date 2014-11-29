@@ -8,7 +8,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -19,7 +18,6 @@ import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.HandlerDS;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.ListaDeItems;
-import com.tacs.truequeLibre.domain.ListaDeTrueques;
 import com.tacs.truequeLibre.domain.Usuario;
 
 @Path("/items")
@@ -73,12 +71,13 @@ public class Items {
       System.out.println("Request --> Nuevo Item: " + item_json  + ", para el Usuario: " + user.toString());
       Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
-    	Usuario actual = HandlerDS.findUsuarioById(user.getId());
+    	//Usuario actual = HandlerDS.findUsuarioById(user.getId());
     	unItem.setId(ListaDeItems.getNewID());
     	HandlerDS.guardarItem(unItem);
-    	actual.agregarItem(unItem);
+    	/*actual*/user.agregarItem(unItem);
     	//System.out.println("Cantidad de items del usuario "+actual.getId()+" despues de agregarlo: " + Setup.facebook.getLoggedUser(header).getItems().size());
     	System.out.println("Response OK --> Nuevo Item creado para el Usuario: " + user.toString());
+    	HandlerDS.guardarUsuario(user);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
     

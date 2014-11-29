@@ -19,7 +19,7 @@ public class Usuario implements Serializable{
 	
 	@Expose @Id private String id;
 	@Expose private String nombre;
-	@Expose private ListaDeItems items;
+	@Ignore @Expose private ListaDeItems items;
 	@Ignore @Expose private ListaDeUsuarios amigos;
   
 	private List<String> amigosId;
@@ -55,7 +55,7 @@ public class Usuario implements Serializable{
   	
   	stringItemsId += "]";
   	stringItemsId = stringItemsId.replace(", ]", "]");
-  	return "Usuario " + this.nombre + ": " + "Amigos: " + stringAmigosId + ",Items: " + stringItemsId;
+  	return this.nombre + ": " + "Amigos: " + stringAmigosId + ",Items: " + stringItemsId;
   	
   }
   
@@ -88,7 +88,7 @@ public class Usuario implements Serializable{
 		}
 		this.setItems(items);
 		HandlerDS.guardarUsuario(this);
-		return this.items;
+		return items;
 	}
 
 	public void setItems(ListaDeItems unosItems) {
@@ -116,7 +116,7 @@ public class Usuario implements Serializable{
 			this.itemsId = new ArrayList<Long>();
 		}
 		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
-		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
+		HandlerDS.guardarUsuario(this);	//Lo guardo de nuevo asi se actualiza
 		System.out.println("   OK");
 	}
 	
@@ -124,7 +124,7 @@ public class Usuario implements Serializable{
 		int index = this.itemsId.indexOf(item.getId());
 		System.out.print("Item: " + item.toString() + " quitado del usuario: " + this.toString());
 		this.itemsId.remove(index);
-		ofy().save().entity(this).now();
+		HandlerDS.guardarUsuario(this);
 		System.out.println("   OK");
 	}
 
@@ -145,13 +145,13 @@ public class Usuario implements Serializable{
 		}
 		if(!this.amigosId.contains(amigo.getId()))
 			this.amigosId.add(amigo.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
-		ofy().save().entity(this).now();	//Lo guardo de nuevo asi se actualiza
+		HandlerDS.guardarUsuario(this);	//Lo guardo de nuevo asi se actualiza
 		
 		if(amigo.amigosId == null)
 			amigo.amigosId = new ArrayList<String>();
 		if(!amigo.amigosId.contains(this.getId()))
 			amigo.amigosId.add(this.getId());	//Ahora hago lo mismo con el amigo	
-		ofy().save().entity(amigo).now();	
+		HandlerDS.guardarUsuario(amigo);
 		
 		System.out.println("   OK");
 		
@@ -166,7 +166,6 @@ public class Usuario implements Serializable{
 		index = amigo.amigosId.indexOf(this.getId());
 		amigo.amigosId.remove(index);
 		ofy().save().entity(amigo).now();
-		
 		System.out.print("   OK");
 	}
 
