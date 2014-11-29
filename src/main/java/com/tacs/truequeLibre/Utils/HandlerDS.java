@@ -61,7 +61,14 @@ public class HandlerDS {
 	}
 	
 	public static Usuario findUsuarioById(String id){
-		return ofy().load().type(Usuario.class).id(id).now();
+		Usuario user;
+		try{
+		  Usuario user = ofy().load().type(Usuario.class).id(id).now();
+		} catch (NullPointerException e){
+		  user = null;
+		}
+		return user;
+
 	}
 	
 	public static ListaDeTrueques findTruequeByUser(Usuario usuario){

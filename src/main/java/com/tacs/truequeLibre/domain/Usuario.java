@@ -42,18 +42,19 @@ public class Usuario implements Serializable{
   	
   	String stringItemsId = "[";
   	String stringAmigosId = "[";
-  	for (Long itemId : this.itemsId) {
-			stringItemsId += itemId + ", ";
-		}
-  	for (String amigoId : this.amigosId) {
-			stringAmigosId += amigoId + ", ";
-		}
+  	if(this.itemsId != null)
+	  	for (Long itemId : this.itemsId) {
+				stringItemsId += itemId + ", ";
+			}
+  	if(this.amigosId != null)
+	  	for (String amigoId : this.amigosId) {
+				stringAmigosId += amigoId + ", ";
+			}
   	stringAmigosId += "]";
   	stringAmigosId = stringAmigosId.replace(", ]", "]");
   	
   	stringItemsId += "]";
   	stringItemsId = stringItemsId.replace(", ]", "]");
-  	
   	return "Usuario " + this.nombre + ": " + "Amigos: " + stringAmigosId + ",Items: " + stringItemsId;
   	
   }
