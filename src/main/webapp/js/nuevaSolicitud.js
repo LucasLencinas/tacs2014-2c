@@ -15,8 +15,9 @@
 	        	});
 	        }
 	    });
-
-		$("#postularTruequeButton").attr("onclick", "postularTrueque("+idAmigo+","+idItemSolicitado+")");
+		console.log("idItemSolicitado:"+idItemSolicitado+"idAmigo:"+idAmigo);
+		$("#postularTruequeButton").removeAttr( "onclick" );
+		$("#postularTruequeButton").attr("onclick", "postularTrueque('"+idAmigo+"','"+idItemSolicitado+"')");
 	}
 	
 	function actualizarItemDeModalHacerTrueque(idItem){
@@ -42,7 +43,6 @@
 	        url: "truequeLibre/miPerfil/trueques",
 					contentType: 'application/json', 
 	        success: function (data){
-	        	console.log(data);
 				$('#modalHacerTrueque').modal('hide');
 				$("#modalResultadoOperacion").modal('show');
 	  	  		$("#descripcionResultadoOperacion").html('Operacion Exitosa!');

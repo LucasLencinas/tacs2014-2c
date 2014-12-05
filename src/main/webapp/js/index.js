@@ -33,7 +33,7 @@
 				" data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" data-html=\"true\" >"
 				,item.ml.thumbnail,item.description, amigo.nombre +":<br>" + item.description);
 		vista += sprintf("<p><button class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" " + 
-		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque(%s,%s);\">Postular Trueque</button></p>",item.id, amigo.id);
+		"data-target=\"#modalHacerTrueque\" onclick=\"actualizarModalHacerTrueque('%s','%s');\">Postular Trueque</button></p>",item.id, amigo.id);
 		vista += "</div>";
 		return vista;
 	}
