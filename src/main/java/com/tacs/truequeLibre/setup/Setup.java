@@ -44,9 +44,9 @@ public class Setup {
 		public static boolean isSet = false;
     
     public static void load(){
-    	loadItems();
-    	loadUsuarios();
-     	loadTrueques();
+    	//loadItems();
+    	//loadUsuarios();
+     	//loadTrueques();
      	facebook = new LlamadasFB();
      	
     }
@@ -104,6 +104,17 @@ public class Setup {
     	Setup.isSet = true;
     }
 
+    public static void setupTest() {
+    	ObjectifyService.register(Item.class);
+    	ObjectifyService.register(Usuario.class);
+    	ObjectifyService.register(Trueque.class);
+    	loadItems();
+    	loadUsuarios();
+     	loadTrueques();
+     	facebook = new LlamadasFB();
+    	Setup.isSet = true;
+    }
+    
     /*--------------For testing--------------*/
 		public static HttpServer startServer() {
 	   		//Los recursos los va a buscar a este paquete

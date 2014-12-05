@@ -30,7 +30,7 @@ public class DataStoreTest {
     @Before
     public void setUp() {
         helper.setUp();
-        Setup.setup();
+        Setup.setupTest();
         
         anteojos = new Item("Anteojos De Sol Para Test", "Los Cambio por una Camiseta de futbol", new ObjetoML(
       			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",

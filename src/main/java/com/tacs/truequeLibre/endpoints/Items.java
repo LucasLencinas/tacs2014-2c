@@ -77,7 +77,7 @@ public class Items {
     	/*actual*/user.agregarItem(unItem);
     	//System.out.println("Cantidad de items del usuario "+actual.getId()+" despues de agregarlo: " + Setup.facebook.getLoggedUser(header).getItems().size());
     	System.out.println("Response OK --> Nuevo Item creado para el Usuario: " + user.toString());
-    	HandlerDS.guardarUsuario(user);
+    	//HandlerDS.guardarUsuario(user);
     	return Response.ok(new Gson().toJson(unItem), MediaType.APPLICATION_JSON).build();
     }
     

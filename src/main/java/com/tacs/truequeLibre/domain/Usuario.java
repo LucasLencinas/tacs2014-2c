@@ -87,7 +87,7 @@ public class Usuario implements Serializable{
 			}
 		}
 		this.setItems(items);
-		HandlerDS.guardarUsuario(this);
+		//HandlerDS.guardarUsuario(this);
 		return items;
 	}
 
@@ -116,7 +116,8 @@ public class Usuario implements Serializable{
 			this.itemsId = new ArrayList<Long>();
 		}
 		this.itemsId.add(item.getId());		//Lo agrego en la lista de ids tambien para guardarlo en el DS
-		HandlerDS.guardarUsuario(this);	//Lo guardo de nuevo asi se actualiza
+		
+		/*HandlerDS.guardarUsuario(this);*/	ofy().save().entity(this).now();
 		System.out.println("   OK");
 	}
 	

@@ -33,21 +33,21 @@ public class HandlerDS {
 	
 	public static long guardarItem(Item item){
 		System.out.print("Guardar Item: " +item.toString());
-		ofy().save().entity(item).now();
+		System.out.print(" --> Ofy = " + ofy().save().entity(item).now().getId());
 		System.out.println("  OK");
 		return item.getId();
 	}
 	
 	public static String guardarUsuario(Usuario usuario){
 		System.out.print("Guardar Usuario : " +usuario.toString());
-		ofy().save().entity(usuario).now();
+		System.out.print(" --> Ofy = " + ofy().save().entity(usuario).now().getId());
 		System.out.println("  OK"); 	
 		return usuario.getId();
 	}
 	
 	public static long guardarTrueque(Trueque trueque){
 		System.out.print("Guardar Trueque :" + trueque.toString());
-		ofy().save().entity(trueque).now();
+		System.out.print(" --> Ofy = " + ofy().save().entity(trueque).now().getId());
 		System.out.println("  OK");
 		return trueque.getId();
 	}
@@ -75,11 +75,15 @@ public class HandlerDS {
 	
 	public static Usuario findUsuarioById(String id){
 		Usuario user;
-		try{
-		  user = ofy().load().type(Usuario.class).id(id).now();
-		} catch (NullPointerException e){
-		  user = null;
-		}
+		 ofy();
+		 ofy().load();
+		 ofy().load().type(Usuario.class);
+		 ofy().load().type(Usuario.class).id(id);
+		 ofy().load().type(Usuario.class).id(id).now();
+		 
+		user = ofy().load().type(Usuario.class).id((String)id).now();
+		if(user == null)
+			System.out.println("EL USUARIO ES NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
 		return user;
 
 	}
