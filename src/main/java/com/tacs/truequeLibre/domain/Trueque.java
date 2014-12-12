@@ -21,7 +21,7 @@ public class Trueque {
   private int estado;
   
   public Trueque(Item itemOfrecido, Item itemSolicitado, Usuario usuarioSolicitante, Usuario usuarioSolicitado, String unaDescripcion) {
-  	this.setId(ListaDeTrueques.getNewID());
+  	this.setId(HandlerDS.getNewTruequeID());
     this.setItemOfrecido(itemOfrecido);
     this.setUsuarioSolicitante(usuarioSolicitante);
     this.setItemSolicitado(itemSolicitado);

@@ -124,7 +124,9 @@ public class Usuario implements Serializable{
 	public void quitarItem(Item item){
 		int index = this.itemsId.indexOf(item.getId());
 		System.out.print("Item: " + item.toString() + " quitado del usuario: " + this.toString());
-		this.itemsId.remove(index);
+		if(index >= 0)
+			this.itemsId.remove(index);
+		
 		HandlerDS.guardarUsuario(this);
 		System.out.println("   OK");
 	}

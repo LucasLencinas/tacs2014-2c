@@ -163,4 +163,24 @@ public class HandlerDS {
 	public static ListaDeUsuarios findAllUsers() {
 		return (ListaDeUsuarios) ofy().load().type(Usuario.class).list();
 	}
+	
+	public static long getNewItemID(){
+		Iterable<Item> items = ofy().load().type(Item.class);
+		long id=0;
+		for (Item item : items) {
+			if(id < item.getId())
+				id = item.getId();
+		}
+		return id + 1;
+	}
+	
+	public static long getNewTruequeID(){
+		Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
+		long id=0;
+		for (Trueque trueque : trueques) {
+			if(id < trueque.getId())
+				id = trueque.getId();
+		}
+		return id + 1;
+	}
 }

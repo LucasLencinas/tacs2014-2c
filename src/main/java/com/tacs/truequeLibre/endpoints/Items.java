@@ -72,7 +72,7 @@ public class Items {
       Gson parser = new Gson();
     	Item unItem = parser.fromJson(item_json, Item.class);
     	//Usuario actual = HandlerDS.findUsuarioById(user.getId());
-    	unItem.setId(ListaDeItems.getNewID());
+    	unItem.setId(HandlerDS.getNewItemID());
     	HandlerDS.guardarItem(unItem);
     	/*actual*/user.agregarItem(unItem);
     	//System.out.println("Cantidad de items del usuario "+actual.getId()+" despues de agregarlo: " + Setup.facebook.getLoggedUser(header).getItems().size());

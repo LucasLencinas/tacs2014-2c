@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.tacs.truequeLibre.Utils.HandlerDS;
 
 @Entity
 public class Item implements Serializable{
@@ -20,7 +21,7 @@ public class Item implements Serializable{
   public Item(){}//Necesario para el Gson
   
   public Item(String unTitulo, String unaDescripcion, ObjetoML unObjML) {
-  	this.setId(ListaDeItems.getNewID());
+  	this.setId(HandlerDS.getNewItemID());
     this.setTitulo(unTitulo);
     this.setDescripcion(unaDescripcion);
     this.setObjML(unObjML);
@@ -52,7 +53,7 @@ public class Item implements Serializable{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
