@@ -49,7 +49,7 @@ var MlSearch = function(table, template, after_results){
 	}
 
 	function fill_item(ml_item){
-		var item =  $(this.template
+		var item =  $(that.template
 						.replace(/%TITLE%/g, ml_item.title)
 						.replace(/%THUMBNAIL%/g, ml_item.thumbnail)
 						.replace(/%PERMALINK%/g, ml_item.permalink));
@@ -86,7 +86,7 @@ var MlSearch = function(table, template, after_results){
 /* Crea una instancia de MLSearch y setea los handlers a los botones */
 $(document).ready(function(){
 	
-	var ml = MlSearch("#ml-results", $("#ml-item-template").html(), showNavigationLinks);
+	var ml = new MlSearch("#ml-results", $("#ml-item-template").html(), showNavigationLinks);
 	$('#title').on('keyup', function(e) {
 	    if (e.which == 13) {
 	        e.preventDefault();
