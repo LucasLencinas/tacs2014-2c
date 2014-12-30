@@ -34,11 +34,11 @@ public class DataStoreTest {
         
         anteojos = new Item("Anteojos De Sol Para Test", "Los Cambio por una Camiseta de futbol", new ObjetoML(
       			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",
-      			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg"));
+      			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg", "mercadolibre"));
       	
       	camisetaRacing= new Item("Camiseta Futbol Racing 2004", "La cambio por unos Anteojos", new ObjetoML(
       			"http://articulo.mercadolibre.com.ar/MLA-525681267-remera-original-racing-2004-topper-nunca-se-uso-negociable-_JM", "MLA525681267",
-      			"http://mla-s1-p.mlstatic.com/19377-MLA20169415720_092014-I.jpg"));
+      			"http://mla-s1-p.mlstatic.com/19377-MLA20169415720_092014-I.jpg", "mercadolibre"));
       	
       	usuario1 = new Usuario("Usuario1", "1234567890");
       	usuario1.agregarItem(anteojos);

@@ -9,16 +9,17 @@ public class ObjetoML implements Serializable {
  @SerializedName("permalink") private String ml_permalink;	 
  @SerializedName("id") private String ml_id;
  @SerializedName("thumbnail") private String ml_thumbnail;
+ @SerializedName("source") private String ml_source;
 
  public ObjetoML(){
 	 
  }
  
-  public ObjetoML(String unPermalink, String unId, String unThumbnail) {
+  public ObjetoML(String unPermalink, String unId, String unThumbnail, String source) {
       this.setPermalink(unPermalink);
       this.setId(unId);
       this.setThumbnail(unThumbnail);
-      
+      this.setSource(source);
   }
 
   /**
@@ -41,6 +42,14 @@ public class ObjetoML implements Serializable {
 		this.ml_id = id;
 	}
 
+
+	public void setSource(String source) {
+		this.ml_source = source;
+	}
+
+	public String getSource() {
+		return ml_source;
+	}
 
 
 	public String getThumbnail() {

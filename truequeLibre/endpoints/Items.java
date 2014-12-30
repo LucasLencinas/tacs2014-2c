@@ -95,12 +95,13 @@ public class Items {
 			@FormParam("description") String description, 
 			@FormParam("ml_permalink") String permalink, 
 			@FormParam("ml_id") String ml_id,
-			@FormParam("ml_thumbnail") String ml_thumbnail) {
+			@FormParam("ml_thumbnail") String ml_thumbnail
+            @FormParam("ml_source") String ml_source) {
     	Item unItemDeLista = Main.items.findById(id);
     	unItemDeLista.setId(id);
     	unItemDeLista.setDescripcion(description);;
     	unItemDeLista.setTitulo(title);;
-    	unItemDeLista.setObjML(new ObjetoML(permalink, ml_id, ml_thumbnail));
+    	unItemDeLista.setObjML(new ObjetoML(permalink, ml_id, ml_thumbnail, ml_source));
     	return Response.ok(new Gson().toJson(unItemDeLista), MediaType.APPLICATION_JSON).build();
     }
     

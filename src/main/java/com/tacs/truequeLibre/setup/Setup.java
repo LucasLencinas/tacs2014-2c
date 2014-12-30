@@ -74,16 +74,16 @@ public class Setup {
 		private static void loadItems() {
     	item1 = new Item("Anteojos De Sol", "Los Cambio por una Notebook Lenovo", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-525033435-ray-ban-wayfarer-2140-anteojos-de-sol-varios-modelos-_JM", "MLA525033435",
-    			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg"));
+    			"http://mla-s1-p.mlstatic.com/17009-MLA20130611399_072014-I.jpg", "mercadolibre"));
     	item2 = new Item("Notebook Lenovo", "La cambio por un sillon de madera", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-526842420-notebook-lenovo-thinkpad-x220-intel-i5-4gb-hd-320gb-125-_JM", "MLA526842420",
-    			"http://mla-s1-p.mlstatic.com/18466-MLA20155614258_092014-I.jpg"));
+    			"http://mla-s1-p.mlstatic.com/18466-MLA20155614258_092014-I.jpg", "mercadolibre"));
     	item3 = new Item("Mesa Cuadrada", "La cambio por juego de sillas", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-523688946-mesa-de-comedor-cuadrada-140-x-140-linea-neta-_JM", "MLA523688946",
-    			"http://mla-s2-p.mlstatic.com/12855-MLA20066714972_032014-I.jpg"));
+    			"http://mla-s2-p.mlstatic.com/12855-MLA20066714972_032014-I.jpg", "mercadolibre"));
     	item4 = new Item("Botines Adidas", "Los cambio por zapatillas Nike", new ObjetoML(
     			"http://articulo.mercadolibre.com.ar/MLA-520889152-botines-adidas-11questra-brasil-2014-fifa-futbol-tapones-pro-_JM", "MLA520889152",
-    			"http://mla-s1-p.mlstatic.com/18156-MLA20150804347_082014-I.jpg"));
+    			"http://mla-s1-p.mlstatic.com/18156-MLA20150804347_082014-I.jpg", "mercadolibre"));
     	
     	HandlerDS.guardarItem(item1);
     	HandlerDS.guardarItem(item2);

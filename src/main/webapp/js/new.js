@@ -189,11 +189,11 @@ $(document).ready(function(){
 	}
 
 
-	function getSearchObjByProvider(){
-		var provider = $("#provider").val();
-		if(provider=="mercadolibre") return ml;
-		if(provider=="ebay"){
-			if($("#provider :selected").text().indexOf("US")>-1){
+	function getSearchObjBySource(){
+		var source = $("#source").val();
+		if(source=="mercadolibre") return ml;
+		if(source=="ebay"){
+			if($("#source :selected").text().indexOf("US")>-1){
 				ebay.set_language("EBAY-US");	
 			}else{
 				ebay.set_language("EBAY-ES");
@@ -204,7 +204,7 @@ $(document).ready(function(){
 	}
 
 
-	$("#provider").change(function(e){
+	$("#source").change(function(e){
 		$("#ml-results").html("");
 		hideNavigationLinks();
 	});
@@ -212,18 +212,18 @@ $(document).ready(function(){
 	$("#ml-search-btn").click(
 		function(e){
 			e.preventDefault();
-			getSearchObjByProvider().search( $("#title").val(), 3);
+			getSearchObjBySource().search( $("#title").val(), 3);
 		}
 	);
 
 	$("#ml-prev-page").click(function(e){
 		e.preventDefault();
-		getSearchObjByProvider().prev_page();
+		getSearchObjBySource().prev_page();
 	});
 
 	$("#ml-next-page").click(function(e){
 		e.preventDefault();
-		getSearchObjByProvider().next_page();
+		getSearchObjBySource().next_page();
 	});
 
 	/* Guarda en campos del form el permalink y la id del item seleccionado */
@@ -231,7 +231,6 @@ $(document).ready(function(){
 		var ml_item = $(e.target).closest(".ml-item-row");
 		$("#ml_permalink").val(ml_item.data().permalink);
 		$("#ml_id").val(ml_item.data().id);
-		$("#title").val(ml_item.data().title);
 		$("#ml_thumbnail").val(ml_item.data().thumbnail);
 
 	});
@@ -244,7 +243,8 @@ $(document).ready(function(){
 						"ml":{
 								"id": $("#ml_id").val(),
 								"permalink": $("#ml_permalink").val(),
-								"thumbnail": $("#ml_thumbnail").val()
+								"thumbnail": $("#ml_thumbnail").val(),
+								"source": $("#source").val()
 							}
 					};
 			$.ajax(
