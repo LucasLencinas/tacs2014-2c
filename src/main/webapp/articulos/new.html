@@ -5,7 +5,7 @@
     	<link href="../bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
     	<link href="../bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
     	<link href="../bootstrap-3.2.0/css/offcanvas.css" rel="stylesheet">
-
+    	<link href="../new.css" rel="stylesheet">
 	</head>
 	<body>
 	    <div id="navbar" class="navbar navbar-fixed-top navbar-inverse" role="navigation"></div>
@@ -30,7 +30,12 @@
 			<div>	
 				<label>T&iacute;tulo:</label>     
 	   			<input type="text" id="title"/>
-	   	    	<input type="button" id="ml-search-btn" value="Seleccionar ML"/>
+	   			<select id="provider"/>
+	   				<option value="mercadolibre"> Mercado Libre </option>
+	   				<option value="ebay">Ebay (US) </option>
+	   				<option value="ebay">Ebay (ES) </option>
+	   			</select>
+	   	    	<input type="button" id="ml-search-btn" value="Seleccionar"/>
 			</div>	
 
 			<div class="row">
