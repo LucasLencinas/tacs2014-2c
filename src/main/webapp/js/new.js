@@ -84,7 +84,7 @@ var EbaySearch = function(table, template, after_results){
 		$.ajax({
 		  type: "GET",
 		  dataType: "jsonp",
-		  url: "http://svcs.ebay.com/services/search/FindingService/v1",
+		  url: "https://svcs.ebay.com/services/search/FindingService/v1",
 		  data: {
 		  	"OPERATION-NAME": "findItemsAdvanced",
 		  	"SERVICE-VERSION": "1.0.0",
