@@ -70,6 +70,13 @@
 
 		}, function(response){});
   	}
+
+    function FacebookInviteFriends(){
+      FB.ui({
+        method: 'apprequests',
+        message: 'Te invito a usar nuestra aplicacion para realizar trueques con tus amigos. TRUEQUE LIBRE!'
+      });
+    }
       
       
       
