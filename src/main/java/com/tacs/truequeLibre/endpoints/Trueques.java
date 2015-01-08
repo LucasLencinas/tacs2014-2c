@@ -70,7 +70,7 @@ public class Trueques {
     	Usuario usuarioANotificar = trueque.getUsuarioSolicitante();
     	String mensaje = trueque.getUsuarioSolicitado().getNombre()+" Ha aceptado tu solicitud. "+
     			"El item "+trueque.getItemSolicitado().getTitulo()+" es tuyo.";
-    	enviarNotificacionAlOtro(facebookClient,usuarioANotificar.getId(), mensaje,"");
+    	LlamadasFB.enviarNotificacionAlOtro(facebookClient,usuarioANotificar.getId(), mensaje,"");
     	
     	System.out.println("Response OK--> Aceptar trueque: " + trueque.toString());
     	return Response.ok(new Gson().toJson(trueque), MediaType.APPLICATION_JSON).build();
@@ -86,27 +86,4 @@ public class Trueques {
     	System.out.println("Response OK--> Rechazar trueque: " + trueque.toString());
     	return "Trueque "+truequeId+" rechazado";
     }  
-    
- 
-    public void enviarNotificacionAlOtro(DefaultFacebookClient facebookClient, 
-    	String externalUserId, String message, String href) {
-    	String	app_access_token = facebookClient.obtainAppAccessToken("347575272090580", "28f123fe638801f3f519663c4f747d0c").getAccessToken();
-    	//tengo que generar un facebookClient con el APP_access_token
-    	DefaultFacebookClient facebookClientAppAccessToken = new DefaultFacebookClient( app_access_token );
-        try {
-        	facebookClientAppAccessToken.publish("/"+externalUserId+"/notifications?access_token="+URLEncoder.encode(app_access_token, "UTF-8"), FacebookType.class,
-	                Parameter.with("template", message),
-	                Parameter.with("href", href));
-	    } catch (FacebookOAuthException e) {
-        	System.out.println("Error: " + e.getErrorType() + e.getMessage());
-	        if (e.getErrorCode() == 200) { //No es un usuario de la aplicacion
-	        	System.out.println("Error: " + e.getErrorType() + e.getMessage());
-	        } else if (e.getErrorCode() == 100) {//El mensaje no puede tener mas de 80 caracteres
-	        
-	        }
-	    } catch (UnsupportedEncodingException e) {// Por lo del encoding, error de la barra
-				e.printStackTrace();
-			}
-	}
-    
 }

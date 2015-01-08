@@ -1,6 +1,8 @@
 package com.tacs.truequeLibre.endpoints;
 
 
+import java.util.Map;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,13 +10,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import com.restfb.DefaultFacebookClient;
 import com.tacs.truequeLibre.setup.Setup;
 import com.tacs.truequeLibre.Utils.HandlerDS;
+import com.tacs.truequeLibre.Utils.LlamadasFB;
 import com.tacs.truequeLibre.Utils.TruequeRequest;
 import com.tacs.truequeLibre.domain.Item;
 import com.tacs.truequeLibre.domain.Trueque;
@@ -87,6 +92,14 @@ public class MiPerfil {
       Trueque trueque = new Trueque(itemOfrecido,itemSolicitado,usuario,usuarioAmigo, "Prueba");
       HandlerDS.guardarTrueque(trueque);
       System.out.println("Response --> Nuevo Trueque del usuario, " + usuario.toString());     
+
+	  Map<String, Cookie> pathParams = header.getCookies();
+	  String accessToken = pathParams.get("token").getValue();
+	  DefaultFacebookClient facebookClient = new DefaultFacebookClient(accessToken, LlamadasFB.appSecret);
+  	  String mensaje = trueque.getUsuarioSolicitante().getNombre()+" te ha solicitado un trueque. Ofrece su  "+
+  			trueque.getItemOfrecido().getTitulo() + " por tu " + trueque.getItemSolicitado().getTitulo()+".";
+  	  LlamadasFB.enviarNotificacionAlOtro(facebookClient, trueque.getUsuarioSolicitado().getId(), mensaje,"");
+      
     	return Response.ok("ok", MediaType.TEXT_PLAIN).build();
     }
 }
