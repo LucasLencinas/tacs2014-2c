@@ -112,6 +112,14 @@ public class HandlerDS {
 		return truequesBuscados;
 	}
 	
+	public static ListaDeTrueques findAllTrueques(){
+		ListaDeTrueques truequesBuscados = new ListaDeTrueques();
+		Iterable<Trueque> trueques = ofy().load().type(Trueque.class);
+		for (Trueque trueque : trueques) {
+			truequesBuscados.add(trueque);
+		}
+		return truequesBuscados;
+	}
 	
 	public static ListaDeTrueques findPendingTruequesByUser(Usuario usuario){
 	ListaDeTrueques truequesBuscados = new ListaDeTrueques();
@@ -161,7 +169,12 @@ public class HandlerDS {
 	}
 
 	public static ListaDeUsuarios findAllUsers() {
-		return (ListaDeUsuarios) ofy().load().type(Usuario.class).list();
+		Iterable<Usuario> usuarioDS=ofy().load().type(Usuario.class).list();
+		ListaDeUsuarios listaDeUsuarios= new ListaDeUsuarios();
+		for (Usuario usuario : usuarioDS) {
+			listaDeUsuarios.add(usuario);
+		}
+		return listaDeUsuarios;
 	}
 	
 	public static long getNewItemID(){

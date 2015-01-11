@@ -26,6 +26,86 @@
 	    });
 	}
 
+	function getEstadisticas(){
+		$.ajax({
+	        type: "GET",
+	        dataType: "json",
+	        url: "truequeLibre/dashboard/",
+	        success: function (data) {
+	        	var estadisticasHtml = generarVistaEstadisticas(data);
+	        	
+	        	//setear grilla usuarios
+	        	//setear grilla trueques
+	        	
+	            $('#dynamicRow').html(estadisticasHtml);
+	            $('.img-thumbnail').tooltip();
+	        }
+	    });
+	}
+/*
+data.forEach( function(amigo){
+    	        	amigo.items.forEach( function(it){
+    	        		if(it != null)
+    	        			items += generarVistaOtherItem(it, amigo);
+    	        	});    	       
+	        	});
+*/
+	function generarVistaEstadisticas(estadisticas){
+		var vista = "<div class=\"container\">";
+		vista+="			<div class=\"row\">";
+		vista+="				<div class=\"col-md-12\">";
+		vista += 			sprintf("<h4> Cantidad de usuarios: %s</h4>",estadisticas.cantidadUsuarios);
+		vista += 					"<br/>";
+		vista += 					"<br/>";
+		vista += 					"<h4> Items</h4>";
+		vista += 					"<table class=\"table table-striped table-bordered\" id=\"itemsTable\">";
+		vista += 						"<thead>";
+		vista += 							"<th>Nombre Usuario</th>";
+		vista += 							"<th>Item</th>";
+		vista += 						"</thead>";
+		vista += 						"<tbody>";
+		estadisticas.listaDeUsuarios.forEach(function (usuario){
+			var nombreUsuario=usuario.nombreUsuario;
+			usuario.listaDeItems.forEach(function(item){
+				vista += 					"<tr>";
+				vista += 				sprintf("<td>%s</td>", nombreUsuario);
+				vista += 				sprintf("<td>%s</td>", item.title);
+				vista += 					"</tr>";
+
+			})
+		});
+		vista += 						"</tbody>";
+		vista += 					"</table>";
+		vista += 					"<br/>";
+		vista += 					"<br/>";
+		vista += 					"<h4> Trueques</h4>";
+		vista += 					"<table class=\"table table-striped table-bordered\" id=\"truequesTable\">";
+		vista += 						"<thead>";
+		vista += 							"<th>Solicitante</th>";
+		vista += 							"<th>Solicitado</th>";
+		vista += 							"<th>Item Solicitado</th>";
+		vista += 							"<th>Item Ofrecido</th>";
+		vista += 							"<th>Estado</th>";
+		vista += 						"</thead>";
+		vista += 						"<tbody>";
+		estadisticas.listaDeTrueques.forEach(function (trueque){
+				vista += 					"<tr>";
+				vista += 				sprintf("<td>%s</td>", trueque.usuarioSolicitante.nombre);
+				vista += 				sprintf("<td>%s</td>",  trueque.usuarioSolicitado.nombre);
+				vista += 				sprintf("<td>%s</td>", trueque.itemSolicitado.title);
+				vista += 				sprintf("<td>%s</td>", trueque.itemOfrecido.title);
+				vista += 				sprintf("<td>%s</td>", getStatusName(trueque.estado));
+				vista += 					"</tr>";			
+		});
+		vista += 						"</tbody>";
+		vista += 					"</table>";
+		vista+="				</div>";
+		vista+="			</div>";
+		vista+="		</div>";
+		return vista;
+	}
+
+
 	function generarVistaOtherItem(item, amigo){	
 		var vista = sprintf("<div class=\"col-md-4\" id=\"%s\">",item.id);
 		vista += sprintf("<h4>%s</h4>",item.title);
