@@ -24,6 +24,7 @@ public class Usuario implements Serializable{
   
 	private List<String> amigosId;
 	private List<Long> itemsId;
+	private Boolean administrador=false;
   
   public Usuario(String unNombre,String id) {
   	this.setId(id);
@@ -77,6 +78,14 @@ public class Usuario implements Serializable{
 
 	public void setNombre(String unNombre) {
 		this.nombre= unNombre;
+	}
+
+	public Boolean isAdministrador(){
+		return this.administrador;
+	}
+
+	public void setAdministrador(Boolean administrador){
+		this.administrador=administrador;
 	}
 
 	public ListaDeItems getItems() {

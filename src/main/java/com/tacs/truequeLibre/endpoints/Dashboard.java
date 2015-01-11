@@ -22,6 +22,8 @@ import com.tacs.truequeLibre.domain.ListaDeItems;
 import com.tacs.truequeLibre.domain.Usuario;
 import com.tacs.truequeLibre.domain.Estadistica;
 import com.tacs.truequeLibre.domain.UsuarioXItems;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Path("/dashboard")
 public class Dashboard {
@@ -44,26 +46,48 @@ public class Dashboard {
       if(Setup.isSet == false)
       	Setup.setup();
       
-      ArrayList<UsuarioXItems> listaDeItemsXUsuario=new ArrayList<UsuarioXItems>();
-      ListaDeUsuarios listaUsuarios=HandlerDS.findAllUsers();
-      ListaDeItems listaItems=HandlerDS.items();
-      int cantidadUsuarios= listaUsuarios.size(); //cantidad usuarios
+      if(Setup.facebook == null)
+        Setup.facebook = new LlamadasFB();
+      Usuario user = Setup.facebook.getLoggedUser(header);
+      if(user == null)
+        return Response.status(500).build();
 
-      ListaDeTrueques listaDeTrueques=HandlerDS.findAllTrueques(); //todos los trueques
+      Estadistica estadistica;
+      Boolean esAdministrador=user.isAdministrador();
+      if(esAdministrador == null)
+        esAdministrador=false;
       
-      for (Usuario usuario : listaUsuarios) {
-        UsuarioXItems usuarioXItems= new UsuarioXItems(usuario); //items de cada usuario
-        listaDeItemsXUsuario.add(usuarioXItems);
-      }
+      if(esAdministrador){
 
-      Estadistica estadistica= new Estadistica(cantidadUsuarios, listaDeItemsXUsuario, listaDeTrueques);
+        ArrayList<UsuarioXItems> listaDeItemsXUsuario=new ArrayList<UsuarioXItems>();
+        ListaDeUsuarios listaUsuarios=HandlerDS.findAllUsers();
+        ListaDeItems listaItems=HandlerDS.items();
+        int cantidadUsuarios= listaUsuarios.size(); //cantidad usuarios
+
+        ListaDeTrueques listaDeTrueques=HandlerDS.findAllTrueques(); //todos los trueques
+        
+        for (Usuario usuario : listaUsuarios) {
+          UsuarioXItems usuarioXItems= new UsuarioXItems(usuario); //items de cada usuario
+          listaDeItemsXUsuario.add(usuarioXItems);
+        }
+
+        estadistica= new Estadistica(cantidadUsuarios, listaDeItemsXUsuario, listaDeTrueques);
+      }
+      else
+        estadistica=new Estadistica(-1, new ArrayList<UsuarioXItems>(), new ListaDeTrueques());
+     
+
       String estadisticaJson = new Gson().toJson(estadistica);
       return Response.ok(estadisticaJson,MediaType.APPLICATION_JSON).build();
 
      }
      catch(Exception e)
      {
-      System.out.println("Error obteniendo estadisticas"+ e.toString());
+      
+      StringWriter sw = new StringWriter();
+      e.printStackTrace(new PrintWriter(sw));
+      String stacktrace = sw.toString();
+      System.out.println("Error obteniendo estadisticas"+ stacktrace);
       return Response.status(Response.Status.CONFLICT).build();
      }
     }

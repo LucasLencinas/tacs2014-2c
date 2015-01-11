@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.tacs.truequeLibre.endpoints.ItemsTest" time="4.004" errors="0" skipped="4">
+<testsuite tests="4" failures="0" name="com.tacs.truequeLibre.endpoints.ItemsTest" time="4.06" errors="0" skipped="4">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\bin"/>
@@ -28,7 +28,7 @@
     <property name="os.name" value="Windows 7"/>
     <property name="classworlds.conf" value="C:\Users\Usuario\workspace\apache-maven-3.2.5\bin\..\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Users\Usuario\workspace\apache-maven-3.2.5\bin;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Users\Usuario\workspace\apache-maven-3.2.5\bin;C:\Program Files\Google\Cloud SDK\google-cloud-sdk\bin;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -43,7 +43,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_25\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher appengine:devserver"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher appengine:update"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -62,25 +62,25 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameTodosLosItems" time="1.001">
+  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameTodosLosItems" time="1.015">
     <skipped/>
     <system-out>C:\Users\Usuario\tacs\tacs2014-2c
 </system-out>
-    <system-err>ene 11, 2015 1:45:03 PM org.glassfish.jersey.server.ApplicationHandler initialize
+    <system-err>ene 11, 2015 7:51:43 PM org.glassfish.jersey.server.ApplicationHandler initialize
 INFORMACIÓN: Initiating Jersey application, version Jersey: 2.7 2014-03-12 18:11:31...
-ene 11, 2015 1:45:03 PM org.glassfish.grizzly.http.server.NetworkListener start
+ene 11, 2015 7:51:43 PM org.glassfish.grizzly.http.server.NetworkListener start
 INFORMACIÓN: Started listener bound to [localhost:8080]
-ene 11, 2015 1:45:03 PM org.glassfish.grizzly.http.server.HttpServer start
+ene 11, 2015 7:51:43 PM org.glassfish.grizzly.http.server.HttpServer start
 INFORMACIÓN: [HttpServer] Started.
 </system-err>
   </testcase>
-  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testBorraUnItem" time="1.001">
+  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testBorraUnItem" time="1.015">
     <skipped/>
   </testcase>
-  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testAgregaUnItem" time="1.001">
+  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testAgregaUnItem" time="1.015">
     <skipped/>
   </testcase>
-  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameUnItem" time="1.001">
+  <testcase classname="com.tacs.truequeLibre.endpoints.ItemsTest" name="testDameUnItem" time="1.015">
     <skipped/>
   </testcase>
 </testsuite>

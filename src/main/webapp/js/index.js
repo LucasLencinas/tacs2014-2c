@@ -51,6 +51,10 @@ data.forEach( function(amigo){
 	        	});
 */
 	function generarVistaEstadisticas(estadisticas){
+
+		if(estadisticas.cantidadUsuarios == -1)
+			return "<div class='row'><div class='col-md-12' style='text-align:center'><h3>Debes ser administrador para acceder a esta sección.</h3></div></div>";
+
 		var vista = "<div class=\"container\">";
 		vista+="			<div class=\"row\">";
 		vista+="				<div class=\"col-md-12\">";
