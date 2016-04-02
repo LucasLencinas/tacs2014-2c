@@ -22,7 +22,7 @@ Web Application for trading products from e­commerce pages such as MercadoLibre
  - EBay API
  - Facebook API
 
-### Instructions
+### Instructions:
 To set up local server: **mvn appengine:devserver**  
 
 
