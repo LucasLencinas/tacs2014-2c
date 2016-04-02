@@ -16,7 +16,7 @@ Web Application for trading products from e­commerce pages such as MercadoLibre
  - Gson
  - jUnit
  - jQuery
- - HTML/jQuery
+ - HTML/CSS
  - Bootstrap
  - MercadoLibre API
  - EBay API
